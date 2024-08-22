@@ -51,7 +51,7 @@ const getNowPlaying = async () => {
 
         return song;
     } catch (error) {
-        console.error("Error in getNowPlaying:", error);
+        console.error("Error in getNowPlaying:", error, response);
         throw error;
     }
 };
