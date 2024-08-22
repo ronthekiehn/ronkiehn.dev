@@ -26,9 +26,8 @@ const getAccessToken = async () => {
         if (!response.ok) {
             throw new Error(`Failed to get access token: ${response.statusText}`);
         }
-        console.log(response);
-        console.log(response.json());
-        return await response.json();
+        
+        return response.json();
     } catch (error) {
         console.error("Error in getAccessToken:", error);
         throw error;
@@ -47,7 +46,8 @@ const getNowPlaying = async () => {
         if (!response.ok) {
             throw new Error(`Failed to get now playing data: ${response.statusText}`);
         }
-
+        console.log(response);
+        console.log(response.json());
         return response.json();
     } catch (error) {
         console.error("Error in getNowPlaying:", error);
