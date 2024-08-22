@@ -54,7 +54,7 @@ const getNowPlaying = async () => {
     }
 };
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
     try {
         const song = await getNowPlaying();
 
