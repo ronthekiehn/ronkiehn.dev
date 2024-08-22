@@ -1,7 +1,7 @@
 import React from 'react';
 import AboutMe from './components/AboutMe.jsx';
-import ChatBot from './components/ChatBot.jsx';
-import Spotify from './components/Spotify.jsx';
+// import ChatBot from './components/ChatBot.jsx';
+// import Spotify from './components/Spotify.jsx';
 import './App.css'
 
 function App() {
