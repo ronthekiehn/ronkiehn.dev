@@ -34,31 +34,31 @@ const getAccessToken = async () => {
     }
 };
 
-const getNowPlaying = async () => {
-    try {
-        const { access_token } = await getAccessToken();
-        const response = await fetch(NOW_PLAYING_ENDPOINT, {
-            headers: {
-                Authorization: `Bearer ${access_token}`,
-            },
-        });
+const getNowPlaying = async (client_id, client_secret, refresh_token) => {
+  const { access_token } = await getAccessToken(
+      client_id,
+      client_secret,
+      refresh_token
+  );
+  return fetch(NOW_PLAYING_ENDPOINT, {
+      headers: {
+          Authorization: `Bearer ${access_token}`,
+      },
+  });
+};
 
-        if (!response.ok) {
-            throw new Error(`Failed to get now playing data: ${response.statusText}`);
-        }
-
-        const song = await response.json();
-
-        return song;
-    } catch (error) {
-        console.error("Error in getNowPlaying:", error, response);
-        throw error;
-    }
+const getNowPlayingItem = async () => {
+      const response = await getNowPlaying(client_id, client_secret, refresh_token);
+      if (response.status === 204 || response.status > 400) {
+          return false;
+      }
+      const song = await response.json();
+      return song;
 };
 
 export default async function handler(req, res) {
     try {
-        const song = await getNowPlaying();
+        const song = await getNowPlayingItem();
 
         if (!song || song.status === 204 || song.status > 400) {
             res.status(204).send();
