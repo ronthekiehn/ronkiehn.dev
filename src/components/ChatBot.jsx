@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/ChatBot.css';
-myApi = 'https://ronkiehn-dev.vercel.app';
+const myApi = 'https://ronkiehn-dev.vercel.app';
 
 const Chatbot = () => {
   const [userInput, setUserInput] = useState('');
@@ -31,7 +31,7 @@ const Chatbot = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${myAPI}/api/chat`, {
+      const response = await fetch(`${myApi}/api/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

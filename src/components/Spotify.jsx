@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import '../styles/Spotify.css';
 import { SpotifyIcon } from './icons';
 
-myApi = 'https://ronkiehn-dev.vercel.app';
+const myApi = 'https://ronkiehn-dev.vercel.app';
 const Spotify = () => {
   const [loading, setLoading] = useState(true);
   const [result, setResult] = useState({});
@@ -10,7 +10,7 @@ const Spotify = () => {
   useEffect(() => {
     const fetchNowPlaying = async () => {
       try {
-        const response = await fetch(`${myAPI}/api/spotify-now-playing`);
+        const response = await fetch(`${myApi}/api/spotify-now-playing`);
         const data = await response.json();
         console.log(data);
         setResult(data);

@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const axios = require('axios');
 const dotenv = require('dotenv');
 const { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } = require ("@google/generative-ai");
@@ -7,6 +8,13 @@ import systemPrompt from './prompt.systemPrompt.json';
 dotenv.config();
 
 const app = express();
+
+app.use(cors({
+    origin: 'http://localhost:5173', // Allow requests from your frontend's development URL
+    methods: ['GET', 'POST'],         // Allow GET and POST requests
+    allowedHeaders: ['Content-Type', 'Authorization'],  // Allow specific headers
+  }));
+
 const port = process.env.PORT || 3000;
 
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
