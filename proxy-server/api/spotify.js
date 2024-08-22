@@ -48,7 +48,7 @@ const getNowPlaying = async () => {
         }
         console.log(response);
         console.log(response.json());
-        return response.json();
+        return await response.json();
     } catch (error) {
         console.error("Error in getNowPlaying:", error);
         throw error;
