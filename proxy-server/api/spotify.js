@@ -18,7 +18,7 @@ const getAccessToken = async () => {
     }
   );
   console.log("RESPONSE:", response);
-  return response.data.access_token;
+  return response.json;
 };
 
 export default async function handler(req, res) {
