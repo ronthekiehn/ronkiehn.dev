@@ -1,0 +1,97 @@
+/* AboutMe.css */
+
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.box-container {
+    /* transform: rotateX(60deg) rotateZ(330deg); */
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1; 
+    display: grid;
+    grid-template-rows: repeat(40, 1fr);
+    grid-template-columns: repeat(40, 1fr);
+    position: absolute;
+    z-index: 0;
+}
+
+.box {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    aspect-ratio: 1; 
+    transition: 2s;
+    overflow: hidden;
+    opacity: 0%;
+    cursor: default; 
+    user-select: none; 
+    color: var(--blue);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    z-index: 0;
+    
+}
+
+.box.altcolor{
+    color: var(--yellow);
+}
+
+
+.box:hover {
+    transition-duration: 0ms;
+    opacity: 100%;
+}
+
+
+  
+.about-me {
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    width: auto;
+}
+
+.about-me h2 {
+    font-weight: 300;
+    font-size: 8em;
+    line-height: 0.9;
+    color: white;
+    margin: 0;
+}
+
+
+.icons{
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    width: auto;
+
+}
+
+.icons a {
+    align-items: center;
+    min-width: 30px;
+    min-height: 30px;
+    margin: 10px;
+}
+
+.icon {
+    align-items: center;
+    fill: white;
+    transition: 0.3s ease-in-out;
+}
+
+.icons a:hover .icon{
+    transform: scale(1.2);
+}
