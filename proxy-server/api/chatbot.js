@@ -42,6 +42,11 @@ const generationConfig = {
 };
 
 export default async function handler (req, res) {
+    if (req.method === 'OPTIONS') {
+      res.writeHead(204);
+      res.end();
+      return;
+  }
     const { userInput, chatHistory } = req.body;
   
     try {
