@@ -3,7 +3,7 @@ const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-pla
 
 const getAccessToken = async () => {
   const authString = Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`).toString('base64');
-
+  console.log("TOKENS:", process.env.SPOTIFY_CLIENT_ID, process.env.SPOTIFY_CLIENT_SECRET, process.env.SPOTIFY_REFRESH_TOKEN);
   const response = await fetch(
     TOKEN_ENDPOINT,
     new URLSearchParams({
@@ -17,7 +17,7 @@ const getAccessToken = async () => {
       },
     }
   );
-
+  console.log("RESPONSE:", response);
   return response.data.access_token;
 };
 
