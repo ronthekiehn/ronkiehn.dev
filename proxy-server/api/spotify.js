@@ -4,7 +4,7 @@ const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-pla
 const getAccessToken = async () => {
   const authString = Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`).toString('base64');
 
-  const response = await axios.post(
+  const response = await fetch(
     TOKEN_ENDPOINT,
     new URLSearchParams({
       grant_type: 'refresh_token',
