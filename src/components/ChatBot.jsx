@@ -46,13 +46,13 @@ const Chatbot = () => {
 
       setChatHistory((prev) => [
         ...prev,
-        { role: 'user', text: userInput },
-        { role: 'model', text: data.botResponse },
+        { role: 'user', parts: [{ text: userInput }] },
+        { role: 'model', parts: [{ text: data.botOutput }] }
       ]);
 
       setWriteHistory((prev) => [
         ...prev.slice(0, -1), // Remove 'Generating...' message
-        { role: 'model', text: data.botResponse }
+        { role: 'model', text: data.botOutput }
       ]);
     } catch (error) {
       console.error('Error:', error);

@@ -58,7 +58,7 @@ export default async function handler (req, res) {
       const result = await chatSession.sendMessage(userInput);
       const botOutput = result.response.text();
 
-      res.json({ botResponse: botOutput });
+      res.json({ botOutput: botOutput });
     } catch (error) {
       console.error('Error fetching chat response:', error);
       res.status(500).json({ error: 'Failed to fetch chat response' });
