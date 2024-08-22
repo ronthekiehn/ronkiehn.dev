@@ -10,7 +10,7 @@ const Spotify = () => {
   useEffect(() => {
     const fetchNowPlaying = async () => {
       try {
-        const response = await fetch(`${myApi}/api/spotify-now-playing`);
+        const response = await fetch(`${myApi}/spotify`);
         const data = await response.json();
         console.log(data);
         setResult(data);
