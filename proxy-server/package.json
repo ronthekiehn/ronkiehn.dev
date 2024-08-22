@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "dependencies": {
     "@google/generative-ai": "^0.17.0",
     "node-fetch": "^3.3.2"
