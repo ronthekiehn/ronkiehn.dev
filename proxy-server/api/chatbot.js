@@ -1,5 +1,5 @@
 const { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } = require ("@google/generative-ai");
-import systemPrompt from './prompt/systemPrompt.json';
+import systemPrompt from '../prompt/systemPrompt.json';
 
 
 
