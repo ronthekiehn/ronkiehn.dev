@@ -41,7 +41,7 @@ const generationConfig = {
   responseMimeType: 'text/plain',
 };
 
-app.post('/api/chat', async (req, res) => {
+export default async function handler (req, res) {
     const { userInput, chatHistory } = req.body;
   
     try {
@@ -58,4 +58,4 @@ app.post('/api/chat', async (req, res) => {
       console.error('Error fetching chat response:', error);
       res.status(500).json({ error: 'Failed to fetch chat response' });
     }
-  });
+  };

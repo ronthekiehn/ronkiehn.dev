@@ -12,7 +12,6 @@ const Spotify = () => {
       try {
         const response = await fetch(`${myApi}/api/spotify`);
         const data = await response.json();
-        console.log(data);
         setResult(data);
       } catch (error) {
         console.error('Error fetching now playing data:', error);
