@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/ChatBot.css';
+import { ArrowIcon } from './icons';
 const myApi = 'https://ronkiehn-dev.vercel.app';
 
 const Chatbot = () => {
   const [userInput, setUserInput] = useState('');
   const [chatHistory, setChatHistory] = useState([]); 
-  const [writeHistory, setWriteHistory] = useState([]); 
+  const [writeHistory, setWriteHistory] = useState([{ role: 'model', text: "Hi, I'm a Gemini Flash instance tuned to act like Ron. Ask me anything!" }]); 
   const [isLoading, setIsLoading] = useState(false); 
 
   const chatContainerRef = useRef(null);
-
+  
   // Auto-scroll to the bottom when writeHistory updates
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -56,6 +57,10 @@ const Chatbot = () => {
       ]);
     } catch (error) {
       console.error('Error:', error);
+      setWriteHistory((prev) => [
+        ...prev.slice(0, -1), // Remove 'Generating...' message
+        { role: 'model', text: 'Sorry, I encountered an error. Please try again.' }
+      ]);
     } finally {
       setIsLoading(false);
     }
@@ -71,6 +76,7 @@ const Chatbot = () => {
             </div>
           ))}
         </div>
+        
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -79,7 +85,10 @@ const Chatbot = () => {
             placeholder="Type your message..."
             disabled={isLoading} // Disable input when loading
           />
-          <button type="submit" disabled={isLoading}></button>
+          <button type="submit" disabled={isLoading}>
+            <ArrowIcon />
+            </button>
+          
         </form>
       </div>
     </div>

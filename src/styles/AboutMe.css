@@ -1,6 +1,3 @@
-/* AboutMe.css */
-
-
 .container{
     display: flex;
     justify-content: center;
@@ -12,7 +9,6 @@
 }
 
 .box-container {
-    /* transform: rotateX(60deg) rotateZ(330deg); */
     width: 100%;
     height: auto;
     aspect-ratio: 1; 
@@ -44,6 +40,7 @@
 .box.altcolor{
     color: var(--yellow);
 }
+
 
 
 .box:hover {
