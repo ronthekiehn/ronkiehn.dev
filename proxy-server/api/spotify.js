@@ -46,9 +46,10 @@ const getNowPlaying = async () => {
         if (!response.ok) {
             throw new Error(`Failed to get now playing data: ${response.statusText}`);
         }
-        console.log(response);
-        console.log(response.json());
-        return await response.json();
+
+        const song = await response.json();
+
+        return song;
     } catch (error) {
         console.error("Error in getNowPlaying:", error);
         throw error;
