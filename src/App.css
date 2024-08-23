@@ -26,7 +26,8 @@ div {
   z-index: 0;
 }
 .app-container.home{
-  transition: opacity 1.5s;
+  transition-delay: 0.6s;
+  transition-duration: 0.4s;
   opacity: 100%;
   z-index: 1;
 
@@ -74,6 +75,10 @@ div {
   align-items: center;
   background-image: radial-gradient(at 0%, var(--grey), var(--black));
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: auto;
 }
 
 .projects-section{
@@ -123,10 +128,6 @@ div {
   
 }
 
-.projects-button.show{
-  transition: opacity 2s;
-  opacity: 100%;
-}
 
 .projects-container{
   background-image: linear-gradient(var(--yellow), var(--blue));
@@ -136,16 +137,19 @@ div {
   right: 0;
   width: 35vw;
   height: 35vh;
-  transition: all var(--speed);
 }
 
 .projects-container.show{
+  transition: width var(--speed), height var(--speed), opacity 0s;
   width: calc(100% - 50px);
   height: calc(100% - 50px);
   z-index: 5;
+  opacity: 100%;
 }
 
 .projects-container.hidden{
+  transition: opacity var(--speed) 0.5s, width var(--speed), height var(--speed);
+  opacity: 0%;
   width: 35vw;
   height: 35vh;
   z-index: 0;
@@ -180,4 +184,86 @@ div {
   width: 50px;
   height: 50px;
   z-index: 100;
+}
+
+
+
+.about-me {
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  width: auto;
+}
+
+.about-me h2 {
+  font-weight: 300;
+  font-size: 8em;
+  line-height: 0.9;
+  color: white;
+  margin: 0;
+}
+
+
+.icons{
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  width: auto;
+}
+
+.icons.show{
+  transition-delay: 0.5s;
+  opacity: 100%;
+}
+
+.icons.hide{
+  opacity: 0;
+}
+
+.icons a {
+  align-items: center;
+  min-width: 30px;
+  min-height: 30px;
+  margin: 10px;
+}
+
+.icons .icon {
+  align-items: center;
+  fill: white;
+  transition: 0.3s ease-in-out;
+}
+
+.icons a:hover .icon{
+  transform: scale(1.2);
+}
+
+.nav-icons{
+  border-radius: 15px;
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  width: auto;
+  transition: var(--speed), left var(--speed);
+}
+
+
+.nav-icons a {
+  align-items: center;
+  min-width: 30px;
+  min-height: 30px;
+  margin: 10px;
+}
+
+.nav-icons .icon {
+  align-items: center;
+  fill: white;
+  transition: 0.3s ease-in-out;
+}
+
+.nav-icons a:hover .icon{
+  transform: scale(1.2);
 }

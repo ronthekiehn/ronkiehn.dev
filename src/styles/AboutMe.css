@@ -5,7 +5,7 @@
     flex-direction: column;
     height: 100%;
     width: 100%;
-    position: relative;
+    position: absolute;
 }
 
 .box-container {
@@ -48,47 +48,3 @@
     opacity: 100%;
 }
 
-
-  
-.about-me {
-    display: flex;
-    flex-direction: column;
-    z-index: 100;
-    width: auto;
-}
-
-.about-me h2 {
-    font-weight: 300;
-    font-size: 8em;
-    line-height: 0.9;
-    color: white;
-    margin: 0;
-}
-
-
-.icons{
-    border-radius: 15px;
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    align-items: center;
-    width: auto;
-
-}
-
-.icons a {
-    align-items: center;
-    min-width: 30px;
-    min-height: 30px;
-    margin: 10px;
-}
-
-.icon {
-    align-items: center;
-    fill: white;
-    transition: 0.3s ease-in-out;
-}
-
-.icons a:hover .icon{
-    transform: scale(1.2);
-}
