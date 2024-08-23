@@ -125,7 +125,7 @@ input[type="text"] {
       height: 100vh;
     }
     .chat-history{
-      height: calc(100vh - 100px);
+      height: 70vh;
     }
   }
   .chat-window {

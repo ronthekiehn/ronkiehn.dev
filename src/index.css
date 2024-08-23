@@ -12,6 +12,7 @@
   --black: #111111;
   --grey: #333333;
   --lightgrey: #E9E9EB;
+  touch-action: manipulation;
 }
 
 body {
