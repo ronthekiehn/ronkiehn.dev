@@ -30,26 +30,29 @@ const Spotify = () => {
   return (
     <div className="spotify-container">
       {loading && <p>Loading...</p>}
-      {!loading && !result.isPlaying && (
-        <div className="playing-text">
-          <SpotifyIcon />
-          <span>Currently offline</span>
-        </div>
-      )}
-      {!loading && result.isPlaying && (
+      {!loading && (
         <div>
           <div className="playing-text">
             <SpotifyIcon />
             <span>Now playing</span>
           </div>
           <div className="song">
-            <img src={result.albumImageUrl} alt={`${result.title} album art`} />
-            <div className="song-info">
-              <a href={result.songUrl} target="_blank" rel="noopener noreferrer">
-                {result.title}
-              </a>
-              <p>{result.artist}</p>
-            </div>
+            {!result.isPlaying && (
+                    <div className="song-info">
+                    <span>Currently offline</span>
+                    </div>
+            )} 
+            {result.isPlaying && (
+                <div className='song-working'>
+                  <img src={result.albumImageUrl} alt={`${result.title} album art`} />
+                  <div className="song-info">
+                    <a href={result.songUrl} target="_blank" rel="noopener noreferrer">
+                      {result.title}
+                    </a>
+                    <p>{result.artist}</p>
+                  </div>
+                </div>
+            )}
           </div>
         </div>
       )}
