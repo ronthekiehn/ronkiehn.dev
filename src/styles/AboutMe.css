@@ -18,6 +18,12 @@
     position: absolute;
     z-index: 0;
 }
+@media screen and (max-width: 768px) {
+    .box-container {
+        height: 100vh;
+    }
+    
+}
 
 .box {
     justify-content: center;

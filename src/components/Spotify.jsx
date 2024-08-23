@@ -3,6 +3,7 @@ import '../styles/Spotify.css';
 import { SpotifyIcon } from './icons';
 
 const myApi = 'https://ronkiehn-dev.vercel.app';
+
 const Spotify = () => {
   const [loading, setLoading] = useState(true);
   const [result, setResult] = useState({});
@@ -29,29 +30,31 @@ const Spotify = () => {
 
   return (
     <div className="spotify-container">
-      {loading && <p>Loading...</p>}
+      {loading && <div className="loading">Loading...</div>}
       {!loading && (
-        <div>
+        <div className="spotify-content">
           <div className="playing-text">
-            <SpotifyIcon />
-            <span>Now playing</span>
+            <SpotifyIcon className="icon spotify-icon" />
+            Now playing
           </div>
-          <div className="song">
+          <div className="song-container">
             {!result.isPlaying && (
-                    <div className="song-info">
-                    <span>Currently offline</span>
-                    </div>
+              <div className="song offline">
+                Currently offline
+              </div>
             )} 
             {result.isPlaying && (
-                <div className='song-working'>
-                  <img src={result.albumImageUrl} alt={`${result.title} album art`} />
-                  <div className="song-info">
-                    <a href={result.songUrl} target="_blank" rel="noopener noreferrer">
+              <div className="song">
+                {result.albumImageUrl && (
+                  <img src={result.albumImageUrl} alt={result.album} />
+                )}
+                <div className="song-info">
+                <a className="song-title" href={result.songUrl} target="_blank" rel="noopener noreferrer">
                       {result.title}
                     </a>
-                    <p>{result.artist}</p>
-                  </div>
+                  <p className="song-artist">{result.artist}</p>
                 </div>
+              </div>
             )}
           </div>
         </div>

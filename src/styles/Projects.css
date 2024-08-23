@@ -10,6 +10,9 @@ h1{
     animation: fadeIn 0.5s;
 }
 
+.container{
+    height: auto;
+}
 .content{
     display: flex;
     justify-content: center;
@@ -22,6 +25,8 @@ h1{
     overflow-y: auto;
     padding-bottom: 50px;
 }
+
+
 
 .column{
     display: flex;
@@ -107,3 +112,20 @@ p{
   .project-tile a:hover .icon{
     transform: scale(1.2);
   }
+
+
+  @media screen and (max-width: 768px) {
+    .container{
+        background-image: linear-gradient(var(--yellow), var(--blue));
+    }
+    .content {
+        flex-direction: column;
+        overflow-y: auto;
+    }
+
+    .column {
+        width: 100%;
+        overflow-y: none;
+    }
+    
+}

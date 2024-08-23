@@ -1,16 +1,11 @@
 .chatbot {
-  font-size: 0.9em;
+    font-size: 0.9em;
     height: 100%;
     border: none;
+    max-height: 65vh;
   }
+
   
-  .chat-window {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
   
 .chat-history {
     overflow-y: auto;
@@ -18,7 +13,6 @@
     width: 80%;
     height: 100%;
     max-width: 400px;
-    max-height: 45vh;
     margin: 30px auto;
     padding: 10px;
     background-color: var(--lightgrey);
@@ -124,3 +118,20 @@ input[type="text"] {
     background-color: #aaa;
   }
   
+
+  @media screen and (max-width: 768px) {
+    .chatbot {
+      max-height: none;
+      height: 100vh;
+    }
+    .chat-history{
+      height: calc(100vh - 100px);
+    }
+  }
+  .chat-window {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
