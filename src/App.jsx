@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AboutMe from './components/AboutMe.jsx';
 import ChatBot from './components/ChatBot.jsx';
 import Spotify from './components/Spotify.jsx';
@@ -10,15 +10,28 @@ function App() {
   const [showProjects, setShowProjects] = useState(false);
   const [iconPosition, setIconPosition] = useState({ top: 0, left: 0 });
 
+  useEffect(() => {
+    const iconsElement = document.querySelector('.icons');
+    const { top, left } = iconsElement.getBoundingClientRect();
+    setIconPosition({ top, left });
+
+    // Prevent scrolling
+    document.body.style.overflow = 'hidden';
+
+    // Cleanup function to restore scrolling when component unmounts
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+  
   const handleProjectsButtonClick = () => {
     setShowProjects(!showProjects);
     const iconsElement = document.querySelector('.icons');
     const { top, left } = iconsElement.getBoundingClientRect();
     setIconPosition({ top, left });
     if (!showProjects) {
-        const { top, left } ={ top: 0, left: '50px' };
-        setIconPosition({ top, left });
-      }
+      setIconPosition({ top: 0, left: '50px' });
+    }
   };
 
   return (
