@@ -10,9 +10,7 @@ h1{
     animation: fadeIn 0.5s;
 }
 
-.container{
-    height: auto;
-}
+
 .content{
     display: flex;
     justify-content: center;
@@ -32,6 +30,7 @@ h1{
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    align-items: center;
     z-index: 1;
     overflow-y: auto;
     width: 45%;
@@ -116,9 +115,11 @@ p{
 
   @media screen and (max-width: 768px) {
     .container{
+        height: auto;
         background-image: linear-gradient(var(--yellow), var(--blue));
     }
     .content {
+        width: 100%;
         flex-direction: column;
         overflow-y: auto;
     }
@@ -126,6 +127,11 @@ p{
     .column {
         width: 100%;
         overflow-y: none;
+    }
+
+    .project-tile{
+        margin: 20px 0px;
+        max-width: calc(100vw - 35px);
     }
     
 }
