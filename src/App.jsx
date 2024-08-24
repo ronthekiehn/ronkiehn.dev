@@ -3,7 +3,7 @@ import AboutMe from './components/AboutMe.jsx';
 import ChatBot from './components/ChatBot.jsx';
 import Spotify from './components/Spotify.jsx';
 import Projects from './components/Projects.jsx';
-import { InstagramIcon, GitHubIcon, LinkedInIcon, GoodReadsIcon, LetterBoxdIcon } from "./components/icons"
+import { InstagramIcon, GitHubIcon, LinkedInIcon, GoodReadsIcon, LetterBoxdIcon, CloseIcon } from "./components/icons"
 import './App.css'
 
 function App() {
@@ -131,7 +131,9 @@ function App() {
         )}
         {(showProjects || isMobile) && <Projects />}
         {!isMobile && (
-          <button className={`close-button ${showProjects ? '' : 'hide'}`} onClick={handleProjectsButtonClick}></button>
+          <button className={`close-button ${showProjects ? '' : 'hide'}`} onClick={handleProjectsButtonClick}>
+            <CloseIcon />
+          </button>
         )}
       </div>
     </div>

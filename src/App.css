@@ -1,7 +1,7 @@
 div {
   --gap-size: 5px;
   --speed: 0.7s;
-  --loading-speed: 0.5s;
+  --loading-speed: 0.7s;
   --loading-size: 2;
 }
 
@@ -255,12 +255,26 @@ div {
   position: fixed;
   top: 0;
   left: 0;
-  background: none;
   border: none;
-  background-color: white;
+  background: none;
   width: 50px;
   height: 50px;
   z-index: 100;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+
+.close-button .icon {
+  height: 20px;
+  align-items: center;
+  fill: white;
+  transition: 0.3s ease-in-out;
+}
+
+.close-button:hover .icon{
+  transform: scale(1.2);
 }
 
 

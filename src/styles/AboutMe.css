@@ -30,9 +30,9 @@
     align-items: center;
     text-align: center;
     aspect-ratio: 1; 
-    transition: 2s;
+    
     overflow: hidden;
-    opacity: 0%;
+    
     cursor: default; 
     user-select: none; 
     color: var(--blue);
@@ -40,9 +40,9 @@
     padding: 0;
     display: flex;
     z-index: 0;
-    
+    opacity: 0%;
+    transition-duration: 2s;
 }
-
 .box.altcolor{
     color: var(--yellow);
 }
