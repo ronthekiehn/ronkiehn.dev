@@ -1,6 +1,8 @@
 div {
-  --gap-size: 2px;
+  --gap-size: 5px;
   --speed: 0.7s;
+  --loading-speed: 0.5s;
+  --loading-size: 2;
 }
 
 .App{
@@ -8,6 +10,51 @@ div {
   width: 100vw;
   background-color: var(--black);
 }
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(--loading-size);
+  }
+  100% {
+    opacity: 100%;
+    transform: scale(1);
+  }
+}
+
+.typewriter{
+  display: flex;
+  max-width: fit-content;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: left var(--speed), top var(--speed), transform var(--speed);
+}
+.typewriter h2 {
+  overflow: hidden; /* Ensures text is clipped when typing */
+  border-right: 0.05em solid white; /* Blinking cursor */
+  white-space: nowrap; /* Prevents text wrapping */
+  animation: typing 1s steps(9, end), blink-caret 0.75s step-end infinite;
+  
+}
+
+@keyframes typing {
+  0%{ 
+    width: 0;
+  }
+  100% { 
+    width: 100%;
+    }
+}
+
+
+@keyframes blink-caret {
+  from, to { border-color: white }
+  50% { border-color: transparent }
+}
+
 .app-container {
   height: 100vh;
   width: 100vw;
@@ -43,6 +90,11 @@ div {
   z-index: 33;
   left: 65vw;
   transition: left var(--speed);
+
+  transform: scale(20);
+  opacity: 0;
+  animation: fadeIn var(--loading-speed) forwards;
+  animation-delay: 3s;
 }
 
 
@@ -61,7 +113,13 @@ div {
   z-index: 3;
   transition: top var(--speed);
 
+  transform: scale(20);
+  opacity: 0;
+  animation: fadeIn var(--loading-speed) forwards;
+  animation-delay: 3s;
 }
+
+
 
 .border2.slide {
   transform: translateY(0%);
@@ -82,6 +140,11 @@ div {
   flex-direction: column;
   position: relative;
   width: auto;
+
+
+  opacity: 0;
+  animation: fadeIn var(--loading-speed) forwards;
+  animation-delay: 2.75s;
 }
 
 .projects-section {
@@ -94,7 +157,12 @@ div {
   z-index: 1;
   color: white;
   position: relative;
-  overflow: hidden
+  overflow: hidden;
+
+  transform: scale(var(--loading-size));
+  opacity: 0;
+  animation: fadeIn var(--loading-speed) forwards;
+  animation-delay: 2s;
 }
 
 .projects-button,
@@ -162,6 +230,10 @@ div {
   grid-row: 2/3;
   background-image: radial-gradient(black, var(--black));
   z-index: 1;
+  transform: scale(var(--loading-size));
+  opacity: 0;
+  animation: fadeIn var(--loading-speed) forwards;
+  animation-delay: 2.25s;
 }
 
 .chatbot-section {
@@ -172,6 +244,10 @@ div {
   justify-content: center;
   flex-direction: column;
   z-index: 1;
+  transform: scale(var(--loading-size));
+  opacity: 0;
+  animation: fadeIn var(--loading-speed) forwards;
+  animation-delay: 2.5s;
 }
 
 
@@ -196,12 +272,21 @@ div {
   width: auto;
 }
 
-.about-me h2 {
+.about-me h2,
+.typewriter h2{
   font-weight: 300;
-  font-size: 8em;
   line-height: 0.9;
   color: white;
   margin: 0;
+  white-space: nowrap;
+  font-size: clamp(2em, 10vw, 10em); 
+}
+
+.about-me h2{
+  opacity: 0;
+}
+.about-me h2.show{
+  opacity: 100%;
 }
 
 
@@ -279,6 +364,8 @@ div {
   .App {
     height: auto;
     min-height: 100vh;
+    min-height: 100svh;
+
   }
 
   .app-container {
@@ -286,6 +373,7 @@ div {
     flex-direction: column;
     height: auto;
     min-height: 100vh;
+    min-height: 100svh;
     gap: 0;
     padding: 0;
     position: static;
@@ -297,10 +385,11 @@ div {
     width: 100%;
     padding: 20px;
     min-height: 100vh;
+    min-height: 100svh;
     box-sizing: border-box;
   }
 
-
+  .typewriter h2,
   .about-me h2 {
     font-size: 4em;
     margin-top: 0;

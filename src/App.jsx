@@ -10,8 +10,21 @@ function App() {
   const [showProjects, setShowProjects] = useState(false);
   const [iconPosition, setIconPosition] = useState({ top: 0, left: 0 });
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [loadedText, setLoadedText] = useState(false);
+  const [textPos, setTextPos] = useState({ top: '50%', left: '50%'});
 
   useEffect(() => {
+    setTimeout(() => {
+      const title = document.querySelector('.about-me h2');
+      if (title) {
+        const { top, left } = title.getBoundingClientRect();
+        setTextPos({ top, left, transform: 'none' });
+        setTimeout(() => {
+          setLoadedText(true);
+        }, 2000);
+      }
+    }, 2000);
+
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
@@ -51,13 +64,16 @@ function App() {
 
   return (
     <div className="App">
+      {!loadedText && <div className="typewriter" style={textPos}>
+          <h2>Ron Kiehn</h2>
+        </div>}
       {!isMobile && <div className={`border ${showProjects ? 'slide' : ''}`}></div>}
       {!isMobile && <div className={`border2 ${showProjects ? 'slide' : ''}`}></div>}
       <div className={`app-container ${!isMobile && showProjects ? 'projects' : 'home'}`}>
         <div className="about-me-section">
           <AboutMe />
           <div className="about-me"> 
-            <h2>Ron Kiehn</h2>
+            <h2 className={`${loadedText ? 'show' : ''}`}>Ron Kiehn</h2>
             <div className={`icons ${showProjects && !isMobile ? 'hide' : 'show'}`}>
               <a href="https://github.com/ronthekiehn/" target="_blank" rel="noreferrer">
                 <GitHubIcon />
