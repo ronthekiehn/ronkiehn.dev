@@ -91,6 +91,10 @@ function App() {
                 <GoodReadsIcon />
               </a>
             </div>
+            {isMobile && (<div className='scroll'>
+              <span>scroll</span>
+              <CloseIcon />
+              </div>)}
           </div>
         </div>
         {!isMobile && (

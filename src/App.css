@@ -445,5 +445,34 @@ div {
     padding: 0;
   }
 
+  .scroll{
+    position: fixed;
+    bottom: 10px;
+    left: 0;
+    color: white;
+    width: 100vw;
+    text-align: center;
+    animation: flash 2s infinite;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .scroll .icon{
+    fill: white;
+    height: 10px;
+    transform: rotate(45deg);
+  }
+
+  @keyframes flash {
+    0% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.5;
+    }
+  }
 
 }
