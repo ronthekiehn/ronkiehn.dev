@@ -2,7 +2,7 @@
   "name": "portfolio",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://www.ronkiehn.dev",
+  "homepage": "https://ronkiehn.dev",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
