@@ -8,7 +8,8 @@ const Chatbot = () => {
   const [chatHistory, setChatHistory] = useState([]); 
   const [writeHistory, setWriteHistory] = useState([{ role: 'model', text: "Hi, I'm a Gemini Flash instance tuned to act like Ron. Ask me anything!" }]); 
   const [isLoading, setIsLoading] = useState(false); 
-
+  const [retry, setRetry]= useState(false);
+  let errorInput = '';
   const chatContainerRef = useRef(null);
   
   // Auto-scroll to the bottom when writeHistory updates
@@ -18,12 +19,27 @@ const Chatbot = () => {
     }
   }, [writeHistory]);
 
+
+  const handleRetry = () => {
+    setRetry(false);
+    handleSubmit(undefined);
+  };
+
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    if (event){
+      event.preventDefault();
+    } else{
+      errorInput = writeHistory[writeHistory.length - 2]?.text || '';
+      setWriteHistory((prev) => [
+        ...prev.slice(0, -2),
+      ]);
+    } 
+
+    let input = errorInput || userInput;
 
     setWriteHistory((prev) => [
       ...prev,
-      { role: 'user', text: userInput },
+      { role: 'user', text: input },
       { role: 'model', text: 'Generating...' }
     ]);
 
@@ -38,16 +54,18 @@ const Chatbot = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          userInput: userInput,
+          userInput: input,
           chatHistory: chatHistory,
         }),
       });
-
+      
       const data = await response.json();
+
+      //throw new Error(data.error);
 
       setChatHistory((prev) => [
         ...prev,
-        { role: 'user', parts: [{ text: userInput }] },
+        { role: 'user', parts: [{ text: input }] },
         { role: 'model', parts: [{ text: data.botOutput }] }
       ]);
 
@@ -61,6 +79,7 @@ const Chatbot = () => {
         ...prev.slice(0, -1), // Remove 'Generating...' message
         { role: 'model', text: 'Sorry, I encountered an error. Please try again.' }
       ]);
+      setRetry(true);
     } finally {
       setIsLoading(false);
     }
@@ -76,14 +95,16 @@ const Chatbot = () => {
             </div>
           ))}
         </div>
-        
+        {retry && (
+          <button className='retry-button' onClick={handleRetry}>Retry</button>
+        )}
         <form onSubmit={handleSubmit}>
           <input
             type="text"
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
             placeholder="Type your message..."
-            disabled={isLoading} // Disable input when loading
+            disabled={isLoading} 
           />
           <button type="submit" disabled={isLoading}>
             <ArrowIcon />

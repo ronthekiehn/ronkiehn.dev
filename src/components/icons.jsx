@@ -45,7 +45,7 @@ export const SpotifyIcon = () => (
 
   export const CloseIcon = () => (
     <svg className="icon close-icon" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <line x1="55" y1="2.18557e-07" x2="55" y2="60" stroke="white" stroke-width="10"/>
+      <line x1="55" y1="2.18557e-07" x2="55" y2="60" stroke="white" strokeWidth="10"/>
       <line y1="55" x2="60" y2="55" stroke="white" stroke-width="10"/>
   </svg>
   );

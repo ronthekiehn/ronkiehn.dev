@@ -13,7 +13,7 @@
     width: 80%;
     height: 100%;
     max-width: 400px;
-    margin: 30px auto;
+    margin: 20px auto;
     padding: 10px;
     background-color: var(--lightgrey);
     border-radius: 8px;
@@ -118,6 +118,17 @@ input[type="text"] {
     background-color: #aaa;
   }
   
+  .retry-button {
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    padding: 5px;
+  }
 
   @media screen and (max-width: 768px) {
     .chatbot {
