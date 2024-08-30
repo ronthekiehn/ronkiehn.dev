@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import '../styles/Spotify.css';
-import { SpotifyIcon } from './icons';
-
+import { SpotifyIcon, LetterBoxdIcon } from './icons';
 const myApi = 'https://ronkiehn-dev.vercel.app';
 
 const Spotify = () => {
   const [loading, setLoading] = useState(true);
   const [result, setResult] = useState({});
+  const [movie, setMovie] = useState(null); 
 
   useEffect(() => {
     const fetchNowPlaying = async () => {
@@ -21,9 +21,20 @@ const Spotify = () => {
       }
     };
 
-    fetchNowPlaying();
+    const fetchLetterboxdMovie = async () => {
+      try {
+        const response = await fetch(`${myApi}/api/letterboxd`);
+        const movieData = await response.json();
+        setMovie(movieData);
+      } catch (error) {
+        console.error('Error fetching Letterboxd movie data:', error);
+      }
+    };
 
-    // Fetch every 10 seconds
+    fetchNowPlaying();
+    fetchLetterboxdMovie();
+
+    // Fetch Spotify data every 10 seconds
     const intervalId = setInterval(fetchNowPlaying, 10000);
     return () => clearInterval(intervalId);
   }, []);
@@ -34,7 +45,7 @@ const Spotify = () => {
       {!loading && (
         <div className="spotify-content">
           <div className="playing-text">
-            <SpotifyIcon className="icon spotify-icon" />
+            <SpotifyIcon />
             Now playing
           </div>
           <div className="song-container">
@@ -49,9 +60,9 @@ const Spotify = () => {
                   <img src={result.albumImageUrl} alt={result.album} />
                 )}
                 <div className="song-info">
-                <a className="song-title" href={result.songUrl} target="_blank" rel="noopener noreferrer">
-                      {result.title}
-                    </a>
+                  <a className="song-title" href={result.songUrl} target="_blank" rel="noopener noreferrer">
+                    {result.title}
+                  </a>
                   <p className="song-artist">{result.artist}</p>
                 </div>
               </div>
@@ -59,6 +70,17 @@ const Spotify = () => {
           </div>
         </div>
       )}
+      <div className='other-stuff'>
+        {movie && (
+          <div className="letterboxd-movie">
+            <h3>Recently Watched</h3>
+            <a href={movie.movieUrl} target="_blank" rel="noopener noreferrer">
+              <img src={movie.posterUrl} alt={movie.name} />
+              <p>{movie.name}</p>
+            </a>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

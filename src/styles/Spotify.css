@@ -101,3 +101,26 @@
     height: 100%;
     color: white;
 }
+
+.letterboxd-movie {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .letterboxd-movie img {
+    width: 150px;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.2s ease;
+  }
+  
+  .letterboxd-movie img:hover {
+    transform: scale(1.1);
+  }
+  
+  .letterboxd-movie p {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #fff;
+  }
+  
