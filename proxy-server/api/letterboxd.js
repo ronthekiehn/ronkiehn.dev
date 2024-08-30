@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     const movieUrl = firstMovie.find('a').attr('href');
     console.log(movieName, moviePoster, movieUrl);
     console.log("here");
-    if (movieName && moviePoster && movieUrl) {
+    if (movieName || moviePoster || movieUrl) {
       res.status(200).json({
         name: movieName,
         posterUrl: `https://letterboxd.com${moviePoster}`,
