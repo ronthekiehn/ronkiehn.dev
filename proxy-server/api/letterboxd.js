@@ -2,6 +2,7 @@ const cheerio = require('cheerio');
 
 export default async function handler(req, res) {
   const letterboxdUrl = 'https://letterboxd.com/ronthekiehn/';
+  console.log("here1");
   try {
     // Fetch the Letterboxd profile page
     const response = await fetch(letterboxdUrl);
@@ -17,7 +18,8 @@ export default async function handler(req, res) {
     const movieName = firstMovie.find('.frame-title').text().trim();
     const moviePoster = firstMovie.find('img').attr('src');
     const movieUrl = firstMovie.find('a').attr('href');
-
+    console.log(movieName, moviePoster, movieUrl);
+    console.log("here");
     if (movieName && moviePoster && movieUrl) {
       res.status(200).json({
         name: movieName,
