@@ -1,5 +1,4 @@
 const cheerio = require('cheerio');
-const fetch = require('node-fetch');
 
 export default async function handler(req, res) {
   const letterboxdUrl = 'https://letterboxd.com/ronthekiehn/';
