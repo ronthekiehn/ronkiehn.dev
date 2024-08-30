@@ -1,6 +1,6 @@
 {
   "dependencies": {
     "@google/generative-ai": "^0.17.0",
-    "cheerio": "^1.0.0"
+    "xml2js": "^0.6.2"
   }
 }

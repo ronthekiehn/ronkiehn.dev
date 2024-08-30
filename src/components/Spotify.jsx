@@ -74,10 +74,11 @@ const Spotify = () => {
         {movie && (
           <div className="letterboxd-movie">
             <h3>Recently Watched</h3>
-            <a href={movie.movieUrl} target="_blank" rel="noopener noreferrer">
-              <img src={movie.posterUrl} alt={movie.name} />
-              <p>{movie.name}</p>
-            </a>
+            <LetterBoxdIcon />
+            <img src={movie.posterImage} alt={movie.movieTitle} />
+            <p>{movie.movieTitle}</p>
+            <p>{movie.starRating}</p>
+            <p>Watched on: {movie.watchedDate}</p>
           </div>
         )}
       </div>

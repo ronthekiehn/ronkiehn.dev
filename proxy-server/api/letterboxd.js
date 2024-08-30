@@ -1,30 +1,32 @@
-const cheerio = require('cheerio');
+import { parseStringPromise } from 'xml2js';
+
+const RSS_URL = 'https://letterboxd.com/ronthekiehn/rss/';
 
 export default async function handler(req, res) {
-  const letterboxdUrl = 'https://letterboxd.com/ronthekiehn/';
-  console.log("here1");
   try {
-    // Fetch the Letterboxd profile page
-    const response = await fetch(letterboxdUrl);
-    const html = await response.text();
+    const response = await fetch(RSS_URL);
+    const rssText = await response.text();
+
+    // Parse the XML into JSON
+    const parsedData = await parseStringPromise(rssText);
     
-    // Load the HTML into Cheerio
-    const $ = cheerio.load(html);
+    // Navigate to the first item in the feed
+    const item = parsedData.rss.channel[0].item[0];
 
-    // Find the first movie in the "Recent Activity" section
-    const firstMovie = $('#recent-activity ul.poster-list li.poster-container').first();
+    // Extract the relevant data
+    const movieTitle = item['letterboxd:filmTitle'][0];
+    const posterImage = item.description[0].match(/<img src="(.*?)"/)[1];
+    const starRating = item['letterboxd:memberRating'][0];
+    const watchedDate = item['letterboxd:watchedDate'][0];
 
-    // Extract the movie data
-    const movieName = firstMovie.find('.frame-title').text().trim();
-    const moviePoster = firstMovie.find('img').attr('src');
-    const movieUrl = firstMovie.find('a').attr('href');
-    console.log(movieName, moviePoster, movieUrl);
+    console.log(movieTitle, posterImage, starRating, watchedDate);
     console.log("here");
-    if (movieName || moviePoster || movieUrl) {
+    if (movieTitle && posterImage && starRating && watchedDate) {
       res.status(200).json({
-        name: movieName,
-        posterUrl: `https://letterboxd.com${moviePoster}`,
-        movieUrl: `https://letterboxd.com${movieUrl}`,
+        movieTitle: movieTitle,
+        posterImage: posterImage,
+        starRating: starRating,
+        watchedDate: watchedDate,
       });
     } else {
       res.status(404).json({ message: 'No recent activity found' });
