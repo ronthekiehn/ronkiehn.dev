@@ -402,6 +402,9 @@ div {
     min-height: 100svh;
     box-sizing: border-box;
   }
+  .spotify-section {
+    justify-content: center;
+  }
 
   .typewriter h2,
   .about-me h2 {

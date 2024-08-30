@@ -60,9 +60,7 @@ const Spotify = () => {
                   <img src={result.albumImageUrl} alt={result.album} />
                 )}
                 <div className="song-info">
-                  <a className="song-title" href={result.songUrl} target="_blank" rel="noopener noreferrer">
-                    {result.title}
-                  </a>
+                  <p><strong>{result.title}</strong></p>
                   <p className="song-artist">{result.artist}</p>
                 </div>
               </div>
@@ -70,19 +68,25 @@ const Spotify = () => {
           </div>
         </div>
       )}
-      <div className='other-stuff'>
         {movie && (
+          <div className='other-stuff'>
+            <div className="playing-text">
+              <LetterBoxdIcon />
+              Last watched
+            </div>
           <div className="letterboxd-movie">
-            <h3>Recently Watched</h3>
-            <LetterBoxdIcon />
             <img src={movie.posterImage} alt={movie.movieTitle} />
-            <p>{movie.movieTitle}</p>
-            <p>{movie.starRating}</p>
-            <p>Watched on: {movie.watchedDate}</p>
+            <div className="movie-info">
+              <p><strong>{movie.movieTitle}</strong></p>
+              <p>{movie.starRating} Stars</p>
+              <p>Watched on {movie.watchedDate}</p>
+            </div>
+            
+          </div>
           </div>
         )}
       </div>
-    </div>
+   
   );
 };
 

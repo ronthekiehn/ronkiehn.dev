@@ -18,15 +18,14 @@ export default async function handler(req, res) {
     const posterImage = item.description[0].match(/<img src="(.*?)"/)[1];
     const starRating = item['letterboxd:memberRating'][0];
     const watchedDate = item['letterboxd:watchedDate'][0];
-
-    console.log(movieTitle, posterImage, starRating, watchedDate);
-    console.log("here");
+    const [year, month, day] = watchedDate.split('-');
+    const formatDate = `${month}-${day}-${year}`;
     if (movieTitle && posterImage && starRating && watchedDate) {
       res.status(200).json({
         movieTitle: movieTitle,
         posterImage: posterImage,
         starRating: starRating,
-        watchedDate: watchedDate,
+        watchedDate: formatDate,
       });
     } else {
       res.status(404).json({ message: 'No recent activity found' });

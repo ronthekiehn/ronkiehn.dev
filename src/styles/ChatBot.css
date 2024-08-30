@@ -3,6 +3,7 @@
     height: 100%;
     border: none;
     max-height: 65vh;
+    max-width: 35vw;
   }
 
   
@@ -28,6 +29,7 @@
     display: flex;
     text-align: left;
     margin-bottom: 10px;
+    
   }
   
   .message.user {
