@@ -6,7 +6,7 @@ const myApi = 'https://ronkiehn-dev.vercel.app';
 const Chatbot = () => {
   const [userInput, setUserInput] = useState('');
   const [chatHistory, setChatHistory] = useState([]); 
-  const [writeHistory, setWriteHistory] = useState([{ role: 'model', text: "Hi, I'm a Gemini Flash instance tuned to act like Ron. Ask me anything!" }]); 
+  const [writeHistory, setWriteHistory] = useState([{ role: 'model', text: "Hi, I'm a Gemini instance tuned to act like Ron. Ask me anything!" }]); 
   const [isLoading, setIsLoading] = useState(false); 
   const [retry, setRetry]= useState(false);
   let errorInput = '';

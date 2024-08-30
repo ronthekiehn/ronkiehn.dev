@@ -18,7 +18,7 @@
     padding: 10px;
     background-color: var(--lightgrey);
     border-radius: 8px;
-    transition: box-shadow 0.5s;
+    transition: box-shadow 0.3s;
 }
 
 .chat-history:hover{
@@ -29,7 +29,7 @@
     display: flex;
     text-align: left;
     margin-bottom: 10px;
-    
+
   }
   
   .message.user {

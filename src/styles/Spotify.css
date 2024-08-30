@@ -48,11 +48,23 @@
     overflow: hidden;
     margin-top: auto;
     margin-bottom: auto;
+    margin-left: 5px;
     max-width: 90%;
     max-height: 90%;
     min-height: 150px;
     padding: 10px;
+    transition: box-shadow 0.3s;
+   
 }
+
+.letterboxd-movie:hover{
+    box-shadow: 0 0 10px var(--blue);
+}
+
+.song-container:hover{
+    box-shadow: 0 0 10px var(--yellow);
+}
+
 
 .song{
     display: flex;

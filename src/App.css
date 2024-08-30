@@ -177,6 +177,7 @@ div {
   justify-content: center;
   text-align: center;
   font-size: clamp(2em, 5vw, 5em); 
+  border: none;
 }
 
 .projects-button {
