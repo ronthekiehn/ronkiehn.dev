@@ -135,10 +135,12 @@ input[type="text"] {
   @media screen and (max-width: 768px) {
     .chatbot {
       max-height: none;
+      max-width: none;
       height: 100vh;
     }
     .chat-history{
       height: 70vh;
+      
     }
   }
   .chat-window {

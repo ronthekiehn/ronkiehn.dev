@@ -53,16 +53,16 @@ const Projects = () => {
                             <p className='note'>Releasing Summer 2024. <a href='https://github.com/threedle/DA-Wand' target="_blank" rel="noreferrer">See the original here</a></p>
                         </div>
 
-                        <div className='project-tile goodreads'>
-                            <h2>Review Consensus for Goodreads
-                            <a className="icon-link" href="https://github.com/ronthekiehn/Goodreads" target="_blank" rel="noreferrer">
+                        <div className='project-tile aurelius'>
+                            <h2>Daily Aurelius
+                            <a className="icon-link" href="https://github.com/ronthekiehn/Daily-Aurelius" target="_blank" rel="noreferrer">
                                 <GitHubIcon />
                             </a>
                             </h2>
                             
-                            <div className='languages'>JavaScript, Gemini API, Vercel</div>
-                            <p>Chrome extension that write an AI-generated review consensus for books Goodreads.com.</p>
-                            <p className='note'><a href="https://chromewebstore.google.com/detail/review-consensus-for-good/klpimcobgdoeidognoplffkaajjialid?authuser=0&hl=en" target="_blank" rel="noreferrer">Install it here</a></p>
+                            <div className='languages'>JavaScript, Python</div>
+                            <p>Chrome extension that shows a new quote from Marcus Aurelius's Meditations every day.</p>
+                            <p className='note'><a href="https://chromewebstore.google.com/detail/daily-aurelius/pnmaadcfpnogifckbhhbmfflkbjoekji" target="_blank" rel="noreferrer">Install it here</a></p>
                         </div>
 
                         <div className='project-tile gordon'>
@@ -90,16 +90,16 @@ const Projects = () => {
                         </div>
                     </div>
                    <div className='column two'>
-                        <div className='project-tile aurelius'>
-                            <h2>Daily Aurelius
-                            <a className="icon-link" href="https://github.com/ronthekiehn/Daily-Aurelius" target="_blank" rel="noreferrer">
+                    <div className='project-tile goodreads'>
+                            <h2>Review Consensus for Goodreads
+                            <a className="icon-link" href="https://github.com/ronthekiehn/Goodreads" target="_blank" rel="noreferrer">
                                 <GitHubIcon />
                             </a>
                             </h2>
                             
-                            <div className='languages'>JavaScript, Python</div>
-                            <p>Chrome extension that shows a new quote from Marcus Aurelius's Meditations every day.</p>
-                            <p className='note'><a href="https://chromewebstore.google.com/detail/daily-aurelius/pnmaadcfpnogifckbhhbmfflkbjoekji" target="_blank" rel="noreferrer">Install it here</a></p>
+                            <div className='languages'>JavaScript, Gemini API, Vercel</div>
+                            <p>Chrome extension that write an AI-generated review consensus for books Goodreads.com.</p>
+                            <p className='note'><a href="https://chromewebstore.google.com/detail/review-consensus-for-good/klpimcobgdoeidognoplffkaajjialid?authuser=0&hl=en" target="_blank" rel="noreferrer">Install it here</a></p>
                         </div>
 
                         <div className='project-tile cube'>
