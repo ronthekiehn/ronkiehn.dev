@@ -38,15 +38,12 @@ const Chatbot = () => {
       event.preventDefault();
     } else {
       errorInput = writeHistory[writeHistory.length - 1]?.text || '';
-      console.log('errorInput:', errorInput);
       setWriteHistory((prev) => [
         ...prev.slice(0, -1),
       ]);
-      console.log('writeHistory:', writeHistory);
     }
 
     let input = errorInput || userInput;
-    console.log("input", input)
     let time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     setWriteHistory((prev) => [
       ...prev,
@@ -86,7 +83,6 @@ const Chatbot = () => {
     } catch (error) {
       console.error('Error:', error);
       if (retryCount < 3) {
-        console.log('Retrying...');
         setRetryCount(retryCount + 1);
       } else {
         setWriteHistory((prev) => [
