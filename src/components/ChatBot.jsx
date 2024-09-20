@@ -1,46 +1,56 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/ChatBot.css';
 import { ArrowIcon } from './icons';
+import { marked } from 'marked';
 const myApi = 'https://ronkiehn-dev.vercel.app';
 
 const Chatbot = () => {
   const [userInput, setUserInput] = useState('');
   const [chatHistory, setChatHistory] = useState([]); 
-  const [writeHistory, setWriteHistory] = useState([{ role: 'model', text: "Hi, I'm a Gemini instance tuned to act like Ron. Ask me anything!", time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}]); 
+  const [writeHistory, setWriteHistory] = useState([]); 
   const [isLoading, setIsLoading] = useState(false); 
-  const [retry, setRetry]= useState(false);
+  const [retryCount, setRetryCount] = useState(0); // State to track retry count
   let errorInput = '';
   const chatContainerRef = useRef(null);
   
-  // Auto-scroll to the bottom when writeHistory updates
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setWriteHistory([{ role: 'model', text: "Hi, I'm a Gemini instance tuned to act like Ron. Ask me anything!", time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }]);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
   }, [writeHistory]);
 
-
-  const handleRetry = () => {
-    setRetry(false);
-    handleSubmit(undefined);
-  };
+  useEffect(() => {
+    if (retryCount > 0 && retryCount <= 3) {
+      handleSubmit(undefined, retryCount);
+    }
+  }, [retryCount]);
 
   const handleSubmit = async (event, retryCount = 0) => {
     if (event) {
       event.preventDefault();
     } else {
-      errorInput = writeHistory[writeHistory.length - 2]?.text || '';
+      errorInput = writeHistory[writeHistory.length - 1]?.text || '';
+      console.log('errorInput:', errorInput);
       setWriteHistory((prev) => [
-        ...prev.slice(0, -2),
+        ...prev.slice(0, -1),
       ]);
+      console.log('writeHistory:', writeHistory);
     }
 
     let input = errorInput || userInput;
+    console.log("input", input)
     let time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     setWriteHistory((prev) => [
       ...prev,
       { role: 'user', text: input, time: time },
-      { role: 'model', text: ' ' }
     ]);
 
     setUserInput('');
@@ -58,6 +68,7 @@ const Chatbot = () => {
           chatHistory: chatHistory,
         }),
       });
+      //throw new Error("Intentional error");
 
       const data = await response.json();
       time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -69,20 +80,19 @@ const Chatbot = () => {
       ]);
 
       setWriteHistory((prev) => [
-        ...prev.slice(0, -1), // Remove ' ' message
+        ...prev, 
         { role: 'model', text: data.botOutput, time: time }
       ]);
     } catch (error) {
       console.error('Error:', error);
       if (retryCount < 3) {
         console.log('Retrying...');
-        handleSubmit(undefined, retryCount + 1);
+        setRetryCount(retryCount + 1);
       } else {
         setWriteHistory((prev) => [
-          ...prev.slice(0, -1), // Remove ' ' message
+          ...prev,
           { role: 'model', text: 'Sorry, I encountered an error. Please try again.', time: time }
         ]);
-        setRetry(true);
       }
     } finally {
       setIsLoading(false);
@@ -92,31 +102,26 @@ const Chatbot = () => {
   return (
     <div className="chatbot">
       <div className="chat-window">
+      <div className="title">RawnBot 1.1</div>
         <div className="chat-history" ref={chatContainerRef}>
           {writeHistory.map((msg, index) => (
-            <>
-            <div key={index} className={`message ${msg.role}`}>
-              <p className="message-content">
-                  {msg.text === ' ' ? (
-                    <span className="loading-dots">
-                      <span>.</span>
-                      <span>.</span>
-                      <span>.</span>
-                    </span>
-                  ) : (
-                    msg.text
-                  )}
-                </p>
+            <div key={index}>
+              <div className={`message ${msg.role}`}>
+                <p className="message-content" dangerouslySetInnerHTML={{ __html: marked(msg.text) }} />
+              </div>
+              <div className={`message ${msg.role}`}>
+                <p className="timestamp">{msg.time}</p>
+              </div>
             </div>
-            <div className={`message ${msg.role}`}>
-              <p className="timestamp">{msg.time}</p>
-            </div>
-            </>
           ))}
+          {isLoading && (<div className="loading-message">
+            <span className="loading-dots">
+              <span>.</span>
+              <span>.</span>
+              <span>.</span>
+            </span>
+          </div>)}
         </div>
-        {retry && (
-          <button className='retry-button' onClick={handleRetry}>Retry</button>
-        )}
         <form onSubmit={handleSubmit}>
           <input
             type="text"

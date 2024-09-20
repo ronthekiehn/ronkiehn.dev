@@ -1,12 +1,26 @@
 .chatbot {
-    font-size: 0.9em;
     height: 100%;
     border: none;
     max-height: 65vh;
     max-width: 35vw;
+    position: relative;
   }
 
-  
+  .title {
+    position: absolute;
+    font-size: clamp(1rem, 3vh, 1.5rem);
+    width: 100%;
+    background: linear-gradient(135deg, var(--blue), var(--yellow));
+    text-align: center;
+    font-weight: bold;
+    z-index: 1;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    width: 80%;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 10px;
+  }
   
 .chat-history {
     overflow-y: auto;
@@ -16,8 +30,9 @@
     max-width: 400px;
     margin: 20px auto;
     padding: 10px;
+    padding-top: 60px;
     background-color: var(--lightgrey);
-    border-radius: 8px;
+    border-radius: 15px;
     transition: box-shadow 0.3s;
     scrollbar-width: none; 
     -ms-overflow-style: none; 
@@ -47,6 +62,7 @@
   .message {
     display: flex;
     text-align: left;
+    font-size: clamp(0.7rem, 1.5vw, 1rem);
     }
   
   .message.user {
@@ -58,7 +74,7 @@
   }
   
   .timestamp{
-    font-size: 0.8rem;
+    font-size: clamp(0.5rem, 1vw, 0.8rem);
   }
 
   .message.model .timestamp{
@@ -69,7 +85,6 @@
   }
 
   .message-content {
-    
    position: relative;
   }
 
@@ -95,6 +110,7 @@
  
 
   .message.model .message-content{
+    animation: pop-in 0.1s;
     background-color: var(--yellow);
     color: black;
     padding: 10px;
@@ -136,6 +152,10 @@ form:focus-within {
     border-color:var(--blue);
 }
 
+::placeholder {
+  color: var(--lightgrey);
+  opacity: 0.5; 
+}
 
 input[type="text"] {
     width: calc(100% - 80px);
@@ -198,7 +218,26 @@ input[type="text"] {
       opacity: 1;
     }
   }
+  .loading-message{
+    animation: pop-in 0.1s;
+    background-color: var(--yellow);
+    color: black;
+    padding: 10px;
+    border-radius: 8px;
+    display: inline-block;
+    max-width: 75%;
+    position: relative;
+  }
   
+  .loading-message::before {
+    content: '';
+    position: absolute;
+    left: -1px; 
+    bottom: -9px; 
+    border-top: 20px solid var(--yellow);
+    border-right: 25px solid transparent;
+    transform: rotate(10deg);
+  }
   .loading-dots {
     display: inline-block;
   }
