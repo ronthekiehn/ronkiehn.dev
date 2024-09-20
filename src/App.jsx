@@ -73,7 +73,15 @@ function App() {
         <div className="about-me-section">
           <AboutMe />
           <div className="about-me"> 
-            <h2 className={`${loadedText ? 'show' : ''}`}>Ron Kiehn</h2>
+            <h2 className={`${loadedText ? 'show' : ''}`}>
+              {'Ron'.split('').map((char, index) => (
+                  <span key={index} className="letter first-name">{char}</span>
+            ))} 
+            <span> </span>
+            {'Kiehn'.split('').map((char, index) => (
+                  <span key={index} className="letter last-name">{char}</span>
+            ))}
+            </h2>
             <div className={`icons ${showProjects && !isMobile ? 'hide' : 'show'}`}>
               <a href="https://github.com/ronthekiehn/" target="_blank" rel="noreferrer">
                 <GitHubIcon />

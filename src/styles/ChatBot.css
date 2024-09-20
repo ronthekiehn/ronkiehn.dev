@@ -10,7 +10,7 @@
     position: absolute;
     font-size: clamp(1rem, 3vh, 1.5rem);
     width: 100%;
-    background: linear-gradient(135deg, var(--blue), var(--yellow));
+    background: linear-gradient(135deg, var(--grey), var(--black));
     text-align: center;
     font-weight: bold;
     z-index: 1;
@@ -20,6 +20,7 @@
     max-width: 400px;
     margin: 20px auto;
     padding: 10px;
+    color: white;
   }
   
 .chat-history {
@@ -34,6 +35,7 @@
     background-color: var(--lightgrey);
     border-radius: 15px;
     transition: box-shadow 0.3s;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
     scrollbar-width: none; 
     -ms-overflow-style: none; 
     }
@@ -43,7 +45,7 @@
 }
 
 .chat-history:hover{
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
 }
 
 @keyframes pop-in {
@@ -140,7 +142,7 @@ form {
     background-color: var(--grey);
     justify-content: space-between;
     border: 2px solid transparent;
-    transition: box-shadow 0.5s;
+    transition: box-shadow 0.3s;
 
 }
 
@@ -177,7 +179,7 @@ input[type="text"] {
     justify-content: center;
     width: 30px;
     height: 30px;
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.3s;
   }
 
   button[type="submit"] .icon.arrow-icon {

@@ -41,7 +41,7 @@
     display: flex;
     z-index: 0;
     opacity: 0%;
-    transition-duration: 2s;
+    transition-duration: 2.5s;
 }
 .box.altcolor{
     color: var(--yellow);

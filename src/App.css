@@ -304,6 +304,25 @@ div {
   opacity: 100%;
 }
 
+.about-me h2 .letter {
+  display: inline-block;
+  transition: color 1s, transform 1s;
+  
+}
+
+
+.about-me h2 .letter.last-name:hover {
+  transition-duration: 100ms;
+  color: var(--blue);
+  transform: scale(1.1);
+}
+
+.about-me h2 .letter.first-name:hover {
+  transition-duration: 100ms;
+  color: var(--yellow);
+  transform: scale(1.1);
+}
+
 
 .icons{
   border-radius: 15px;
@@ -333,11 +352,32 @@ div {
 .icons .icon {
   align-items: center;
   fill: white;
-  transition: 0.3s ease-in-out;
+  transition-duration: 1s;
 }
 
 .icons a:hover .icon{
+  transition-duration: 100ms;
   transform: scale(1.2);
+}
+
+.icons a:hover .icon.github-icon:hover {
+  fill: var(--yellow);
+}
+
+.icons a:hover .icon.linkedin-icon:hover {
+  fill: var(--blue);
+}
+
+.icons a:hover .icon.instagram-icon:hover {
+  fill: var(--yellow);
+}
+
+.icons a:hover .icon.letterboxd-icon:hover {
+  fill: var(--blue);
+}
+
+.icons a:hover .icon.goodreads-icon:hover {
+  fill: var(--yellow);
 }
 
 .nav-icons{
