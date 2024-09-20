@@ -19,18 +19,35 @@
     background-color: var(--lightgrey);
     border-radius: 8px;
     transition: box-shadow 0.3s;
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+    }
+
+    .chat-history::-webkit-scrollbar { 
+      display: none; 
 }
 
 .chat-history:hover{
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
 }
+
+@keyframes pop-in {
+    0% {
+      transform: scale(0);
+    }
+    90% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+}
+
   
   .message {
     display: flex;
     text-align: left;
-    margin-bottom: 10px;
-
-  }
+    }
   
   .message.user {
     justify-content: flex-end;
@@ -39,8 +56,25 @@
   .message.model {
     justify-content: flex-start;
   }
+  
+  .timestamp{
+    font-size: 0.8rem;
+  }
 
-  .message.user p{
+  .message.model .timestamp{
+    margin-left: 10px;
+  }
+  .message.user .timestamp{
+    margin-right: 10px;
+  }
+
+  .message-content {
+    
+   position: relative;
+  }
+
+  .message.user .message-content {
+    animation: pop-in 0.1s;
     background-color: var(--blue);
     color: white;
     padding: 10px;
@@ -49,7 +83,18 @@
     max-width: 75%;
   }
 
-  .message.model p{
+  .message.user .message-content::after {
+    content: '';
+    position: absolute;
+    right: -1px; 
+    bottom: -9px; 
+    border-top: 20px solid var(--blue);
+    border-left: 25px solid transparent;
+    transform: rotate(-10deg);
+  }
+ 
+
+  .message.model .message-content{
     background-color: var(--yellow);
     color: black;
     padding: 10px;
@@ -58,6 +103,15 @@
     max-width: 75%;
   }
   
+  .message.model .message-content::before {
+    content: '';
+    position: absolute;
+    left: -1px; 
+    bottom: -9px; 
+    border-top: 20px solid var(--yellow);
+    border-right: 25px solid transparent;
+    transform: rotate(10deg);
+  }
 
 
 form {
@@ -132,6 +186,36 @@ input[type="text"] {
     padding: 5px;
   }
 
+
+  @keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  .loading-dots {
+    display: inline-block;
+  }
+  
+  .loading-dots span {
+    animation: blink 1.4s infinite both;
+    display: inline-block;
+  }
+  
+  .loading-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  .loading-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
   @media screen and (max-width: 768px) {
     .chatbot {
       max-height: none;
@@ -150,3 +234,5 @@ input[type="text"] {
     flex-direction: column;
     align-items: center;
   }
+
+  

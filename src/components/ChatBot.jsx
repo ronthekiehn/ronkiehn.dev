@@ -6,7 +6,7 @@ const myApi = 'https://ronkiehn-dev.vercel.app';
 const Chatbot = () => {
   const [userInput, setUserInput] = useState('');
   const [chatHistory, setChatHistory] = useState([]); 
-  const [writeHistory, setWriteHistory] = useState([{ role: 'model', text: "Hi, I'm a Gemini instance tuned to act like Ron. Ask me anything!" }]); 
+  const [writeHistory, setWriteHistory] = useState([{ role: 'model', text: "Hi, I'm a Gemini instance tuned to act like Ron. Ask me anything!", time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}]); 
   const [isLoading, setIsLoading] = useState(false); 
   const [retry, setRetry]= useState(false);
   let errorInput = '';
@@ -25,22 +25,22 @@ const Chatbot = () => {
     handleSubmit(undefined);
   };
 
-  const handleSubmit = async (event) => {
-    if (event){
+  const handleSubmit = async (event, retryCount = 0) => {
+    if (event) {
       event.preventDefault();
-    } else{
+    } else {
       errorInput = writeHistory[writeHistory.length - 2]?.text || '';
       setWriteHistory((prev) => [
         ...prev.slice(0, -2),
       ]);
-    } 
+    }
 
     let input = errorInput || userInput;
-
+    let time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     setWriteHistory((prev) => [
       ...prev,
-      { role: 'user', text: input },
-      { role: 'model', text: 'Generating...' }
+      { role: 'user', text: input, time: time },
+      { role: 'model', text: ' ' }
     ]);
 
     setUserInput('');
@@ -58,10 +58,9 @@ const Chatbot = () => {
           chatHistory: chatHistory,
         }),
       });
-      
-      const data = await response.json();
 
-      //throw new Error(data.error);
+      const data = await response.json();
+      time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
       setChatHistory((prev) => [
         ...prev,
@@ -70,16 +69,21 @@ const Chatbot = () => {
       ]);
 
       setWriteHistory((prev) => [
-        ...prev.slice(0, -1), // Remove 'Generating...' message
-        { role: 'model', text: data.botOutput }
+        ...prev.slice(0, -1), // Remove ' ' message
+        { role: 'model', text: data.botOutput, time: time }
       ]);
     } catch (error) {
       console.error('Error:', error);
-      setWriteHistory((prev) => [
-        ...prev.slice(0, -1), // Remove 'Generating...' message
-        { role: 'model', text: 'Sorry, I encountered an error. Please try again.' }
-      ]);
-      setRetry(true);
+      if (retryCount < 3) {
+        console.log('Retrying...');
+        handleSubmit(undefined, retryCount + 1);
+      } else {
+        setWriteHistory((prev) => [
+          ...prev.slice(0, -1), // Remove ' ' message
+          { role: 'model', text: 'Sorry, I encountered an error. Please try again.', time: time }
+        ]);
+        setRetry(true);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -90,9 +94,24 @@ const Chatbot = () => {
       <div className="chat-window">
         <div className="chat-history" ref={chatContainerRef}>
           {writeHistory.map((msg, index) => (
+            <>
             <div key={index} className={`message ${msg.role}`}>
-              <p>{msg.text}</p>
+              <p className="message-content">
+                  {msg.text === ' ' ? (
+                    <span className="loading-dots">
+                      <span>.</span>
+                      <span>.</span>
+                      <span>.</span>
+                    </span>
+                  ) : (
+                    msg.text
+                  )}
+                </p>
             </div>
+            <div className={`message ${msg.role}`}>
+              <p className="timestamp">{msg.time}</p>
+            </div>
+            </>
           ))}
         </div>
         {retry && (
@@ -108,8 +127,7 @@ const Chatbot = () => {
           />
           <button type="submit" disabled={isLoading}>
             <ArrowIcon />
-            </button>
-          
+          </button>
         </form>
       </div>
     </div>
