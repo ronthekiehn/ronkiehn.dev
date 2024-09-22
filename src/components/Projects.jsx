@@ -15,11 +15,13 @@ const Projects = () => {
 
     return (
         <div className='container'>
-            {showContent &&<h1>Projects</h1>}
+            {showContent &&(
+                <div className='projects-title'>
+                    <h1>Projects</h1>
+                </div>
+            )}
             {showContent && (
                 <div className="content">
-                    
-                    <div className='column one'>
                         <div className='project-tile website'>
                             <h2>ronkiehn.dev
                             <a className="icon-link" href="https://github.com/ronthekiehn/ronkiehn.dev" target="_blank" rel="noreferrer">
@@ -32,6 +34,18 @@ const Projects = () => {
                             <p className='note'>Hope you like it!</p>
                         </div>
 
+                        <div className='project-tile cube-web'>
+                            <h2>Cube-Web
+                            <a className="icon-link" href="https://github.com/ronthekiehn/cube-web" target="_blank" rel="noreferrer">
+                                <GitHubIcon />
+                            </a>
+                            </h2>
+                            
+                            <div className='languages'>C, Javascript, WASM, Github Pages</div>
+                            <p>The spinning cube is now in your browser with the power of WASM</p>
+                            <p className='note'><a href="https://ronthekiehn.github.io/cube-web/" target="_blank" rel="noreferrer">Try it out here!</a></p>
+                        </div>
+
                         <div className='project-tile nootunez'>
                             <h2>nootunez.com (BetterSpotifyRecs)
                             <a className="icon-link" href="https://github.com/ronthekiehn/BetterSpotifyRecs" target="_blank" rel="noreferrer">
@@ -42,6 +56,18 @@ const Projects = () => {
                             <div className='languages'>HTML, CSS, JS, Node.js, Spotify API, Heroku, Vercel, Firebase</div>
                             <p>Full-stack web app to generate unique Spotify recommendation.</p>
                             <p className='note'>Awaiting Spotify API extension for full release.</p>
+                        </div>
+
+                        <div className='project-tile goodreads'>
+                            <h2>Review Consensus for Goodreads
+                            <a className="icon-link" href="https://github.com/ronthekiehn/Goodreads" target="_blank" rel="noreferrer">
+                                <GitHubIcon />
+                            </a>
+                            </h2>
+                            
+                            <div className='languages'>JavaScript, Gemini API, Vercel</div>
+                            <p>Chrome extension that write an AI-generated review consensus for books Goodreads.com.</p>
+                            <p className='note'><a href="https://chromewebstore.google.com/detail/review-consensus-for-good/klpimcobgdoeidognoplffkaajjialid?authuser=0&hl=en" target="_blank" rel="noreferrer">Install it here</a></p>
                         </div>
 
                         <div className='project-tile dawand'>
@@ -73,6 +99,18 @@ const Projects = () => {
                             <p className='note'>This was a school project, so I can't share the code</p>
                         </div>
 
+                        <div className='project-tile cube'>
+                            <h2>Cube
+                            <a className="icon-link" href="https://github.com/ronthekiehn/Cube" target="_blank" rel="noreferrer">
+                                <GitHubIcon />
+                            </a>
+                            </h2>
+                            
+                            <div className='languages'>C, Python</div>
+                            <p>Takes a simple spinning cube and adds a ton of features, including zooming, terminal resizing, and mouse and keyboard control.</p>
+                            <p className='note'>Probably only works on Mac</p>
+                        </div>
+
                         <div className='project-tile rasterizer'>
                             <h2>3D Rasterizer
                             </h2>
@@ -88,31 +126,7 @@ const Projects = () => {
                             <p>Implements a linear programming algorithm to solve minesweeper.</p>
                             <p className='note'>This was a school project, so I can't share the code</p>
                         </div>
-                    </div>
-                   <div className='column two'>
-                    <div className='project-tile goodreads'>
-                            <h2>Review Consensus for Goodreads
-                            <a className="icon-link" href="https://github.com/ronthekiehn/Goodreads" target="_blank" rel="noreferrer">
-                                <GitHubIcon />
-                            </a>
-                            </h2>
-                            
-                            <div className='languages'>JavaScript, Gemini API, Vercel</div>
-                            <p>Chrome extension that write an AI-generated review consensus for books Goodreads.com.</p>
-                            <p className='note'><a href="https://chromewebstore.google.com/detail/review-consensus-for-good/klpimcobgdoeidognoplffkaajjialid?authuser=0&hl=en" target="_blank" rel="noreferrer">Install it here</a></p>
-                        </div>
-
-                        <div className='project-tile cube'>
-                            <h2>Cube
-                            <a className="icon-link" href="https://github.com/ronthekiehn/Cube" target="_blank" rel="noreferrer">
-                                <GitHubIcon />
-                            </a>
-                            </h2>
-                            
-                            <div className='languages'>C, Python</div>
-                            <p>Takes a simple spinning cube and adds a ton of features, including zooming, terminal resizing, and mouse and keyboard control.</p>
-                            <p className='note'>Probably only works on Mac</p>
-                        </div>
+                    
 
                         <div className='project-tile dune'>
                             <h2>Dune2Risk
@@ -155,8 +169,6 @@ const Projects = () => {
                         </div>
 
                    </div>
-                 
-                </div>
             )}
         </div>
     );

@@ -368,16 +368,16 @@ div {
   fill: var(--blue);
 }
 
-.icons a:hover .icon.instagram-icon:hover {
+/* .icons a:hover .icon.instagram-icon:hover {
   fill: var(--yellow);
-}
+} */
 
 .icons a:hover .icon.letterboxd-icon:hover {
-  fill: var(--blue);
+  fill: var(--yellow);
 }
 
 .icons a:hover .icon.goodreads-icon:hover {
-  fill: var(--yellow);
+  fill: var(--blue);
 }
 
 .nav-icons{
