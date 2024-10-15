@@ -10,7 +10,7 @@ h1{
     margin-top: 20px;
     width: 100%;
     text-align: center;
-    animation: fadeIn 0.5s;
+    animation: fadeIn 0.2s;
 }
 
 
@@ -23,7 +23,7 @@ h1{
     z-index: 1;
     height: 100%;
     width: 90%;
-    animation: fadeIn 0.5s;
+    animation: fadeIn 0.2s;
     overflow-y: auto;
     scrollbar-width: none; /* For Firefox */
     -ms-overflow-style: none;  /* For Internet Explorer and Edge */
@@ -53,12 +53,11 @@ h1{
     border-radius: 20px;
     padding: 20px 30px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    transition: 0.3s ease-in-out;
+    transition: 0.1s ease-in-out;
 }
 
 .project-tile:hover{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    transform: scale(1.02);
 }
 
 .note{
@@ -108,13 +107,16 @@ p{
     min-width: 20px;
     max-width: 20px;
     max-height: 20px;
-    transition: 0.3s ease-in-out;
+    transition: 0.1s ease-in-out;
   }
   
   .project-tile a:hover .icon{
     transform: scale(1.2);
   }
 
+  a{
+    text-decoration: underline !important;
+  }
 
   @media screen and (max-width: 768px) {
     .container{

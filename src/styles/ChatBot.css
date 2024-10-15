@@ -34,7 +34,7 @@
     padding-top: 60px;
     background-color: var(--lightgrey);
     border-radius: 15px;
-    transition: box-shadow 0.3s;
+    transition: box-shadow 0.1s;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
     scrollbar-width: none; 
     -ms-overflow-style: none; 
@@ -64,7 +64,7 @@
   .message {
     display: flex;
     text-align: left;
-    font-size: clamp(0.7rem, 1.5vw, 1rem);
+    font-size: 0.8rem;
     }
   
   .message.user {
@@ -139,10 +139,10 @@ form {
     border-radius: 50px;
     margin-bottom: 20px;
     padding: 5px;
-    background-color: var(--grey);
+    background-color: var(--black);
     justify-content: space-between;
     border: 2px solid transparent;
-    transition: box-shadow 0.3s;
+    transition: box-shadow 0.1s;
 
 }
 
@@ -165,7 +165,7 @@ input[type="text"] {
     border: none;
     outline: none;
     margin-left: 7px;
-    background-color: var(--grey);
+    background-color: var(--black);
     color: white;
 }
   

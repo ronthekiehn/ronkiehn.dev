@@ -22,6 +22,17 @@ const Projects = () => {
             )}
             {showContent && (
                 <div className="content">
+                        <div className='project-tile aura'>
+                            <h2>twitter-aura2
+                            <a className="icon-link" href="https://github.com/ronthekiehn/twitter-aura2" target="_blank" rel="noreferrer">
+                                <GitHubIcon />
+                            </a>
+                            </h2>
+                            
+                            <div className='languages'>Svelte, Tailwind, Node.js, Vercel, MongoDB</div>
+                            <p>Website that generates a color palette and description based off of your twitter profile. Went viral and analyzed over 300,000 profiles.</p>
+                            <p className='note'><a href="https://twitter-aura2.vercel.app" target="_blank" rel="noreferrer">Try it out here!</a></p>
+                        </div>
                         <div className='project-tile website'>
                             <h2>ronkiehn.dev
                             <a className="icon-link" href="https://github.com/ronthekiehn/ronkiehn.dev" target="_blank" rel="noreferrer">

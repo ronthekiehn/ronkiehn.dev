@@ -3,7 +3,7 @@ import AboutMe from './components/AboutMe.jsx';
 import ChatBot from './components/ChatBot.jsx';
 import Spotify from './components/Spotify.jsx';
 import Projects from './components/Projects.jsx';
-import { GitHubIcon, LinkedInIcon, GoodReadsIcon, LetterBoxdIcon, CloseIcon } from "./components/icons"
+import { GitHubIcon, LinkedInIcon, GoodReadsIcon, LetterBoxdIcon, CloseIcon, TwitterIcon } from "./components/icons"
 import './App.css'
 
 function App() {
@@ -89,6 +89,9 @@ function App() {
               <a href="https://www.linkedin.com/in/ron-kiehn-a41932235/" target="_blank" rel="noreferrer">
                 <LinkedInIcon />
               </a>
+              <a href="https://x.com/rrawnyy" target="_blank" rel="noreferrer">
+                <TwitterIcon />
+              </a>
               <a href="https://letterboxd.com/ronthekiehn/" target="_blank" rel="noreferrer">
                 <LetterBoxdIcon />
               </a>
@@ -127,6 +130,9 @@ function App() {
             <a href="https://www.linkedin.com/in/ron-kiehn-a41932235/" target="_blank" rel="noreferrer">
               <LinkedInIcon />
             </a>
+            <a href="https://x.com/rrawnyy" target="_blank" rel="noreferrer">
+                <TwitterIcon />
+              </a>
             <a href="https://letterboxd.com/ronthekiehn/" target="_blank" rel="noreferrer">
               <LetterBoxdIcon />
             </a>

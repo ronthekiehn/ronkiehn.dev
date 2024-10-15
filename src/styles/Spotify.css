@@ -27,7 +27,10 @@
 }
 
 .playing-text {
-    padding: 0 20px;
+    background-color: var(--black);
+    border-radius: 20px;
+    width: fit-content;
+    padding: 5px 10px;
     color: white;
     display: flex;
     align-items: center;
@@ -53,7 +56,7 @@
     max-height: 90%;
     min-height: 150px;
     padding: 10px;
-    transition: box-shadow 0.3s;
+    transition: box-shadow 0.1s;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
 }
 
