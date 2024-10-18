@@ -302,6 +302,38 @@ div {
 }
 .about-me h2.show{
   opacity: 100%;
+  margin-bottom: 0;
+}
+
+.under-text{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1;
+  text-align: right;
+}
+
+.underbar{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .underbar{
+    flex-direction: column-reverse;
+    
+  }
+  .under-text{
+    text-align: center;
+  }
+
 }
 
 .about-me h2 .letter {
@@ -325,17 +357,16 @@ div {
 
 
 .icons{
-  border-radius: 15px;
   display: flex;
   flex-direction: row;
   justify-content: left;
   align-items: center;
-  width: auto;
 }
 
 .icons.show{
   transition-delay: 0.5s;
   opacity: 100%;
+  margin: 0;
 }
 
 .icons.hide{

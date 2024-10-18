@@ -30,7 +30,7 @@ const Projects = () => {
                             </h2>
                             
                             <div className='languages'>Svelte, Tailwind, Node.js, Vercel, MongoDB</div>
-                            <p>Website that generates a color palette and description based off of your twitter profile. Went viral and analyzed over 300,000 profiles.</p>
+                            <p>Website that generates a color palette and description based off of your twitter profile. Went viral and analyzed over 500,000 profiles.</p>
                             <p className='note'><a href="https://twitter-aura2.vercel.app" target="_blank" rel="noreferrer">Try it out here!</a></p>
                         </div>
                         <div className='project-tile website'>

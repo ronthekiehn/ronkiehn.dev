@@ -82,22 +82,28 @@ function App() {
                   <span key={index} className="letter last-name">{char}</span>
             ))}
             </h2>
-            <div className={`icons ${showProjects && !isMobile ? 'hide' : 'show'}`}>
-              <a href="https://github.com/ronthekiehn/" target="_blank" rel="noreferrer">
-                <GitHubIcon />
-              </a>
-              <a href="https://www.linkedin.com/in/ron-kiehn-a41932235/" target="_blank" rel="noreferrer">
-                <LinkedInIcon />
-              </a>
-              <a href="https://x.com/rrawnyy" target="_blank" rel="noreferrer">
-                <TwitterIcon />
-              </a>
-              <a href="https://letterboxd.com/ronthekiehn/" target="_blank" rel="noreferrer">
-                <LetterBoxdIcon />
-              </a>
-              <a href="https://www.goodreads.com/user/show/153869783-ron-kiehn" target="_blank" rel="noreferrer">
-                <GoodReadsIcon />
-              </a>
+            <div className='underbar'>
+              <div className={`icons ${showProjects && !isMobile ? 'hide' : 'show'}`}>
+                <a href="https://github.com/ronthekiehn/" target="_blank" rel="noreferrer">
+                  <GitHubIcon />
+                </a>
+                <a href="https://www.linkedin.com/in/ron-kiehn-a41932235/" target="_blank" rel="noreferrer">
+                  <LinkedInIcon />
+                </a>
+                <a href="https://x.com/rrawnyy" target="_blank" rel="noreferrer">
+                  <TwitterIcon />
+                </a>
+                <a href="https://letterboxd.com/ronthekiehn/" target="_blank" rel="noreferrer">
+                  <LetterBoxdIcon />
+                </a>
+                <a href="https://www.goodreads.com/user/show/153869783-ron-kiehn" target="_blank" rel="noreferrer">
+                  <GoodReadsIcon />
+                </a>
+              </div>
+              <div className='under-text'>
+                <span>cs & philosophy @ uchicago </span>
+                <span>hire me: ronki@uchicago.edu</span>
+              </div>
             </div>
             {isMobile && (<div className='scroll'>
               <span>scroll</span>
