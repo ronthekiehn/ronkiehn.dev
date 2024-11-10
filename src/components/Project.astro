@@ -19,7 +19,7 @@ const { title, languages, description, github, url } = Astro.props;
         <div class="flex align-middle justify-between">
             {url ? 
                 <a class="rounded-lg text-2xl px-2 hover:bg-gray-800 transition-all truncate" href={url} target="_blank" rel="noreferrer">{title}</a>
-                : <a class="px-2 text-2xl truncate">{title}</a>}
+                : <span class="px-2 text-2xl truncate">{title}</span>}
             {github && 
                 <a class="hover:scale-105 transition-all shrink-0" href={github} target="_blank" rel="noreferrer">
                     <GithubIcon />
