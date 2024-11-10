@@ -1,0 +1,40 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <script is:inline src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/rkfavico.png" type="image/x-icon">
+  </head>
+  <body class="bg-black text-white">
+    <main class="flex justify-center">
+        <slot />
+        <div class="absolute top-2 right-1/2 translate-x-1/2 md:translate-x-0 md:right-2 text-xs">
+            <div id="page-load"></div>
+            <div class="hidden md:block" id="fcp"></div>
+          </div>
+    </main>
+    <script>
+      $(document).ready(function() {
+        // Modern page load measurement
+        const pageLoadTime = performance.now();
+        $('#page-load').text(`Page loaded in ${Math.round(pageLoadTime)}ms`);
+
+        // First Contentful Paint
+        new PerformanceObserver((entryList) => {
+            const [entry] = entryList.getEntries();
+            $('#fcp').text(`First paint in ${Math.round(entry.startTime)}ms`);
+        }).observe({ entryTypes: ['paint'] });
+        });
+    </script>
+  </body>
+</html>

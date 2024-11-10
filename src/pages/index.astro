@@ -1,0 +1,122 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Spotify from '../components/Spotify.astro';
+import Project from '../components/Project.astro';
+import '../styles/hover.css';
+
+const projects = [
+  {
+    title: "twitter-aura2",
+    languages: "Svelte, Tailwind, Node.js, Vercel, MongoDB",
+    description: "The viral twitter color palette analyzer.",
+    github: "https://github.com/ronthekiehn/twitter-aura2",
+    url: "https://twitter-aura2.vercel.app"
+  },
+  {
+    title: "Cube-Web",
+    languages: "C, JavaScript, WASM, GitHub Pages",
+    description: "The ASCII spinning cube is now in your browser with the power of WASM.",
+    github: "https://github.com/ronthekiehn/cube-web",
+    url: "https://ronthekiehn.github.io/cube-web/"
+  },
+  {
+    title: "AI Review Consensus",
+    languages: "JavaScript, Gemini API, Vercel",
+    description: "Chrome extension that writes an AI-generated review consensus on Goodreads.com.",
+    github: "https://github.com/ronthekiehn/Goodreads",
+    url: "https://chromewebstore.google.com/detail/review-consensus-for-good/klpimcobgdoeidognoplffkaajjialid?authuser=0&hl=en"
+  },
+  {
+    title: "BetterSpotifyRecs",
+    languages: "HTML/CSS/JS, Node.js, Spotify API, Heroku, Vercel, Firebase",
+    description: "Vanilla JS web app to generate unique Spotify recommendations. Awaiting API extension for full release.",
+    github: "https://github.com/ronthekiehn/BetterSpotifyRecs",
+  },
+  {
+    title: "DAWand Blender",
+    languages: "Python, PyTorch, Blender API",
+    description: "Add-on that runs Richard Liu and 3DL's DAWand in Blender. Releasing Fall 2024.",
+    url: "https://github.com/threedle/DA-Wand"
+  },
+  {
+    title: "Daily Aurelius",
+    languages: "JavaScript, Python",
+    description: "Chrome extension that shows a new quote from Meditations every day.",
+    github: "https://github.com/ronthekiehn/Daily-Aurelius",
+    url: "https://chromewebstore.google.com/detail/daily-aurelius/pnmaadcfpnogifckbhhbmfflkbjoekji"
+  },
+  {
+    title: "Cube",
+    languages: "C, Python",
+    description: "Takes a simple ASCII cube and adds a ton of features.",
+    github: "https://github.com/ronthekiehn/Cube"
+  },
+  {
+    title: "Dune2Risk",
+    languages: "Python, PyGame",
+    description: "Uncommon Hacks 2024 Best Game Winner. It's like Risk but Dune, made in Pygame.",
+    github: "https://github.com/ethaneig/dune2risk",
+    url: "https://uncommon-hacks-2024.devpost.com/project-gallery"
+  },
+  {
+    title: "PopPriceGuide Scraper",
+    languages: "Python, Selenium, BeautifulSoup, re",
+    description: "A small web scraper for PopPriceGuide to find the price of a Funko Pop. My first time web scraping!",
+    github: "https://github.com/ronthekiehn/FunkoPop-Scraper"
+  },
+];
+---
+
+<Layout title="ron kiehn dot dev">
+	<div class="max-w-4xl w-full p-10">
+		<div class="flex flex-col justify-center space-y-4">
+			<div class="flex justify-between mb-4">
+				<h1 class="text-3xl md:text-5xl">ron kiehn dot dev</h1>
+				<Spotify />
+			</div>
+			<div class="flex flex-col text-lg">
+				<span>cs & philosophy @ uchicago. i code in c, python and javascript.</span>
+			</div>
+			<div class="relative divider h-[2px] w-full bg-white md:bg-gray-600">
+				<div class="absolute inset-0 bg-gradient-radial z-10"></div>
+			</div>
+		
+			<div class="flex flex-col text-lg">
+				<span>contact me</span>
+				<span>ronki@uchicago.edu or on 
+					<a href="https://github.com/ronthekiehn" target="_blank" rel="noreferrer" class="hover:underline">github</a>,
+					<a href="https://www.linkedin.com/in/ron-kiehn-a41932235/" target="_blank" rel="noreferrer" class="hover:underline">linkedin</a>,
+					  or 
+					  <a href="https://x.com/rrawnyy" target="_blank" rel="noreferrer" class="hover:underline">twitter</a>.
+					</span>
+			</div>
+
+			<div class="relative divider h-[2px] w-full bg-white md:bg-gray-600">
+				<div class="absolute inset-0 bg-gradient-radial z-10"></div>
+			</div>
+			
+			<div class="flex flex-col text-lg">
+				<span>this site is built with astro, jquery and tailwind.</span>
+				<span>to see my original site, built with react, click <a class="hover:underline" href="/old">here</a>.</span>
+			</div>
+			
+			<div class="relative divider h-[2px] w-full bg-white md:bg-gray-600">
+				<div class="absolute inset-0 bg-gradient-radial z-10"></div>
+			</div>
+			<span class="text-lg">otherwise, peep the projects</span>
+		
+
+		</div>
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+			{projects.map(project => (
+				<Project {...project} />
+			  ))}			
+		</div>
+</Layout>
+
+<script>
+  import { initializeHover } from '../scripts/hover.js';
+  initializeHover('.divider');
+</script>
+
+

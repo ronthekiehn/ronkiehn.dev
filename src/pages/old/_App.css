@@ -213,6 +213,7 @@ div {
   transition: width var(--speed), height var(--speed), opacity 0s;
   width: calc(100% - 50px);
   height: calc(100% - 50px);
+  justify-content: center;
   z-index: 5;
   opacity: 100%;
 }
@@ -254,8 +255,8 @@ div {
 
 .close-button{
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 0px;
+  left: 15px;
   border: none;
   background: none;
   width: 50px;

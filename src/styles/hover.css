@@ -1,0 +1,7 @@
+.bg-gradient-radial {
+    background-image: radial-gradient(
+        200px circle at var(--mouse-x) var(--mouse-y),
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 0) 100%
+    );
+}

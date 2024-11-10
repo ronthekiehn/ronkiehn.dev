@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import '../styles/Spotify.css';
-import { SpotifyIcon, LetterBoxdIcon } from './icons';
+import '../styles/_Spotify.css';
+import { SpotifyIcon, LetterBoxdIcon } from './_icons';
 const myApi = 'https://ronkiehn-dev.vercel.app';
 
 const Spotify = () => {

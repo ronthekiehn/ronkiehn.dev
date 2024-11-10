@@ -1,0 +1,58 @@
+---
+import '../styles/hover.css';
+import SpotifyIcon from '../icons/SpotifyIcon.astro';
+---
+
+<div class="relative spotify-hover rounded-xl w-64 h-full bg-white md:bg-gray-600">
+    <div class="absolute inset-0 bg-gradient-radial z-0 rounded-xl"></div>
+    <div class="relative m-[2px] bg-black rounded-xl p-2 z-10 flex items-center">
+        <SpotifyIcon />
+        <div id="loading" class="my-auto">Loading...</div>
+        <div id="spotify-content" class="flex items-center flex-1 min-w-0">
+            <div id="offline" class="hidden my-auto">
+                Currently offline
+            </div>
+            <div id="song" class="text-xs w-full">
+                <strong id="song-title" class="block truncate"></strong>
+                <p id="song-artist" class="block truncate"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  import { initializeHover } from '../scripts/hover.js';
+  
+  interface SpotifyData {
+    title: string;
+    artist: string;
+  }
+
+  $(document).ready(function() {
+    // Initialize hover effect
+    initializeHover('.spotify-hover');
+    
+    const fetchNowPlaying = () => {
+      $.getJSON('https://ronkiehn-dev.vercel.app/api/spotify', function(data: SpotifyData) {
+        $('#loading').hide();
+        $('#spotify-content').show();
+
+        if (data) {
+          $('#offline').hide();
+          $('#song').show();
+          $('#song-title').text(data.title);
+          $('#song-artist').text(data.artist);
+        } else {
+          $('#song').hide();
+          $('#offline').show();
+        }
+      }).fail(function() {
+        console.error('Error fetching now playing data');
+      });
+    };
+
+    // Initial fetch and set interval
+    fetchNowPlaying();
+    setInterval(fetchNowPlaying, 10000);
+  });
+</script>

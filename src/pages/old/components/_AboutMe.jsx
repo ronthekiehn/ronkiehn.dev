@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import '../styles/AboutMe.css';
+import '../styles/_AboutMe.css';
 
 const name = ['r', 'o', 'n'];
 let alt = false;

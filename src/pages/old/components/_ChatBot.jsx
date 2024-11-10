@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import '../styles/ChatBot.css';
-import { ArrowIcon } from './icons';
+import '../styles/_ChatBot.css';
+import { ArrowIcon } from './_icons';
 import { marked } from 'marked';
 const myApi = 'https://ronkiehn-dev.vercel.app';
 

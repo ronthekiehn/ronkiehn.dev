@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import AboutMe from './components/AboutMe.jsx';
-import ChatBot from './components/ChatBot.jsx';
-import Spotify from './components/Spotify.jsx';
-import Projects from './components/Projects.jsx';
-import { GitHubIcon, LinkedInIcon, GoodReadsIcon, LetterBoxdIcon, CloseIcon, TwitterIcon } from "./components/icons"
-import './App.css'
+import AboutMe from './components/_AboutMe.jsx';
+import ChatBot from './components/_ChatBot.jsx';
+import Spotify from './components/_Spotify.jsx';
+import Projects from './components/_Projects.jsx';
+import { GitHubIcon, LinkedInIcon, GoodReadsIcon, LetterBoxdIcon, CloseIcon, TwitterIcon } from "./components/_icons.jsx"
+import './_App.css'
+import './_index.css'
 
 function App() {
   const [showProjects, setShowProjects] = useState(false);
   const [iconPosition, setIconPosition] = useState({ top: 0, left: 0 });
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isMobile, setIsMobile] = useState(false);
   const [loadedText, setLoadedText] = useState(false);
   const [textPos, setTextPos] = useState({ top: '50%', left: '50%'});
 
   useEffect(() => {
+    setIsMobile(window.innerWidth <= 768);
     setTimeout(() => {
       const title = document.querySelector('.about-me h2');
       if (title) {

@@ -13,6 +13,9 @@ h1{
     animation: fadeIn 0.2s;
 }
 
+.container{
+    width: 100%;
+}
 
 .content{
     display: grid;
@@ -22,7 +25,7 @@ h1{
     justify-content: center;
     z-index: 1;
     height: 100%;
-    width: 90%;
+    width: 100%;
     animation: fadeIn 0.2s;
     overflow-y: auto;
     scrollbar-width: none; /* For Firefox */
@@ -54,6 +57,15 @@ h1{
     padding: 20px 30px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: 0.1s ease-in-out;
+}
+
+h2,
+h1{
+    font-weight: 800;
+}
+h2{
+    font-size: 1.5em;
+    margin-bottom: 5px;
 }
 
 .project-tile:hover{
