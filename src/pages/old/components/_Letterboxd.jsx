@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import parse from 'html-react-parser';
 
 const LetterBoxd = () => {
   const [recentMovie, setRecentMovie] = useState(null);
