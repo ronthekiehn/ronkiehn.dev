@@ -6,36 +6,40 @@ interface Props {
 const { title } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="en" class="no-scrollbar">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content="peep the website">
     <title>{title}</title>
-    <script is:inline src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="/rkfavico.png" type="image/x-icon">
+    <style is:global>
+      /* like i don't even gaf */      
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
   </head>
-  <body class="bg-black text-white">
-    <main class="flex justify-center">
+  <body class="bg-black text-white no-scrollbar overflow-x-hidden">
+    <main class="flex justify-center relative z-10 no-scrollbar">
         <slot />
         <div class="absolute top-2 right-1/2 translate-x-1/2 md:translate-x-0 md:right-2 text-xs">
             <div id="page-load"></div>
-            <div class="hidden md:block" id="fcp"></div>
           </div>
     </main>
     <script>
-      $(document).ready(function() {
-        // Modern page load measurement
+      import $ from 'jquery';
+     
+      $(function() {
         const pageLoadTime = performance.now();
         $('#page-load').text(`Page loaded in ${Math.round(pageLoadTime)}ms`);
-
-        // First Contentful Paint
-        new PerformanceObserver((entryList) => {
-            const [entry] = entryList.getEntries();
-            $('#fcp').text(`First paint in ${Math.round(entry.startTime)}ms`);
-        }).observe({ entryTypes: ['paint'] });
-        });
+      });
     </script>
   </body>
 </html>

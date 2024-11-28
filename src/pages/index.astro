@@ -2,13 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 import Spotify from '../components/Spotify.astro';
 import Project from '../components/Project.astro';
+import ChatBot from '../components/ChatBot.jsx';
 import '../styles/hover.css';
 
 const projects = [
   {
     title: "twitter-aura2",
     languages: "Svelte, Tailwind, Node.js, Vercel, MongoDB",
-    description: "The viral twitter color palette analyzer.",
+    description: "The viral twitter color palette analyzer. Over 500k profiles analyzed.",
     github: "https://github.com/ronthekiehn/twitter-aura2",
     url: "https://twitter-aura2.vercel.app"
   },
@@ -32,9 +33,9 @@ const projects = [
     url: "https://chromewebstore.google.com/detail/review-consensus-for-good/klpimcobgdoeidognoplffkaajjialid?authuser=0&hl=en"
   },
   {
-    title: "BetterSpotifyRecs",
+    title: "Nootunez.com (WIP)",
     languages: "HTML/CSS/JS, Node.js, Spotify API, Heroku, Vercel, Firebase",
-    description: "Vanilla JS web app to generate unique Spotify recommendations. Awaiting API extension for full release.",
+    description: "Generate unique Spotify recommendations. Awaiting API extension for release.",
     github: "https://github.com/ronthekiehn/BetterSpotifyRecs",
   },
   {
@@ -66,54 +67,102 @@ const projects = [
   {
     title: "PopPriceGuide Scraper",
     languages: "Python, Selenium, BeautifulSoup, re",
-    description: "A small web scraper for PopPriceGuide to find the price of a Funko Pop. My first time web scraping!",
+    description: "A small web scraper for PopPriceGuide to find the price of a Funko Pop.",
     github: "https://github.com/ronthekiehn/FunkoPop-Scraper"
   },
 ];
 ---
 
 <Layout title="ron kiehn dot dev">
-	<div class="max-w-4xl mt-4 w-full p-10">
-		<div class="flex flex-col justify-center space-y-4">
+	<div class="max-w-5xl mt-4 w-full p-4 sm:p-8">
+		<div class="flex flex-col justify-center">
 			<div class="flex justify-between mb-4">
 				<h1 class="text-3xl md:text-5xl mr-2 md:mr-0">ron kiehn dot dev</h1>
 				<Spotify />
 			</div>
-			<div class="flex flex-col text-lg">
-				<span>cs & philosophy @ uchicago. i code in c, python and javascript.</span>
-			</div>
-			<div class="relative divider h-[2px] w-full bg-white md:bg-gray-600">
-				<div class="absolute inset-0 bg-gradient-radial z-10"></div>
-			</div>
-		
-			<div class="flex flex-col text-lg">
-				<span>contact me</span>
-				<span>ronki [at] uchicago [dot] edu or on 
-					<a href="https://github.com/ronthekiehn" target="_blank" rel="noreferrer" class="hover:underline">github</a>,
-					<a href="https://www.linkedin.com/in/ron-kiehn-a41932235/" target="_blank" rel="noreferrer" class="hover:underline">linkedin</a>,
-					  or 
-					  <a href="https://x.com/rrawnyy" target="_blank" rel="noreferrer" class="hover:underline">twitter</a>.
-					</span>
-			</div>
+      <div class="grid grid-cols-5">
+        <div class="col-span-5 sm:col-span-3 space-y-4">
+          <div class="flex flex-col text-lg">
+            <span class="font-bold">about me</span>
+            <span>cs & philosophy @ <span class="text-red-400">uchicago</span>.</span>
+            <span>i do frontend, fullstack, and machine learning</span>
+          </div>
+          <div class="my-2 relative divider h-[2px] w-full bg-gray-600">
+            <div class="absolute inset-0 bg-gradient-radial z-10"></div>
+          </div>
 
-			<div class="relative divider h-[2px] w-full bg-white md:bg-gray-600">
-				<div class="absolute inset-0 bg-gradient-radial z-10"></div>
-			</div>
-			
-			<div class="flex flex-col text-lg">
-				<span>
-          <a href="https://github.com/ronthekiehn/ronkiehn.dev" target="_blank" rel="noreferrer" class="hover:underline">this site</a>
-          is built with astro, jquery and tailwind.</span>
-				<span>to see my original site, built with react, visit <a class="hover:underline" href="/old">/old</a>.</span>
-			</div>
-			
-			<div class="relative divider h-[2px] w-full bg-white md:bg-gray-600">
-				<div class="absolute inset-0 bg-gradient-radial z-10"></div>
-			</div>
-			<span class="text-lg">otherwise, peep the projects</span>
-		
+          <div class="flex flex-col text-lg">
+            <span class="font-bold">programming</span>
+            <span>i mainly code in <span class="text-blue-300">c</span>, <span class="text-orange-300">python</span> and <span class="text-yellow-300">javascript</span>.</span>
+            <span>but i'm learning <span class="text-blue-300">typescript</span>, <span class="text-red-500">rust</span>, and <span class="text-purple-400">haskell.</span></span>
+          </div>
+          <div class="relative divider h-[2px] w-full bg-gray-600">
+            <div class="absolute inset-0 bg-gradient-radial z-10"></div>
+          </div>
+        
+          <div class="flex flex-col text-lg">
+            <span class="font-bold">hire me</span>
+            <span>ronki [at] uchicago [dot] edu</span>
+            <span>or find me on 
+              <a href="https://github.com/ronthekiehn" target="_blank" rel="noreferrer" class="text-yellow-200 hover:underline">github</a>,
+              <a href="https://www.linkedin.com/in/ron-kiehn-a41932235/" target="_blank" rel="noreferrer" class="text-blue-500 hover:underline">linkedin</a>,
+              and 
+              <a href="https://x.com/rrawnyy" target="_blank" rel="noreferrer" class="text-blue-200 hover:underline">twitter</a>.
+            </span>
+          </div>
+    
+         
+          
+        </div>
+        <div id="cube-container" class="hidden sm:flex h-full relative col-span-2 w-full max-h-[300px] justify-center items-center aspect-square overflow-hidden"></div>
+      </div>
+      <div class="space-y-4 mt-4">
+        <div class="relative divider h-[2px] w-full bg-gray-600">
+          <div class="absolute inset-0 bg-gradient-radial z-10"></div>
+        </div>
+        <div class="flex flex-col text-lg">
+          <span class="font-bold">site info</span>
+          <span>this site is built with 
+            <span class="text-red-400">astro</span>,
+            <span class="text-blue-500">jquery</span>,
+            <span class="text-blue-100">react</span>,
+            <span class="text-blue-300">tailwind</span>, and
+            <span class="text-yellow-300">threejs</span>.
+          </span>
+          <span>to see the previous version of this site, visit <a class="font-serif hover:underline" href="/old">/old</a>.</span>
+          <a href="https://github.com/ronthekiehn/ronkiehn.dev" target="_blank" rel="noreferrer" class="hover:underline">source code here</a>
+        </div>
+        
+        <div class="relative divider h-[2px] w-full bg-gray-600">
+          <div class="absolute inset-0 bg-gradient-radial z-10"></div>
+        </div>
+
+      </div>
+    		
 
 		</div>
+    <!-- <div class="flex justify-center mt-8">
+      <button id="projects-btn" class="mx-2 p-2 bg-blue-500 text-white rounded">Projects</button>
+      <button id="chatbot-btn" class="mx-2 p-2 bg-blue-500 text-white rounded">Chatbot</button>
+      <button id="blog-btn" class="mx-2 p-2 bg-blue-500 text-white rounded">Blog</button>
+    </div>
+
+    <div id="content-container" class="mt-8">
+      <div id="projects-content" class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+      {projects.map(project => (
+        <Project {...project} />
+      ))}
+      </div>
+      <div id="chatbot-content" class="hidden">
+        <ChatBot />
+      </div>
+      <div id="blog-content" class="h-screen hidden">
+        <span>Coming soon!</span>
+      </div>
+    </div> -->
+
+
+
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
 			{projects.map(project => (
 				<Project {...project} />
@@ -122,8 +171,130 @@ const projects = [
 </Layout>
 
 <script>
-  import { initializeHover } from '../scripts/hover.js';
-  initializeHover('.divider');
-</script>
+    import { initializeHover } from '../scripts/hover.js';
+    initializeHover('.divider');
+
+   
+    import $ from 'jquery';
+
+    // $(function() {
+    //   $('#projects-btn').on('click', function() {
+    //     $('#projects-content').removeClass('hidden');
+    //     $('#chatbot-content').addClass('hidden');
+    //     $('#blog-content').addClass('hidden');
+    //   });
+
+    //   $('#chatbot-btn').on('click', function() {
+    //     $('#projects-content').addClass('hidden');
+    //     $('#chatbot-content').removeClass('hidden');
+    //     $('#blog-content').addClass('hidden');
+    //   });
+
+    //   $('#blog-btn').on('click', function() {
+    //     $('#projects-content').addClass('hidden');
+    //     $('#chatbot-content').addClass('hidden');
+    //     $('#blog-content').removeClass('hidden');
+    //   });
+    //   });
+    
 
 
+     import * as THREE from 'three'
+    const scene = new THREE.Scene();
+    
+    const container = $('#cube-container');
+    const containerSize = Math.min(container.width(), 300);
+    
+    const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+    
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(containerSize, containerSize);
+    renderer.setAnimationLoop(animate);
+
+    const ambient = new THREE.DirectionalLight(0xffffff, 0.05);
+    ambient.position.set(10, 10, 10);
+    scene.add(ambient);
+    const ambient2 = new THREE.AmbientLight(0xffffff, 0.05);
+    scene.add(ambient2);
+
+    const light = new THREE.SpotLight(0xffffff, 20);
+    light.position.set(0, 0, 15); 
+    light.angle = Math.PI / 16;
+    light.penumbra = 1;
+    light.decay = 1;
+    light.distance = 30; 
+    
+    const lightTarget = new THREE.Object3D();
+    lightTarget.position.set(0, 0, 0); 
+    scene.add(lightTarget);
+    light.target = lightTarget;
+    scene.add(light);
+
+
+    $('#cube-container').append(renderer.domElement);
+
+    // Create cube with consistent size
+    const baseSize = 3;
+    const geometry = new THREE.BoxGeometry(baseSize, baseSize, baseSize);
+    const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+    
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    camera.position.z = 5;
+
+    // Create a function for the mousemove handler so we can reattach it
+    $(document).on("mousemove", (e: JQuery.MouseMoveEvent) => {
+      if (cube) {
+        const container = $('#cube-container');
+        const rect = container[0].getBoundingClientRect();
+        
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        // Normalize mouse position to -1 to 1 range relative to container center
+        const mousex = (e.clientX - centerX) / (rect.width * 2);
+        const mousey = (e.clientY - centerY) / (rect.height * 2);
+        
+        // Calculate rotations
+        const normalizedX = Math.min(Math.max(mousex, -1), 1);
+        const normalizedY = Math.min(Math.max(mousey, -1), 1);
+        
+        const rotationY = -(Math.acos(normalizedX));
+        const rotationX = Math.acos(normalizedY);
+        
+        cube.rotation.z = rotationX;
+        cube.rotation.y = rotationY;
+
+        // Update light position
+        const vector = new THREE.Vector3(
+          ((e.clientX - rect.left) / rect.width) * 2 - 1,
+          -((e.clientY - rect.top) / rect.height) * 2 + 1,
+          0.5
+        );
+        
+        vector.unproject(camera);
+        vector.sub(camera.position).normalize();
+        
+        const distance = -camera.position.z / vector.z;
+        const targetPos = camera.position.clone().add(vector.multiplyScalar(distance));
+        
+        lightTarget.position.copy(targetPos);
+        light.position.set(targetPos.x, targetPos.y, 15);
+      }
+    });
+
+    // Update resize handler
+    $(window).on('resize', () => {
+        const container = $('#cube-container');
+        const newSize = Math.min(container.width(), 300);
+        
+        renderer.setSize(newSize, newSize);
+        camera.aspect = 1;
+        camera.updateProjectionMatrix();
+    });
+
+    function animate() {
+        renderer.render(scene, camera);
+    }
+  </script>

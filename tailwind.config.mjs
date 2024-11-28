@@ -10,6 +10,11 @@ export default {
 		backgroundImage: {
 			'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
 		  },
+		borderRadius: {
+		xl: "0.75rem",
+		lg: "calc(0.75rem - 2px)",
+		md: "calc(0.75rem - 4px)",
+		},
 	  },
 	},
 	plugins: [],

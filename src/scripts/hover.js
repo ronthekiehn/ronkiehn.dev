@@ -1,3 +1,4 @@
+import $ from "jquery";
 export function initializeHover(selector) {
     $(document).mousemove(function(e) {
         $(selector).each(function() {

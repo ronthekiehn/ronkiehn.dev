@@ -3,9 +3,9 @@ import '../styles/hover.css';
 import SpotifyIcon from '../icons/SpotifyIcon.astro';
 ---
 
-<div class="relative spotify-hover rounded-xl w-1/2 md:w-64 h-full bg-white md:bg-gray-600">
-    <div class="absolute inset-0 bg-gradient-radial z-0 rounded-xl"></div>
-    <div class="relative m-[2px] bg-black rounded-xl p-2 z-10 flex items-center">
+<div class="relative spotify-hover rounded-[12px] w-1/2 md:w-64 h-full bg-gray-600">
+    <div class="absolute inset-0 bg-gradient-radial z-0 rounded-[12px]"></div>
+    <div class="relative m-[2px] bg-black rounded-[10.5px] p-2 z-10 flex items-center">
         <SpotifyIcon />
         <div id="loading" class="my-auto">Loading...</div>
         <div id="spotify-content" class="flex items-center flex-1 min-w-0">
@@ -22,7 +22,7 @@ import SpotifyIcon from '../icons/SpotifyIcon.astro';
 
 <script>
   import { initializeHover } from '../scripts/hover.js';
-  
+  import $ from 'jquery';
   interface SpotifyData {
     title: string;
     artist: string;
