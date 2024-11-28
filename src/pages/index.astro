@@ -63,6 +63,12 @@ const projects = [
     description: "An open source alternative to screen recording tools like ScreenStudio.",
   },
   {
+    title: "Haskell-Cube (WIP)",
+    languages: "Haskell, Javascript",
+    description: "Recreating my Cube project in Haskell. Hoping to make a web version.",
+    github: "https://github.com/ronthekiehn/Cube"
+  },
+  {
     title: "Cube",
     languages: "C, Python",
     description: "Takes a simple ASCII cube and adds a ton of features.",
@@ -85,7 +91,7 @@ const projects = [
 ---
 
 <Layout title="ron kiehn dot dev">
-	<div class="max-w-5xl mt-4 w-full p-4 sm:p-8">
+	<div class="max-w-5xl w-full p-4 sm:p-8">
 		<div class="flex flex-col justify-center">
 			<div class="flex justify-between mb-4">
 				<h1 class="text-3xl md:text-5xl mr-2 md:mr-0">ron kiehn dot dev</h1>
@@ -141,7 +147,7 @@ const projects = [
             <span class="text-yellow-300">threejs</span>.
           </span>
           <span>to see the previous version of this site, visit <a class="font-serif hover:underline" href="/old">/old</a>.</span>
-          <a href="https://github.com/ronthekiehn/ronkiehn.dev" target="_blank" rel="noreferrer" class="hover:underline">source code here</a>
+          <a href="https://github.com/ronthekiehn/ronkiehn.dev" target="_blank" rel="noreferrer" class="w-fit hover:underline">view the source code here</a>
         </div>
         
         <div class="relative divider h-[2px] w-full bg-gray-600">
@@ -222,13 +228,13 @@ const projects = [
     renderer.setSize(containerSize, containerSize);
     renderer.setAnimationLoop(animate);
 
-    const ambient = new THREE.DirectionalLight(0xffffff, 0.05);
+    const ambient = new THREE.DirectionalLight(0xffffff, 0.1);
     ambient.position.set(10, 10, 10);
     scene.add(ambient);
-    const ambient2 = new THREE.AmbientLight(0xffffff, 0.05);
+    const ambient2 = new THREE.AmbientLight(0xffffff, 0.1);
     scene.add(ambient2);
 
-    const light = new THREE.SpotLight(0xffffff, 20);
+    const light = new THREE.SpotLight(0xffffff, 30);
     light.position.set(0, 0, 15); 
     light.angle = Math.PI / 16;
     light.penumbra = 1;
@@ -243,11 +249,12 @@ const projects = [
 
 
     $('#cube-container').append(renderer.domElement);
+    renderer.setClearColor(0x171717);
 
     // Create cube with consistent size
     const baseSize = 3;
     const geometry = new THREE.BoxGeometry(baseSize, baseSize, baseSize);
-    const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+    const material = new THREE.MeshStandardMaterial({ color: 0xdddddd });
     
     const cube = new THREE.Mesh(geometry, material);
     scene.add(cube);

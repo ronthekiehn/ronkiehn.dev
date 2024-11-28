@@ -17,29 +17,32 @@ const { title, languages, description, github, url } = Astro.props;
 <div class={`relative project inset-0 bg-gray-600 rounded-[12px] h-[130px] w-full`}>
     <div class="absolute inset-0 bg-gradient-radial rounded-[12px] z-0"></div>
 
-    <div class="relative m-[2px] bg-black rounded-[10.5px] p-2 lg:p-4 z-10 h-[126px] space-y-1">
-        <div class="flex align-middle justify-between">
-            {url ? 
-                <a class="group flex items-center rounded-lg text-2xl hover:underline transition-all truncate" href={url} target="_blank" rel="noreferrer">
-                    {title}
+    <div class="relative m-[2px] bg-black group hover:bg-gray-900 transition-colors rounded-[10.5px] p-2 lg:p-4 z-10 h-[126px] space-y-1">
+        {url && 
+            <a class="absolute inset-0 z-20" href={url} target="_blank" rel="noreferrer">
+                <span class="sr-only">{title} - open project</span>
+            </a>
+        }
+        <div class="flex w-full align-middle justify-between relative">
+            <span class="flex items-center rounded-lg text-2xl transition-all truncate group pointer-events-none">
+                {title}
+                {url && 
                     <div class="opacity-0 group-hover:opacity-100">
                         <ExternalLink />
                     </div>
-                </a>
-                : <span class="text-2xl truncate">{title}</span>}
+                }
+            </span>
             {github && 
-                <a class="hover:scale-105 transition-all shrink-0" href={github} target="_blank" rel="noreferrer">
+                <a class="hover:scale-105 transition-all shrink-0 relative z-30" 
+                   href={github} 
+                   target="_blank" 
+                   rel="noreferrer"
+                   onclick="event.stopPropagation()">
                     <GithubIcon />
-                </a>}
+                </a>
+            }
         </div>
-        <!-- <div class="ml-1 hidden md:block">
-            {languages.split(',').map((lang) => (
-                <span class="inline-block bg-gray-800 rounded-full px-2 py-1 text-xs mr-1 mb-1">
-                    {lang.trim()}
-                </span>
-            ))}
-        </div> -->
-        <p class="line-clamp-4">{description}</p>    
+        <p class="line-clamp-4 pointer-events-none">{description}</p>
     </div>
 </div>
 

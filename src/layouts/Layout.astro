@@ -26,20 +26,20 @@ const { title } = Astro.props;
       }
     </style>
   </head>
-  <body class="bg-black text-white no-scrollbar overflow-x-hidden">
+  <body class="bg-neutral-900 text-white no-scrollbar overflow-x-hidden">
     <main class="flex justify-center relative z-10 no-scrollbar">
         <slot />
-        <div class="absolute top-2 right-1/2 translate-x-1/2 md:translate-x-0 md:right-2 text-xs">
+        <!-- <div class="absolute top-0 right-1/2 translate-x-1/2 md:translate-x-0 md:right-2 text-xs">
             <div id="page-load"></div>
-          </div>
+          </div> -->
     </main>
     <script>
-      import $ from 'jquery';
+      // import $ from 'jquery';
      
-      $(function() {
-        const pageLoadTime = performance.now();
-        $('#page-load').text(`Page loaded in ${Math.round(pageLoadTime)}ms`);
-      });
+      // $(function() {
+      //   const pageLoadTime = performance.now();
+      //   $('#page-load').text(`${Math.round(pageLoadTime)}ms`);
+      // });
     </script>
   </body>
 </html>
