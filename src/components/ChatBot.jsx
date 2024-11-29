@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { marked } from 'marked';
+import '../styles/scrollbar.css';
+import { ArrowIcon } from '../icons/ArrowIcon';
+
 const myApi = 'https://ronkiehn-dev.vercel.app';
 
 const Chatbot = () => {
@@ -12,11 +15,9 @@ const Chatbot = () => {
   const chatContainerRef = useRef(null);
   
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setWriteHistory([{ role: 'model', text: "Hi, I'm a Gemini instance tuned to act like Ron. Ask me anything!", time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }]);
-    }, 5000);
+  
+    setWriteHistory([{ role: 'model', text: "hi, i'm google gemini tuned to act like ron. talk to me about coding, philosophy, movies, or anything else!", time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }]);
 
-    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -32,8 +33,6 @@ const Chatbot = () => {
   }, [retryCount]);
 
   const handleSubmit = async (event, retryCount = 0) => {
-    console.log('ets');
-    console.log(event)
     if (event) {
       event.preventDefault();
     } else {
@@ -87,7 +86,7 @@ const Chatbot = () => {
       } else {
         setWriteHistory((prev) => [
           ...prev,
-          { role: 'model', text: 'Sorry, I encountered an error. Please try again.', time: time }
+          { role: 'model', text: 'sorry, i encountered an error. please try again.', time: time }
         ]);
       }
     } finally {
@@ -96,39 +95,64 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="chatbot">
-      <div className="chat-window">
-      <div className="title">RawnBot 1.1</div>
-        <div className="chat-history" ref={chatContainerRef}>
-          {writeHistory.map((msg, index) => (
-            <div key={index}>
-              <div className={`message ${msg.role}`}>
-                <p className="message-content" dangerouslySetInnerHTML={{ __html: marked(msg.text) }} />
+    <div className="flex h-full flex-col items-center">
+      <span className="text-gray-200 text-xl font-bold py-4">RawnBot 1.2</span>
+      <div 
+        className="bg-black max-w-3xl w-full h-full overflow-y-auto no-scrollbar p-4"
+        ref={chatContainerRef}
+      >
+        {writeHistory.map((msg, index) => (
+          <div key={index} className="mb-4">
+            <div className="flex items-center space-x-4">
+              <div className={`w-10 h-10 rounded-full flex-shrink-0 ${
+                msg.role === 'user' ? 'bg-blue-500' : 'bg-red-500'
+              } flex items-center justify-center text-white`}>
+                {msg.role === 'user' ? 'y' : 'r'}
               </div>
-              <div className={`message ${msg.role}`}>
-                <p className="timestamp">{msg.time}</p>
+              <div className="flex-1">
+                <div className="flex items-center space-x-2">
+                  <span className={`font-medium ${
+                    msg.role === 'user' ? 'text-blue-400' : 'text-red-400'
+                  }`}>
+                    {msg.role === 'user' ? 'you' : 'rawnbot'}
+                  </span>
+                  <span className="text-xs text-gray-400">{msg.time}</span>
+                </div>
+                <div 
+                  className="text-gray-100 mt-1"
+                  dangerouslySetInnerHTML={{ __html: marked(msg.text) }}
+                />
               </div>
             </div>
-          ))}
-          {isLoading && (<div className="loading-message">
-            <span className="loading-dots">
-              <span>.</span>
-              <span>.</span>
-              <span>.</span>
-            </span>
-          </div>)}
-        </div>
-        <form onSubmit={handleSubmit}>
+          </div>
+        ))}
+        {isLoading && (
+          <div className="ml-10 flex items-center space-x-2 text-gray-400 p-4">
+            <div className="animate-bounce">•</div>
+            <div className="animate-bounce" style={{ animationDelay: '100ms' }}>•</div>
+            <div className="animate-bounce" style={{ animationDelay: '200ms' }}>•</div>
+          </div>
+        )}
+      </div>
+      <div className="w-full px-4 pb-4 sticky mb-2 bottom-0  bg-gradient-to-t from-black via-black to-transparent pt-8">
+        <form 
+          className="relative bg-[#383A40] max-w-2xl mx-auto rounded-full flex justify-between items-center"
+          onSubmit={handleSubmit}
+        >
           <input
+            className="ml-1 w-full bg-transparent text-gray-100 px-4 py-3 focus:outline-none"
             type="text"
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
-            placeholder="Type your message..."
-            disabled={isLoading} 
+            placeholder="type ur message..."
+            disabled={isLoading}
           />
-          <button type="submit" disabled={isLoading}>
-            send
-            {/* <ArrowIcon /> */}
+          <button 
+            className="w-8 h-8 mr-1 disabled:opacity-50"
+            type="submit"
+            disabled={isLoading}
+          >
+           <ArrowIcon />
           </button>
         </form>
       </div>

@@ -4,6 +4,7 @@ interface Props {
 }
 
 const { title } = Astro.props;
+import '../styles/scrollbar.css';
 ---
 
 <html lang="en" class="no-scrollbar">
@@ -14,17 +15,6 @@ const { title } = Astro.props;
     <title>{title}</title>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="/rkfavico.png" type="image/x-icon">
-    <style is:global>
-      /* like i don't even gaf */      
-      .no-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-      }
-      
-      .no-scrollbar::-webkit-scrollbar {
-        display: none;
-      }
-    </style>
   </head>
   <body class="bg-neutral-900 text-white no-scrollbar overflow-x-hidden">
     <main class="flex justify-center relative z-10 no-scrollbar">
