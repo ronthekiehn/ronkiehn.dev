@@ -103,8 +103,8 @@ const Chatbot = () => {
       >
         {writeHistory.map((msg, index) => (
           <div key={index} className="mb-4">
-            <div className="flex items-center space-x-4">
-              <div className={`w-10 h-10 rounded-full flex-shrink-0 ${
+            <div className="flex items-start space-x-4">
+              <div className={`w-10 h-10 mt-2 rounded-full flex-shrink-0 ${
                 msg.role === 'user' ? 'bg-blue-500' : 'bg-red-500'
               } flex items-center justify-center text-white`}>
                 {msg.role === 'user' ? 'y' : 'r'}
