@@ -1,0 +1,30 @@
+---
+const posts = await Astro.glob('../posts/*.md');
+const sortedPosts = posts.sort((a, b) => 
+  new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime()
+);
+---
+<div>
+    coming soon!
+</div>
+<!-- <div x-data="{ selected: {} }" class="space-y-8">
+  {sortedPosts.map((post) => (
+    <article class="">
+        <div class="bg-neutral-900 sticky mb-2 top-2">
+            <div class="flex justify-between items-center">
+                <h2 class="text-2xl font-bold">{post.frontmatter.title}</h2>
+                <button 
+                @click={`selected['${post.frontmatter.title}'] = !selected['${post.frontmatter.title}']`}
+                x-text={`selected['${post.frontmatter.title}'] ? 'Close' : 'Read'`}
+                class="px-3 py-1 rounded bg-gray-800 hover:bg-gray-700 transition-colors"
+                />
+            </div>
+            <p class="text-gray-400">By {post.frontmatter.author}</p>
+            <p class="text-gray-400">{post.frontmatter.date}</p>
+        </div>
+      <div class="prose prose-invert" x-show={`selected['${post.frontmatter.title}']`} x-collapse>
+        <post.Content />
+      </div>
+    </article>
+  ))}
+</div> -->
