@@ -10,7 +10,7 @@ const projects = [
   {
     title: "twitter-aura2",
     languages: "Svelte, Tailwind, Node.js, Vercel, MongoDB",
-    description: "The viral twitter color palette analyzer. Over 500k profiles analyzed.",
+    description: "The viral twitter color palette analyzer. Over 500,000 profiles analyzed.",
     github: "https://github.com/ronthekiehn/twitter-aura2",
     url: "https://twitter-aura2.vercel.app"
   },
@@ -104,6 +104,7 @@ const projects = [
             <span class="font-bold">about me</span>
             <span>cs & philosophy @ <span class="text-red-400">uchicago</span>.</span>
             <span>i do frontend, fullstack, and machine learning</span>
+            <!-- <a href="buymeacoffee.com/ronthekiehn" target="_blank" rel="noreferrer" class="hover:underline  text-yellow-200">buy me a coffee</a> -->
           </div>
           <div class="my-2 relative divider h-[2px] w-full bg-gray-600">
             <div class="absolute inset-0 bg-gradient-radial z-10"></div>
@@ -125,7 +126,7 @@ const projects = [
               <a href="https://github.com/ronthekiehn" target="_blank" rel="noreferrer" class="text-yellow-200 hover:underline">github</a>,
               <a href="https://www.linkedin.com/in/ron-kiehn-a41932235/" target="_blank" rel="noreferrer" class="text-blue-500 hover:underline">linkedin</a>,
               and 
-              <a href="https://x.com/rrawnyy" target="_blank" rel="noreferrer" class="text-blue-200 hover:underline">twitter</a>.
+              <a href="https://x.com/reallyrawn" target="_blank" rel="noreferrer" class="text-blue-200 hover:underline">twitter</a>.
             </span>
           </div>
     
@@ -148,7 +149,7 @@ const projects = [
             <span class="text-yellow-300">threejs</span>.
           </span>
           <span>to see the previous version of this site, visit <a class="font-serif hover:underline" href="/old">/old</a>.</span>
-          <a href="https://github.com/ronthekiehn/ronkiehn.dev" target="_blank" rel="noreferrer" class="w-fit hover:underline">view the source code here</a>
+          <a href="https://github.com/ronthekiehn/ronkiehn.dev" target="_blank" rel="noreferrer" class="w-fit hover:underline">or view the source code here</a>
         </div>
       </div>
     		
@@ -195,15 +196,25 @@ const projects = [
    
     import $ from 'jquery';
 
-    $(function() {
-      $('#slider').css('left', '0');
-      
-      function switchTab(position: string, tabId: string) {
+    function switchTab(position: string, tabId: string) {
         $('#slider').css('left', position);
         $('#projects, #chatbot, #blog').addClass('hidden');
         $(tabId).removeClass('hidden');
       }
 
+    function handleHash() {
+        const hash = window.location.hash;
+        if (hash === '#blog') {
+            switchTab('66.66%', '#blog');
+        } else if (hash === '#chatbot') {
+            switchTab('33.33%', '#chatbot');
+        } else {
+            switchTab('0', '#projects');
+        }
+    }
+
+    
+    $(function() {
       $('#projects-btn').on('click', function() {
         switchTab('0', '#projects');
       });
@@ -215,6 +226,9 @@ const projects = [
       $('#blog-btn').on('click', function() {
         switchTab('66.66%', '#blog');
       });
+
+      handleHash();
+      $(window).on('hashchange', handleHash);
     });
     
 
