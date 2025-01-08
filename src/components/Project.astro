@@ -14,10 +14,10 @@ import ExternalLink from '../icons/ExternalLink.astro';
 const { title, languages, description, github, url } = Astro.props;
 ---
 
-<div class={`relative project inset-0 bg-gray-600 rounded-[12px] h-[130px] w-full`}>
+<div class={`relative project inset-0 bg-gray-600 rounded-[12px] h-[140px] w-full`}>
     <div class="absolute inset-0 bg-gradient-radial rounded-[12px] z-0"></div>
 
-    <div class="relative m-[2px] bg-black group hover:bg-gray-900 transition-colors rounded-[10.5px] p-2 lg:p-4 z-10 h-[126px] space-y-1">
+    <div class="relative m-[2px] bg-black group hover:bg-gray-900 transition-colors rounded-[10.5px] p-2 lg:p-4 z-10 h-[136px]">
         {url && 
             <a class="absolute inset-0 z-20" href={url} target="_blank" rel="noreferrer">
                 <span class="sr-only">{title} - open project</span>
@@ -26,12 +26,14 @@ const { title, languages, description, github, url } = Astro.props;
         <div class="flex w-full align-middle justify-between relative">
             <span class="flex items-center rounded-lg text-2xl transition-all truncate group pointer-events-none">
                 {title}
+                
                 {url && 
-                    <div class="opacity-0 group-hover:opacity-100">
+                    <div class="opacity-0 transition-opacity group-hover:opacity-100">
                         <ExternalLink />
                     </div>
                 }
             </span>
+            
             {github && 
                 <a class="hover:scale-105 transition-all shrink-0 relative z-30" 
                    href={github} 
@@ -42,7 +44,8 @@ const { title, languages, description, github, url } = Astro.props;
                 </a>
             }
         </div>
-        <p class="line-clamp-4 pointer-events-none">{description}</p>
+        <span class="leading-none text-xs font-normal text-gray-400">{languages}</span>
+        <p class="line-clamp-4 text-sm md:text-base pointer-events-none">{description}</p>
     </div>
 </div>
 

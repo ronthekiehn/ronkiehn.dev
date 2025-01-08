@@ -95,7 +95,7 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="flex h-full flex-col items-center">
+    <div className="flex h-full flex-col items-center ">
       <span className="text-gray-200 text-xl font-bold py-4">RawnBot 1.2</span>
       <div 
         className="bg-black max-w-3xl w-full h-full overflow-y-auto no-scrollbar p-4"
