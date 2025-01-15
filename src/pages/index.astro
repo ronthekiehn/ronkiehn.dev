@@ -5,6 +5,7 @@ import Project from '../components/Project.astro';
 import ChatBot from '../components/ChatBot.jsx';
 import Blog from '../components/Blog.astro';
 import '../styles/hover.css';
+import { flushAndStopDeferringMutations } from 'alpinejs';
 
 const projects = [
   {
@@ -19,6 +20,13 @@ const projects = [
     description: "The viral twitter color palette analyzer. Over 500,000 profiles analyzed.",
     github: "https://github.com/ronthekiehn/twitter-aura2",
     url: "https://twitter-aura2.vercel.app"
+  },
+  {
+    title: "DAWand Blender",
+    languages: "Python, PyTorch, Blender API",
+    description: "Add-on that runs 3DL's DAWand in Blender. Awaiting approval.",
+    url: "https://extensions.blender.org/approval-queue/da-wand/",
+    github: "https://github.com/threedle/DAWand-Blender"
   },
   {
     title: "Cube-Web",
@@ -50,12 +58,6 @@ const projects = [
     languages: "HTML/CSS/JS, Node.js, Spotify API, Heroku, Vercel, Firebase",
     description: "Generate unique Spotify recommendations. Awaiting API extension for release.",
     github: "https://github.com/ronthekiehn/BetterSpotifyRecs",
-  },
-  {
-    title: "DAWand Blender (WIP)",
-    languages: "Python, PyTorch, Blender API",
-    description: "Add-on that runs Richard Liu and 3DL's DAWand in Blender. Releasing Fall 2024.",
-    url: "https://github.com/threedle/DA-Wand"
   },
   {
     title: "Daily Aurelius",
