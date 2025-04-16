@@ -6,46 +6,53 @@ interface Props {
     description: string;
     github?: string;
     url?: string;
+    image?: string;
 }
 import GithubIcon from '../icons/GithubIcon.astro';
 import ExternalLink from '../icons/ExternalLink.astro';
 
-
-const { title, languages, description, github, url } = Astro.props;
+const { title, languages, description, github, url, image } = Astro.props;
 ---
 
-<div class={`relative project inset-0 bg-gray-600 rounded-[12px] h-[140px] w-full`}>
-    <div class="absolute inset-0 bg-gradient-radial rounded-[12px] z-0"></div>
+<div class='relative project inset-0 bg-gray-600 rounded-[20px] h-[130px] w-full'>
+    <div class="absolute inset-0 bg-gradient-radial rounded-[20px] z-0"></div>
 
-    <div class="relative m-[2px] bg-black group hover:bg-gray-900 transition-colors rounded-[10.5px] p-2 lg:p-4 z-10 h-[136px]">
+    <div class="flex items-center gap-4 relative m-[2px] bg-black group hover:bg-gray-900 transition-colors rounded-[18.5px] p-4 z-10 h-[126px] overflow-hidden">
+        {image && 
+    
+                <img src={image} alt={title} class="mx-2 w-14 h-14 rounded aspect-square" />
+        
+        }
         {url && 
             <a class="absolute inset-0 z-20" href={url} target="_blank" rel="noreferrer">
                 <span class="sr-only">{title} - open project</span>
             </a>
         }
-        <div class="flex w-full align-middle justify-between relative">
-            <span class="flex items-center rounded-lg text-2xl transition-all truncate group pointer-events-none">
+        <div class="h-full w-full ">
+        <div class="mb-2 flex w-full align-middle justify-between relative">
+            <span class="flex sm:gap-1 items-center font-bold text-lg sm:text-xl transition-all truncate group pointer-events-none">
                 {title}
                 
                 {url && 
                     <div class="opacity-0 transition-opacity group-hover:opacity-100">
-                        <ExternalLink />
+                        <ExternalLink class="w-[14px] h-[14px]"/>
                     </div>
                 }
             </span>
             
             {github && 
                 <a class="hover:scale-105 transition-all shrink-0 relative z-30" 
-                   href={github} 
-                   target="_blank" 
-                   rel="noreferrer"
-                   onclick="event.stopPropagation()">
-                    <GithubIcon />
+                href={github} 
+                target="_blank" 
+                rel="noreferrer"
+                onclick="event.stopPropagation()">
+                    <GithubIcon class="w-7 h-7"/>
                 </a>
             }
         </div>
-        <span class="leading-none text-xs font-normal text-gray-400">{languages}</span>
-        <p class="line-clamp-4 text-sm md:text-base pointer-events-none">{description}</p>
+        <!-- <span class="leading-none text-xs font-normal text-gray-400">{languages}</span> -->
+        <p class="line-clamp-3 text-gray-300 text-sm  w-5/6 pointer-events-none">{description}</p>
+    </div>
     </div>
 </div>
 

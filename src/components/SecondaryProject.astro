@@ -1,0 +1,31 @@
+---
+interface Props {
+    title: string;
+    description: string;
+    languages?: string;
+    github?: string;
+    url?: string;
+}
+import GithubIcon from '../icons/GithubIcon.astro';
+import ExternalLink from '../icons/ExternalLink.astro';
+const { title, description, languages, github, url } = Astro.props;
+---
+
+<div class="flex flex-col justify-start">
+    <div class="flex items-center gap-2 mb-1">
+        <span class="font-bold">{title}</span>
+        {url && 
+            <a href={url} target="_blank" rel="noreferrer" class="text-gray-400 hover:text-white">
+                <span class="sr-only">{title} - open project</span>
+                <ExternalLink class="w-3 h-3" />
+            </a>
+        }
+        {github && 
+            <a href={github} target="_blank" rel="noreferrer" class="ml-auto hover:scale-105 e">
+                <span class="sr-only">{title} - view source</span>
+                <GithubIcon class="w-4 h-4" />
+            </a>
+        }
+    </div>
+    <span class="inline-block text-xs text-gray-300">{description}</span>
+</div>
