@@ -96,7 +96,7 @@ const Chatbot = () => {
 
   return (
     <div className="flex h-full flex-col items-center ">
-      <span className="text-gray-200 text-xl font-bold py-4">RawnBot 1.2</span>
+      <span className="text-zinc-200 text-xl font-bold py-4">RawnBot 1.2</span>
       <div 
         className="bg-black max-w-3xl w-full h-full overflow-y-auto no-scrollbar p-4"
         ref={chatContainerRef}
@@ -116,10 +116,10 @@ const Chatbot = () => {
                   }`}>
                     {msg.role === 'user' ? 'you' : 'rawnbot'}
                   </span>
-                  <span className="text-xs text-gray-400">{msg.time}</span>
+                  <span className="text-xs text-zinc-400">{msg.time}</span>
                 </div>
                 <div 
-                  className="text-gray-100 mt-1"
+                  className="text-zinc-100 mt-1"
                   dangerouslySetInnerHTML={{ __html: marked(msg.text) }}
                 />
               </div>
@@ -127,7 +127,7 @@ const Chatbot = () => {
           </div>
         ))}
         {isLoading && (
-          <div className="ml-10 flex items-center space-x-2 text-gray-400 p-4">
+          <div className="ml-10 flex items-center space-x-2 text-zinc-400 p-4">
             <div className="animate-bounce">•</div>
             <div className="animate-bounce" style={{ animationDelay: '100ms' }}>•</div>
             <div className="animate-bounce" style={{ animationDelay: '200ms' }}>•</div>
@@ -140,7 +140,7 @@ const Chatbot = () => {
           onSubmit={handleSubmit}
         >
           <input
-            className="ml-1 w-full bg-transparent text-gray-100 px-4 py-3 focus:outline-none"
+            className="ml-1 w-full bg-transparent text-zinc-100 px-4 py-3 focus:outline-none"
             type="text"
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}

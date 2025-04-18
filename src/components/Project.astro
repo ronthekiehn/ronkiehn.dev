@@ -14,10 +14,10 @@ import ExternalLink from '../icons/ExternalLink.astro';
 const { title, languages, description, github, url, image } = Astro.props;
 ---
 
-<div class='relative project inset-0 bg-gray-600 rounded-[20px] h-[130px] w-full'>
+<div class='relative project inset-0 bg-zinc-600 rounded-[20px] h-[130px] w-full'>
     <div class="absolute inset-0 bg-gradient-radial rounded-[20px] z-0"></div>
 
-    <div class="flex items-center gap-4 relative m-[2px] bg-black group hover:bg-gray-900 transition-colors rounded-[18.5px] p-4 z-10 h-[126px] overflow-hidden">
+    <div class="flex items-center gap-4 relative m-[2px] bg-black group hover:bg-zinc-900 transition-colors rounded-[18.5px] p-4 z-10 h-[126px] overflow-hidden">
         {image && 
     
                 <img src={image} alt={title} class="mx-2 w-14 h-14 rounded aspect-square" />
@@ -50,8 +50,8 @@ const { title, languages, description, github, url, image } = Astro.props;
                 </a>
             }
         </div>
-        <!-- <span class="leading-none text-xs font-normal text-gray-400">{languages}</span> -->
-        <p class="line-clamp-3 text-gray-300 text-sm  w-5/6 pointer-events-none">{description}</p>
+        <!-- <span class="leading-none text-xs font-normal text-zinc-400">{languages}</span> -->
+        <p class="line-clamp-3 text-zinc-300 text-sm  w-5/6 pointer-events-none">{description}</p>
     </div>
     </div>
 </div>
