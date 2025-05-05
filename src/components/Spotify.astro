@@ -23,17 +23,13 @@ import SpotifyIcon from '../icons/SpotifyIcon.astro';
 <script>
   import { initializeHover } from '../scripts/hover.js';
   import $ from 'jquery';
-  interface SpotifyData {
-    title: string;
-    artist: string;
-  }
 
   $(document).ready(function() {
     // Initialize hover effect
     initializeHover('.spotify-hover');
     
     const fetchNowPlaying = () => {
-      $.getJSON('https://ronkiehn-dev.vercel.app/api/spotify', function(data: SpotifyData) {
+      $.getJSON('https://ronkiehn-dev.vercel.app/api/spotify', function(data) {
         $('#loading').hide();
         $('#spotify-content').show();
 

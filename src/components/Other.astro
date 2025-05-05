@@ -23,7 +23,7 @@
 
     $(document).ready(function() {
         // Fetch movies
-        $.getJSON('/api/letterboxd', function(movies) {
+        $.getJSON('https://ronkiehn-dev.vercel.app/api/letterboxd', function(movies) {
             const $moviesGrid = $('#movies-grid');
             $moviesGrid.empty();
             
@@ -48,7 +48,7 @@
         });
 
         // Fetch books
-        $.getJSON('/api/goodreads', function(books) {
+        $.getJSON('https://ronkiehn-dev.vercel.app/api/goodreads', function(books) {
             const $booksGrid = $('#books-grid');
             $booksGrid.empty();
             
