@@ -11,22 +11,27 @@ export default async function handler(req, res) {
     const parsedData = await parseStringPromise(rssText);
     
     // Navigate to the first item in the feed
-    const item = parsedData.rss.channel[0].item[0];
+    const items = parsedData.rss.channel[0].item.slice(0, 4);
 
-    // Extract the relevant data
-    const movieTitle = item['letterboxd:filmTitle'][0];
-    const posterImage = item.description[0].match(/<img src="(.*?)"/)[1];
-    const starRating = item['letterboxd:memberRating'][0];
-    const watchedDate = item['letterboxd:watchedDate'][0];
-    const [year, month, day] = watchedDate.split('-');
-    const formatDate = `${month}-${day}-${year}`;
-    if (movieTitle && posterImage && starRating && watchedDate) {
-      res.status(200).json({
-        movieTitle: movieTitle,
-        posterImage: posterImage,
-        starRating: starRating,
+    // Extract the relevant data for the most recent 4 movies
+    const movies = items.map(item => {
+      const movieTitle = item['letterboxd:filmTitle'][0];
+      const posterImage = item.description[0].match(/<img src="(.*?)"/)[1];
+      const starRating = item['letterboxd:memberRating'][0];
+      const watchedDate = item['letterboxd:watchedDate'][0];
+      const [year, month, day] = watchedDate.split('-');
+      const formatDate = `${month}-${day}-${year}`;
+
+      return {
+        movieTitle,
+        posterImage,
+        starRating,
         watchedDate: formatDate,
-      });
+      };
+    });
+
+    if (movies.length > 0) {
+      res.status(200).json(movies);
     } else {
       res.status(404).json({ message: 'No recent activity found' });
     }

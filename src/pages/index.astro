@@ -4,7 +4,7 @@ import Spotify from '../components/Spotify.astro';
 import Project from '../components/Project.astro';
 import SecondaryProject from '../components/SecondaryProject.astro';
 import ChatBot from '../components/ChatBot.jsx';
-import Blog from '../components/Blog.astro';
+import Other from '../components/Other.astro';
 import '../styles/hover.css';
 
 const mainProjects = [
@@ -219,7 +219,7 @@ const otherProjects = [
         </div>
         <button id="projects-btn" class="hover:underline relative h-full w-full px-3 text-white rounded-full transition-colors z-20">Projects</button>
         <button id="chatbot-btn" class="hover:underline relative h-full w-full px-2 text-white rounded-full transition-colors z-20">Chatbot</button>
-        <button id="blog-btn" class="hover:underline relative h-full w-full px-3 text-white rounded-full transition-colors z-20">Blog</button>
+        <button id="other-btn" class="hover:underline relative h-full w-full px-3 text-white rounded-full transition-colors z-20">other</button>
       </div>
     </div>
 
@@ -250,8 +250,8 @@ const otherProjects = [
           <ChatBot client:load />
         </div>
       </div>
-      <div id="blog" class="h-screen hidden">
-        <Blog />
+      <div id="other" class="h-screen hidden">
+        <Other />
       </div>
     </div>
 
@@ -280,14 +280,14 @@ const otherProjects = [
 
     function switchTab(position: string, tabId: string) {
         $('#slider').css('left', position);
-        $('#projects, #chatbot, #blog').addClass('hidden');
+        $('#projects, #chatbot, #other').addClass('hidden');
         $(tabId).removeClass('hidden');
       }
 
     function handleHash() {
         const hash = window.location.hash;
-        if (hash === '#blog') {
-            switchTab('66.66%', '#blog');
+        if (hash === '#other') {
+            switchTab('66.66%', '#other');
         } else if (hash === '#chatbot') {
             switchTab('33.33%', '#chatbot');
         } else {
@@ -305,8 +305,8 @@ const otherProjects = [
         switchTab('33.33%', '#chatbot');
       });
 
-      $('#blog-btn').on('click', function() {
-        switchTab('66.66%', '#blog');
+      $('#other-btn').on('click', function() {
+        switchTab('66.66%', '#other');
       });
 
       handleHash();

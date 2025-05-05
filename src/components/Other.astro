@@ -1,0 +1,76 @@
+---
+---
+
+<div class="space-y-8">
+    <section>
+        <h2 class="font-bold mb-4">Recently Watched</h2>
+        <div id="movies-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="text-center">Loading movies...</div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="font-bold mb-4">Recently Read</h2>
+        <div id="books-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="text-center">Loading books...</div>
+        </div>
+    </section>
+</div>
+
+<script>
+    import $ from 'jquery';
+
+
+    $(document).ready(function() {
+        // Fetch movies
+        $.getJSON('/api/letterboxd', function(movies) {
+            const $moviesGrid = $('#movies-grid');
+            $moviesGrid.empty();
+            
+            movies.forEach(movie => {
+                $moviesGrid.append(`
+                    <div class="flex flex-col items-center text-center">
+                        <img 
+                            src="${movie.posterImage}" 
+                            alt="${movie.movieTitle}"
+                            class="w-32 h-48 object-cover rounded-lg shadow-md hover:shadow-xl transition-shadow"
+                        />
+                        <p class="mt-2 text-sm">${movie.movieTitle}</p>
+                        <div class="flex items-center gap-1 mt-1">
+                            <span class="text-sm">★ ${movie.starRating}</span>
+                            <span class="text-xs text-gray-500">(${movie.watchedDate})</span>
+                        </div>
+                    </div>
+                `);
+            });
+        }).fail(function() {
+            $('#movies-grid').html('<div class="text-center text-red-500">Error loading movies</div>');
+        });
+
+        // Fetch books
+        $.getJSON('/api/goodreads', function(books) {
+            const $booksGrid = $('#books-grid');
+            $booksGrid.empty();
+            
+            books.forEach(book => {
+                $booksGrid.append(`
+                    <div class="flex flex-col items-center text-center">
+                        <img 
+                            src="${book.coverImage}" 
+                            alt="${book.bookTitle}"
+                            class="w-32 h-48 object-cover rounded-lg shadow-md hover:shadow-xl transition-shadow"
+                        />
+                        <p class="mt-2 text-sm">${book.bookTitle}</p>
+                        <div class="flex items-center gap-1 mt-1">
+                            <span class="text-sm">★ ${book.rating}</span>
+                            <span class="text-xs text-gray-500">(${book.dateRead})</span>
+                        </div>
+                    </div>
+                `);
+            });
+        }).fail(function() {
+            $('#books-grid').html('<div class="text-center text-red-500">Error loading books</div>');
+        });
+    });
+</script>
+
