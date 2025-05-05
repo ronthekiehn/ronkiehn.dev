@@ -41,9 +41,15 @@ export default async function handler(req, res) {
     const books = [];
 
     for (const item of items) {
-      const title = item.title[0];
-      const description = item.description[0];
-      const pubDate = item.pubDate[0];
+        let title, description, pubDate;
+        try {
+            title = item.title[0];
+            description = item.description[0];
+            pubDate = item.pubDate[0];
+        } catch (error) {
+            console.error('Error parsing item:', error);
+            continue;
+        }
 
       // Only process items that are book reviews/ratings
       if (!title.includes('added') && !description.includes('gave')) {
