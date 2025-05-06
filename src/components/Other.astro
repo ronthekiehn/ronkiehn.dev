@@ -1,11 +1,9 @@
----
----
 
-<section class="flex flex-col lg:flex-row justify-between px-8 gap-2">
+<section class="flex flex-col lg:flex-row justify-between px-8 gap-4 lg:gap-20">
     <div class="w-full lg:w-1/2">
-        <div class="flex justify-between">
-            <h2 class="font-bold mb-4">Recently Watched </h2>
-            <a href="https://letterboxd.com/ronthekiehn" target="_blank" class="text-zinc-300 text-xs">see all</a>
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="font-bold">Recently Watched </h2>
+            <a href="https://letterboxd.com/ronthekiehn" target="_blank" class="text-zinc-300 text-xs hover:underline">see all</a>
         </div>
         <div id="movies-grid" class="flex justify-between px-2 gap-4">
             <div class="text-center">Loading movies...</div>
@@ -13,9 +11,9 @@
     </div>
 
     <div class="w-full lg:w-1/2">
-        <div class="flex justify-between">
-            <h2 class="font-bold mb-4">Recently Read</h2>
-            <a href="https://www.goodreads.com/user/show/153869783-ron-kiehn"  target="_blank" class="text-zinc-300 text-xs">see all</a>
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="font-bold">Recently Read</h2>
+            <a href="https://www.goodreads.com/user/show/153869783-ron-kiehn"  target="_blank" class="text-zinc-300 text-xs hover:underline">see all</a>
         </div>
         <div id="books-grid" class="flex justify-between px-2 gap-4">
             <div class="text-center">Loading books...</div>
@@ -23,22 +21,34 @@
     </div>
 </section>
 
+<section>
+    <markdown>
+        ### leetle
+    </markdown>
+</section>
+
+
 <script>
     import $ from 'jquery';
-
+    import { marked } from 'marked';
 
     $(document).ready(function() {
+        $("markdown").each(function(index, el) {
+            const html = marked.parse(el.textContent.trim());
+            el.outerHTML = `<div class="prose prose-invert text-white max-w-none">${html}</div>`;
+            });
+
         $.getJSON('https://ronkiehn-dev.vercel.app/api/letterboxd', function(movies) {
             const $moviesGrid = $('#movies-grid');
             $moviesGrid.empty();
             
             movies.forEach(movie => {
                 $moviesGrid.append(`
-                    <div class="flex flex-col gap-1 items-center text-center">
+                    <div class="w-1/4 flex flex-col gap-1 items-center text-center">
                         <img 
                             src="${movie.posterImage}" 
                             alt="${movie.movieTitle}"
-                            class="rounded object-cover"
+                            class="object-cover rounded h-full w-full"
                         />
                        <span class="text-xs">${movie.starRating}/5</span>
                     </div>
@@ -55,11 +65,11 @@
             
             books.forEach(book => {
                 $booksGrid.append(`
-                    <div class="flex flex-col gap-1 items-center text-center">
+                    <div class="flex flex-col gap-1 items-center text-center w-1/4 ">
                         <img 
                             src="${book.coverImage}" 
                             alt="${book.bookTitle}"
-                            class="object-cover rounded"
+                            class="object-cover rounded h-full w-full max-h-[880px]"
                         />
                          <span class="text-xs">${book.rating}/5</span>
                     </div>
@@ -70,4 +80,3 @@
         });
     });
 </script>
-

@@ -10,14 +10,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/alpinejs": "^0.4.0",
-    "@astrojs/react": "^3.6.2",
-    "@astrojs/tailwind": "^5.1.2",
+    "@astrojs/mdx": "^4.2.6",
+    "@astrojs/react": "^4.2.7",
+    "@astrojs/tailwind": "^6.0.2",
     "@types/alpinejs": "^3.13.11",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "alpinejs": "^3.14.5",
-    "astro": "^4.16.10",
+    "astro": "^5.7.11",
     "marked": "^15.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
