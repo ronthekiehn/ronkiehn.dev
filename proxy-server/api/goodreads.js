@@ -25,6 +25,18 @@ function formatDate(dateString) {
   }
 }
 
+// Helper function to transform image URLs to high quality versions
+function getHighQualityImageUrl(lowQualityUrl) {
+  // Transform URL from:
+  // https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1737312514l/176444106._SY75_.jpg
+  // to:
+  // https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1737312514i/176444106.jpg
+  
+  return lowQualityUrl
+    .replace('i.gr-assets.com', 'images-na.ssl-images-amazon.com') // Change domain
+    .replace('/l/', '/i/') // Change image type
+    .replace(/\._SY\d+_/, ''); // Remove size constraint
+}
 
 export default async function handler(req, res) {
   try {
@@ -61,10 +73,10 @@ export default async function handler(req, res) {
       if (!titleMatch) continue;
       const bookTitle = titleMatch[1].replace(/\s*\([^)]*\)/, ''); // Remove format info in parentheses
 
-      // Extract cover image
+      // Extract cover image and transform to high quality version
       const coverMatch = description.match(/<img[^>]*src="([^"]*)"[^>]*>/);
       if (!coverMatch) continue;
-      const coverImage = coverMatch[1];
+      const coverImage = getHighQualityImageUrl(coverMatch[1]);
 
       // Extract rating
       const rating = extractRating(description);

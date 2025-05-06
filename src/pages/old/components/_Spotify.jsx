@@ -25,7 +25,7 @@ const Spotify = () => {
       try {
         const response = await fetch(`${myApi}/api/letterboxd`);
         const movieData = await response.json();
-        setMovie(movieData);
+        setMovie(movieData[0]);
       } catch (error) {
         console.error('Error fetching Letterboxd movie data:', error);
       }
