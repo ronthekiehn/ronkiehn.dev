@@ -250,8 +250,9 @@ const otherProjects = [
           <ChatBot client:load />
         </div>
       </div>
-      <div id="other" class="p-2 h-screen hidden">
-        <Other />
+      <div id="other" class="px-8 py-2 flex-col flex gap-10 h-screen">
+        coming soon!
+        <!-- <Other /> -->
       </div>
     </div>
 
@@ -286,10 +287,19 @@ const otherProjects = [
 
     function handleHash() {
         const hash = window.location.hash;
+
         if (hash === '#other') {
             switchTab('66.66%', '#other');
         } else if (hash === '#chatbot') {
             switchTab('33.33%', '#chatbot');
+        } else if (hash && hash.length > 1 && $(hash).length > 0 && $(hash).closest('#other').length > 0) {
+            switchTab('66.66%', '#other');
+            setTimeout(() => {
+                const element = document.getElementById(hash.substring(1));
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
         } else {
             switchTab('0', '#projects');
         }

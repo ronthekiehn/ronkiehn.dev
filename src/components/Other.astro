@@ -1,5 +1,73 @@
+<style is:global>
+    markdown {
+        white-space: pre-line;
+    }
 
-<section class="flex flex-col lg:flex-row justify-between px-8 gap-4 lg:gap-20">
+    /* Custom White Circle Checkbox Styles */
+    input[type="checkbox"] {
+        appearance: none;
+        -webkit-appearance: none;
+        background-color: transparent; /* Empty circle */
+        border: 2px solid #d4d4d8; /* Zinc border */
+        border-radius: 50%; /* Circular shape */
+        width: 1.1em;
+        height: 1.1em;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 0.5em;
+        position: relative;
+        top: -0.05em; /* Optical alignment with text */
+        pointer-events: none; /* Since they are disabled */
+        cursor: default; /* Show default cursor as they are not interactive */
+    }
+    input[type="checkbox"]:checked::before {
+        content: "";
+        display: block;
+        box-sizing: border-box; 
+        width: 0.4em; 
+        height: 1em;
+        border-style: solid;
+        border-color: #d4d4d8; /* Zinc checkmark */
+        border-width: 0 0.15em 0.15em 0; /* L-shape for the checkmark */
+        position: absolute;
+        top: 35%;
+        left: 70%;
+        transform: translate(-50%, -60%) rotate(45deg); /* Center and rotate */
+    }
+</style>
+
+<div class="prose prose-zinc prose-invert prose-sm max-w-none">
+    <h2 class="text-xl font-bold mb-3 text-zinc-100">Table of Contents</h2>
+    <ul class="list-none pl-0 space-y-1">
+        <li><a href="#media" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Media</a></li>
+        <li>
+            <a href="#project-logs" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Project Logs</a>
+            <ul class="list-none">
+                <li><a href="#bonsai" class="no-underline hover:underline text-zinc-300">bonsai</a></li>
+                <li><a href="#gandalf" class="no-underline hover:underline text-zinc-300">gandalf</a></li>
+                <li><a href="#cmd+e" class="no-underline hover:underline text-zinc-300">cmd+e</a></li>
+                <li><a href="#leetle" class="no-underline hover:underline text-zinc-300">leetle</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#project-soup" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Project Soup</a>
+            <ul class="!list-none">
+                <li><a href="#ai-art" class="no-underline hover:underline text-zinc-300">AI Art Tutor</a></li>
+                <li><a href="#zig-war" class="no-underline hover:underline text-zinc-300">Zig War</a></li>
+                <li><a href="#ui-lint" class="no-underline hover:underline text-zinc-300">UI Lint</a></li>
+                <li><a href="#sky-app" class="no-underline hover:underline text-zinc-300">Sky App</a></li>
+                <li><a href="#sexy-screen" class="no-underline hover:underline text-zinc-300">Sexy Screen</a></li>
+                <li><a href="#spotify-sample" class="no-underline hover:underline text-zinc-300">Spotify sample</a></li>
+                <li><a href="#nootunez" class="no-underline hover:underline text-zinc-300">Nootunez</a></li>
+                <li><a href="#books" class="no-underline hover:underline text-zinc-300">Search book chrome extension</a></li>
+                <li><a href="#smash-bros" class="no-underline hover:underline text-zinc-300">AGARIO/SURVIO SMASH BROS</a></li>
+                <li><a href="#spinning-dice" class="no-underline hover:underline text-zinc-300">Spinning dice</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<section id="media" class="flex flex-col lg:flex-row justify-between gap-4 lg:gap-20">
     <div class="w-full lg:w-1/2">
         <div class="flex justify-between items-center mb-4">
             <h2 class="font-bold">Recently Watched </h2>
@@ -20,24 +88,345 @@
         </div>
     </div>
 </section>
+<section id="project-logs" class="flex flex-col gap-4">
+    <div>
+        <h2 class="text-2xl font-bold">Project Logs</h2>
+        <p>logs / notes / updates for projects i'm currently working on</p>
+    </div>
+    <markdown id="bonsai">
+        ### bonsai
+        *may 2025*
+        - figma commit tracker
+        - uses bun/hono/supabase
 
-<section>
-    <markdown>
+        #### TODO
+        - [x] figma auth
+        - [x] db setup
+        - [x] track files
+        - [x] show recently updated files
+        - [ ] polish track files modal
+        - [ ] add 'see all files' button
+        - [ ] deploy to vm
+        - [ ] make logo
+        - [ ] google analytics
+        - [ ] favicon and images
+    </markdown>
+
+    <markdown id="gandalf">
+        ### gandalf
+        **released! [gandalf.design](https://gandalf.design)**
+        *april 2025*
+        - magic whiteboard
+        - whiteboard that you control with your hand
+        - Def best idea but not a chatgpt wrapper
+        - Multiplayer
+        - Save it to the cloud (or not)
+        #### TODO 
+
+        #### Combine the frontend code
+        - [x] Url for rooms
+        - [x] Then add Ethan button
+        - [x] Can do Ron/Alex first
+
+        #### Host the backend
+        - [x] 90% done, just need to test
+        
+        #### Host the frontend
+        - [x] Etc
+        - [x] Google analytics
+        - [x] Favicon 
+        - [x] Meta tags
+        - [x] Vercel probably, maybe we do gh pages
+        #### UI
+        - [x] Make like figma
+        - [x] Mobile version?
+        - [x] Change the colors to be sexier
+        - [x] Get rid of the replace: true in app.jsx
+        #### Top level refactoring
+        - [ ] Potentially create a 'tool' interface to make it easier to add more tools
+        - [x] Separate UI state and Drawing state (within zustand)
+        - [x] Move state to REDUX/ZUSTAND
+        - [x] Parse out "advanced features"
+        #### Bugs
+        - [x] Go forward / back in browser MOSTLY works but sometimes only works once (back from room, forward from launch, then back from room doesn't work)
+        - [x] No idea if rooms persist or how long
+        - [x] Dark mode sucks ass
+        - [x] GEMINI SAVING TO SERVER DISK
+        - [x] Resize handler
+        - [x] Changing rapidly concurrent users
+        - [x] Similarly, the quality of the drawing is not very good
+        - [x] Mouse tracking (and presumably hand tracking) is not accurate over the vertical
+        #### Necessary features before launch
+        - [x] Some kind of tutorial
+        - [x] Mobile site??
+        - [x] Fix all above bugs
+        - [x] Toggles for different features more clear
+            - [x] Shape recognition
+            - [x] Adjust the pixel threshold and history
+            - [x] Smoothing aggressiveness
+        - [x] Make eraser bigger and show big cursor
+        - [x] Change/tune hand recognition options
+            - [x] Decide about finger tap controls, or prefer a more natural 'pen' style writing
+            - [x] Something to trigger eraser
+            - [x] AT LEAST add a UI reaction, maybe allow the user to toggle off
+            - [x] I think the fist is bad for clear, too easy to accidentally activate
+        - [x] Env variable for CORS domains
+        - [x] Add XSS protection to the backend
+        - [x] Hover on all buttons shows tooltip
+            - [x] Concurrent users show full name on hover
+        - [x] Switch join and create
+        - [x] REMOVE or IMPROVE text boxes (removed for now)
+        - [x] REMOVE or IMPROVE images and "improve image" (improved!)
+            - [x] Error handling
+        - [x] Web socket share AS DRAWING (not just when line completed)
+        - [x] Undo/redo
+        - [x] Cursor visibility for mouse mode
+            - [x] On web socket
+        #### Improvements
+        - [ ] ZOOM IN / ZOOM OUT / DRAG
+            - [ ] Need to figure out what hand gestures would be usable
+        - [ ] Some kind of chat/log (user100 cleared the board)
+        - [ ] Text boxes come back
+        - [ ] Webcam on mode
+        - [ ] Different line types?
+            - [ ] Straight lines
+            - [ ] Arrows
+            - [ ] Maybe boxes?
+        - [ ] Working / nicer text boxes
+            - [ ] Match whiteboard aesthetic
+            - [ ] Share over websocket
+        - [ ] IMAGES
+            - [ ] Improve image should drop into scene
+            - [ ] Should be able to copy/paste in images 
+                - [ ] limited editing ability (resize)
+                - [ ] Long term could imagine more
+            - [ ] Images MUST be able to move over web socket
+                - [ ] How tho…
+        - [ ] Public rooms!?
+        - [ ] GANDALF PRO (~$10 one time?)
+            - [ ] Lock improve image feature behind this
+            - [ ] If images end up requiring ME to store them, lock images behind this too
+            - [ ] Whiteboards saved into the cloud
+            - [ ] Share across devices
+            - [ ] Requires auth, payment, persistent db, etc.
+        - [ ] OR - pivot to games
+            - [ ] Skribblio style
+            - [ ] But multiple people can draw live!
+            - [ ] Or you're forced to use your hands
+    </markdown>
+    <markdown id="cmd+e">
+        ### cmd+e
+        **Released! [cmd+e](https://chromewebstore.google.com/detail/cmd-+-e-ai-event-creation/ccgokmpngmiglfceeleekbjhfeioplap?authuser=0&hl=en)**
+        *march 2025*
+        - add events with ai
+        - recurring events too!!
+
+        #### TODO
+        - [ ] British mode (aka date flipped)
+        - [ ] Specify calendars
+        - [ ] notion support?
+    </markdown>
+    <markdown id="leetle">
         ### leetle
+        **Released! [leetle.app](https://leetle.app)**
+        *jan 2025*
+        - daily coding challenge
+
+        #### TODO
+        - [x] javascript
+        - [ ] update all challenges to work with javascript
+        - [ ] other languages...
+        - [x] challeng counts / completion rates
+        - [ ] user / auth / share across devices
     </markdown>
 </section>
 
+<section id="project-soup" class="flex flex-col gap-4">
+    <div>
+        <h2 class="text-2xl font-bold">Project Soup</h2>
+        <p>ideas, dead projects, etc.</p>
+    </div>
+    <markdown id="ai-art">
+        ### AI Art Tutor
+        - Uses new chatgpt / gemini model to review your art
+        - Take a photo on your phone and live sync
+    </markdown>
+    <markdown id="zig-war">
+        ### Zig War
+        - Wasm zig last war
+        - Retro style
+        - Add 1 million things
+        - would be good to learn zig and webgpu
+    </markdown>
+    <markdown id="ui-lint">
+        ### UI Lint
+        - Cli + website for making sure your UI is good
+        - React-scan UX
+    </markdown>
+    <markdown id="sky-app">
+        ### Sky App
+        in all honesty, this project got pretty far along, but probably needs a complete rework (social features) lol
+        #### NOTES
+        - Notify when celestial phenomena is happening
+        - Here's how it's gonna work
+            - Home Screen displays major sky events in the next year
+                - Super moons and Lunar eclipses basically 
+                    - I can scrape for this, calculate manually, or literally enter all of 
+                - Filters to allow for
+                    - Planets visible
+                    - Meteor showers
+                    - Comets 
+            - Calendar screen displays all possible events
+                - Moon phase, etc.
+            - Event screen will give more information about each event
+                - These can be simple canned responses
+        - Notifications
+            - We want a bereal esque notification system that gives a time sensitive notification to everyone who has the app downloaded when a sky event is happening
+                - BUT let's make sure to get local weather data so we can set fair expectations for if it's really cloudy!!
+            - Also, allow tailoring of notification settings
+                - Think 'I have a telescope mode'
+                - Will give you notifications for events like planets and comets
+                    - Things that normal people won't be able to see anyway and don't want to notified about
+        - Minimum app
+            - Just get lunar eclipse and supermoon data
+            - In-the-sky.org has really good data
+        - Three types of data
+            - Static
+                - Super moons, eclipses, meteor showers
+                - All the data is online and easily downloadable
+                - Likely can be packaged with app, but might be easier to manage if it's stored on the server
+            - Dynamic
+                - Information about each of the static events (harvest moon, etc.)
+                - Will be easiest to write editorial later, rather than planning in advance
+                - Must be stored on server
+            - Location-specific
+                - Weather data, for determining visibility
+                - Some events will only be able to be seen from certain locations
+                - At the very least BROAD location will be necessary even for things like lunar eclipses
+        - Remember
+            - Move api keys to eas when building for production
+        - Next steps
+            - Filters
+            - Make notification preferences work
+            - Build it
+            - Database stuff 
+                - Cleanse data to only US for now
+                - Think about start and end times? Or calculate them in app 
+                - Solar eclipses? 
+                - Supermoon
+                    - Notify fixed local time in evening 
+                - Lunar eclipse
+                    - Notify at start (or just after) if eclipse falls not in the middle of the night in the users local time
+                - Meteor shower
+                    - Need more data
+                    - Find the days/times they are most visible
+        - TODO
+            - Add meteor shower animations
+            - Fix scrollbar
+            - Test notification 
+        FINAL TODO
+        - Splash screen
+        - Update descriptions
+        - Notification messages
+        - Offline mode/server down
+        - Push to App Store
+        - Test notification times
+        - Customize notification messages
+        - EAS BUILD AND TEST
+    </markdown>
+    <markdown id="sexy-screen">
+        ### Sexy Screen
+        this project is dead because i don't want to pay for adobe...
+        - Screen recorder
+        - I hate that screen studio costs money
+        - Should be able to remake in 5s with pynput and davinci keyframes
+        - open source!!
+    </markdown>
+    <markdown id="spotify-sample">
+        ### Spotify sample
+        - Spotify API take your current song and find the sample, give you the Spotify link
+        - Scrape who sampled 
+    </markdown>
+    <markdown id="nootunez">
+        ### Nootunez
+        spotify DJ but good. this project is mostly complete, but spotify rejected my api extension, and I don't want to go back to it because it's vanilla js...
+        #### TODO
+        - Features 
+            - Generate a full playlist of new songs, and send it to spotify
+            - Taste breakers? Not based off of your seeds!!
+            - Maybe should blacklist playlists (tanvi)
+            - Change where your recs come from
+                - Top songs
+                - Top artists
+                - Genres
+                - Playlists 
+        - UI
+        - General
+            - Think of a name
+                - nootunez.com
+            - Get Spotify extension
+                - Requested
+    </markdown>
+    <markdown id="books">
+        ### Search book chrome extension 
+        - Chrome extension that lets me more easily get quotes in google docs
+        - books api or scraping 
+        #### TODO
+        - Look into books api
+    </markdown>
+    <markdown id="smash-bros">
+        ### AGARIO/SURVIO SMASH BROS
+        - Like 100 player persistent smash bros
+        - Online
+        - Easy to sign up
+        - With private servers for you and your friends
+        TODO
+        - Look in to how these games run
+    </markdown>
+    <markdown id="spinning-dice">
+        ### Spinning dice
+        - upgrade spinning cube into a dice 
+        TODO
+        - try to project numbers on the cube
+        - Decide about physics or not 
+    </markdown>
+</section>
 
 <script>
     import $ from 'jquery';
     import { marked } from 'marked';
+    marked.setOptions({
+        gfm: true,
+        breaks: true,
+        pedantic: false
+    });
 
-    $(document).ready(function() {
-        $("markdown").each(function(index, el) {
-            const html = marked.parse(el.textContent.trim());
-            el.outerHTML = `<div class="prose prose-invert text-white max-w-none">${html}</div>`;
-            });
+    // Add a custom renderer to handle links
+    const renderer = new marked.Renderer();
+    renderer.link = ({ href, text }) => {
+        return `<a href="${href}" target="_blank" class="hover:underline">${text}</a>`;
+    };
+    marked.setOptions({ renderer });
 
+    $(document).ready(function () {
+        // Ensure IDs are transferred from <markdown> to the generated <div>
+        $("markdown").each(function (index, el) {
+            const $markdownEl = $(el);
+            const markdownId = $markdownEl.attr('id'); // Get the ID from the original <markdown> tag
+            const rawMarkdown = $markdownEl.text().replace(/^ {8}/gm, '');
+            
+            // Create the new div that will replace the <markdown> tag
+            const $newDiv = $(`<div class="prose prose-zinc prose-invert prose-sm prose-headings:my-0 prose-ul:my-0 prose-li:my-0 prose-p:my-0 prose-text-white max-w-none prose-li:marker:text-zinc-300 px-4">${marked.parse(rawMarkdown)}</div>`);
+            
+            // If the original <markdown> tag had an ID, apply it to the new div
+            if (markdownId) {
+                $newDiv.attr('id', markdownId);
+            }
+            
+            $markdownEl.replaceWith($newDiv);
+        });
+
+        // Fetch movies (existing code)
         $.getJSON('https://ronkiehn-dev.vercel.app/api/letterboxd', function(movies) {
             const $moviesGrid = $('#movies-grid');
             $moviesGrid.empty();
@@ -58,7 +447,7 @@
             $('#movies-grid').html('<div class="text-center text-red-500">Error loading movies</div>');
         });
 
-        // Fetch books
+        // Fetch books (existing code)
         $.getJSON('https://ronkiehn-dev.vercel.app/api/goodreads', function(books) {
             const $booksGrid = $('#books-grid');
             $booksGrid.empty();
