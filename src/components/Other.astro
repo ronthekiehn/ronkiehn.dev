@@ -36,13 +36,15 @@
     }
 </style>
 
-<div class="prose prose-zinc prose-invert prose-sm max-w-none">
-    <h2 class="text-xl font-bold mb-3 text-zinc-100">Table of Contents</h2>
-    <ul class="list-none pl-0 space-y-1">
+<div class="flex justify-center">
+    <ul class="list-none pl-0 ml-0 space-y-1">
         <li><a href="#media" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Media</a></li>
         <li>
-            <a href="#project-logs" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Project Logs</a>
-            <ul class="list-none">
+            <div class="flex items-center gap-2">
+                <a href="#project-logs" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Project Logs</a>
+                <button class="text-xs text-zinc-300" id="project-logs-button">show</button>
+            </div>
+            <ul class="ml-2 list-none hidden text-sm" id="project-logs-list">
                 <li><a href="#bonsai" class="no-underline hover:underline text-zinc-300">bonsai</a></li>
                 <li><a href="#gandalf" class="no-underline hover:underline text-zinc-300">gandalf</a></li>
                 <li><a href="#cmd+e" class="no-underline hover:underline text-zinc-300">cmd+e</a></li>
@@ -50,8 +52,11 @@
             </ul>
         </li>
         <li>
-            <a href="#project-soup" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Project Soup</a>
-            <ul class="!list-none">
+            <div class="flex items-center gap-2">
+                <a href="#project-soup" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Project Soup</a>
+                <button class="text-xs text-zinc-300" id="project-soup-button">show</button>
+            </div>
+            <ul class="ml-2 list-none hidden text-sm" id="project-soup-list">
                 <li><a href="#ai-art" class="no-underline hover:underline text-zinc-300">AI Art Tutor</a></li>
                 <li><a href="#zig-war" class="no-underline hover:underline text-zinc-300">Zig War</a></li>
                 <li><a href="#ui-lint" class="no-underline hover:underline text-zinc-300">UI Lint</a></li>
@@ -59,37 +64,42 @@
                 <li><a href="#sexy-screen" class="no-underline hover:underline text-zinc-300">Sexy Screen</a></li>
                 <li><a href="#spotify-sample" class="no-underline hover:underline text-zinc-300">Spotify sample</a></li>
                 <li><a href="#nootunez" class="no-underline hover:underline text-zinc-300">Nootunez</a></li>
-                <li><a href="#books" class="no-underline hover:underline text-zinc-300">Search book chrome extension</a></li>
-                <li><a href="#smash-bros" class="no-underline hover:underline text-zinc-300">AGARIO/SURVIO SMASH BROS</a></li>
+                <li><a href="#books" class="no-underline hover:underline text-zinc-300">Search book</a></li>
+                <li><a href="#smash-bros" class="no-underline hover:underline text-zinc-300">SURVIO SMASH BROS</a></li>
                 <li><a href="#spinning-dice" class="no-underline hover:underline text-zinc-300">Spinning dice</a></li>
             </ul>
         </li>
     </ul>
 </div>
 
-<section id="media" class="flex flex-col lg:flex-row justify-between gap-4 lg:gap-20">
-    <div class="w-full lg:w-1/2">
-        <div class="flex justify-between items-center mb-4">
-            <h2 class="font-bold">Recently Watched </h2>
-            <a href="https://letterboxd.com/ronthekiehn" target="_blank" class="text-zinc-300 text-xs hover:underline">see all</a>
+<section id="media" class="flex flex-col gap-4">
+    <h2 class="text-2xl font-bold">Media</h2>
+    <div class="flex flex-col lg:flex-row justify-between gap-4 lg:gap-20">
+        <div class="w-full lg:w-1/2">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="font-bold">Recently Watched </h2>
+                <a href="https://letterboxd.com/ronthekiehn" target="_blank" class="text-zinc-300 text-xs hover:underline">see all</a>
+            </div>
+            <div id="movies-grid" class="flex justify-between px-2 gap-4">
+                <div class="text-center">Loading movies...</div>
+            </div>
+        
         </div>
-        <div id="movies-grid" class="flex justify-between px-2 gap-4">
-            <div class="text-center">Loading movies...</div>
+
+        <div class="w-full lg:w-1/2">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="font-bold">Recently Read</h2>
+                <a href="https://www.goodreads.com/user/show/153869783-ron-kiehn"  target="_blank" class="text-zinc-300 text-xs hover:underline">see all</a>
+            </div>
+            <div id="books-grid" class="flex justify-between px-2 gap-4">
+                <div class="text-center">Loading books...</div>
+            </div>
         </div>
+    </div>
+        <h2 class="font-bold">Recently Listened</h2>
         <div id="song-grid" class="flex justify-between px-2 gap-4">
             <div class="text-center">Loading songs...</div>
         </div>
-    </div>
-
-    <div class="w-full lg:w-1/2">
-        <div class="flex justify-between items-center mb-4">
-            <h2 class="font-bold">Recently Read</h2>
-            <a href="https://www.goodreads.com/user/show/153869783-ron-kiehn"  target="_blank" class="text-zinc-300 text-xs hover:underline">see all</a>
-        </div>
-        <div id="books-grid" class="flex justify-between px-2 gap-4">
-            <div class="text-center">Loading books...</div>
-        </div>
-    </div>
 </section>
 <section id="project-logs" class="flex flex-col gap-4">
     <div>
@@ -412,6 +422,21 @@
     marked.setOptions({ renderer });
 
     $(document).ready(function () {
+        // Handle show/hide functionality for project logs and project soup
+        $('#project-logs-button').click(function() {
+            const $list = $('#project-logs-list');
+            const $button = $(this);
+            $list.toggleClass('hidden');
+            $button.text($list.hasClass('hidden') ? 'show' : 'hide');
+        });
+
+        $('#project-soup-button').click(function() {
+            const $list = $('#project-soup-list');
+            const $button = $(this);
+            $list.toggleClass('hidden');
+            $button.text($list.hasClass('hidden') ? 'show' : 'hide');
+        });
+
         // Ensure IDs are transferred from <markdown> to the generated <div>
         $("markdown").each(function (index, el) {
             const $markdownEl = $(el);
@@ -461,7 +486,7 @@
                         <img 
                             src="${book.coverImage}" 
                             alt="${book.bookTitle}"
-                            class="object-cover rounded h-full w-full max-h-[880px]"
+                            class="object-cover rounded h-full w-full"
                         />
                          <span class="text-xs">${book.rating}/5</span>
                     </div>
@@ -474,16 +499,15 @@
         $.getJSON('https://ronkiehn-dev.vercel.app/api/spotify-recent', function(tracks) {
             const $songGrid = $('#song-grid');
             $songGrid.empty();
-            
             tracks.forEach(track => {
                 $songGrid.append(`
-                    <div class="flex flex-col gap-1 items-center text-center w-1/4 ">
+                    <div class="flex flex-col gap-1 items-center text-center w-[12.5%]">
                         <img 
                             src="${track.albumImageUrl}" 
                             alt="${track.title}"
-                            class="object-cover rounded h-full w-full max-h-[880px]"
+                            class="object-cover rounded w-full aspect-square"
                         />
-                         <span class="text-xs">${track.title}</span>
+                         <span class="text-xs line-clamp-1">${track.title}</span>
                     </div>
                 `);
             });
