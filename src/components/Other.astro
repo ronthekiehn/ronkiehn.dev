@@ -76,6 +76,9 @@
         <div id="movies-grid" class="flex justify-between px-2 gap-4">
             <div class="text-center">Loading movies...</div>
         </div>
+        <div id="song-grid" class="flex justify-between px-2 gap-4">
+            <div class="text-center">Loading songs...</div>
+        </div>
     </div>
 
     <div class="w-full lg:w-1/2">
@@ -466,6 +469,26 @@
             });
         }).fail(function() {
             $('#books-grid').html('<div class="text-center text-red-500">Error loading books</div>');
+        });
+
+        $.getJSON('https://ronkiehn-dev.vercel.app/api/spotify-recent', function(tracks) {
+            const $songGrid = $('#song-grid');
+            $songGrid.empty();
+            
+            tracks.forEach(track => {
+                $songGrid.append(`
+                    <div class="flex flex-col gap-1 items-center text-center w-1/4 ">
+                        <img 
+                            src="${track.albumImageUrl}" 
+                            alt="${track.title}"
+                            class="object-cover rounded h-full w-full max-h-[880px]"
+                        />
+                         <span class="text-xs">${track.title}</span>
+                    </div>
+                `);
+            });
+        }).fail(function() {
+            $('#song-grid').html('<div class="text-center text-red-500">Error loading songs</div>');
         });
     });
 </script>
