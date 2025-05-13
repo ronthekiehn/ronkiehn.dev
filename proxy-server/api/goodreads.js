@@ -93,8 +93,8 @@ export default async function handler(req, res) {
         dateRead,
       });
 
-      // Only get the first 4 books
-      if (books.length >= 4) {
+      // Only get the first 8 books
+      if (books.length >= 8) {
         break;
       }
     }

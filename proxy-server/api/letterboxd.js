@@ -11,9 +11,9 @@ export default async function handler(req, res) {
     const parsedData = await parseStringPromise(rssText);
     
     // Navigate to the first item in the feed
-    const items = parsedData.rss.channel[0].item.slice(0, 4);
+    const items = parsedData.rss.channel[0].item.slice(0, 8);
 
-    // Extract the relevant data for the most recent 4 movies
+    // Extract the relevant data for the most recent 8 movies
     const movies = items.map(item => {
       const movieTitle = item['letterboxd:filmTitle'][0];
       const posterImage = item.description[0].match(/<img src="(.*?)"/)[1];
