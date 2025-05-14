@@ -35,125 +35,110 @@
         transform: translate(-50%, -60%) rotate(45deg); /* Center and rotate */
     }
 
-    /* ToC styles */
-    .toc-container {
-        position: relative;
-    }
-    
-    .toc-menu {
-        position: absolute;
-        top: 4rem;
-        left: 0;
-        z-index: 50;
-        width: fit-content;
-        max-width: 250px;
-    }
-    
-    @media (min-width: 1280px) {
-        .toc-menu {
-            left: -150px;  /* Position to the left on xl screens */
-        }
-    }
-    
-    body.scrolled .toc-menu {
-        position: fixed;
-        top: 1rem;
-    }
 </style>
 
-    <div id="toc-menu" class="absolute z-50 bg-zinc-500/50 backdrop-blur-sm rounded-lg top-4 xl:left-8 right-4 w-fit">
-        <button id="menu-toggle" class="p-4 text-zinc-100 hover:text-zinc-300 xl:hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-        </button>
-        
-        <div id="toc-panel" class="hidden xl:block p-4">
-            <div class="flex justify-between gap-4 items-center mb-4">
-                <h3 class="text-lg font-semibold text-zinc-100">Table of Contents</h3>
-                <button id="close-menu" class="xl:hidden text-zinc-400 hover:text-zinc-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
+    <div id="toc-menu" class="absolute z-50 toc-menu backdrop-blur-md bg-gradient-to-br from-white/10 to-white/5 shadow-[0_0_10px_rgba(255,255,255,0.2)_inset]  rounded-2xl top-4 xl:left-8 right-4 w-fit">
+        <div class="absolute inset-0 border-2 border-zinc-600 rounded-2xl"></div>
+        <div class="absolute inset-0 bg-gradient-radial rounded-2xl z-0" style="mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; padding: 2px;"></div>
+        <div class="relative rounded-[calc(1rem-2px)] z-10">
+            <button id="menu-toggle" class="p-4 text-zinc-100 hover:text-zinc-300 xl:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
             
-            <ul class="list-none pl-2 ml-0 space-y-1">
-                <li><a href="#media" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Media</a></li>
-                <li>
-                    <div class="flex items-center gap-2">
-                        <a href="#project-logs" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Project Logs</a>
-                        <button class="text-xs text-zinc-300" id="project-logs-button">show</button>
-                    </div>
-                    <ul class="ml-2 list-none hidden text-sm" id="project-logs-list">
-                        <li><a href="#bonsai" class="no-underline hover:underline text-zinc-300">bonsai</a></li>
-                        <li><a href="#gandalf" class="no-underline hover:underline text-zinc-300">gandalf</a></li>
-                        <li><a href="#cmd+e" class="no-underline hover:underline text-zinc-300">cmd+e</a></li>
-                        <li><a href="#leetle" class="no-underline hover:underline text-zinc-300">leetle</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <div class="flex items-center gap-2">
-                        <a href="#project-soup" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Project Soup</a>
-                        <button class="text-xs text-zinc-300" id="project-soup-button">show</button>
-                    </div>
-                    <ul class="ml-2 list-none hidden text-sm" id="project-soup-list">
-                        <li><a href="#ai-art" class="no-underline hover:underline text-zinc-300">AI Art Tutor</a></li>
-                        <li><a href="#zig-war" class="no-underline hover:underline text-zinc-300">Zig War</a></li>
-                        <li><a href="#ui-lint" class="no-underline hover:underline text-zinc-300">UI Lint</a></li>
-                        <li><a href="#sky-app" class="no-underline hover:underline text-zinc-300">Sky App</a></li>
-                        <li><a href="#sexy-screen" class="no-underline hover:underline text-zinc-300">Sexy Screen</a></li>
-                        <li><a href="#spotify-sample" class="no-underline hover:underline text-zinc-300">Spotify sample</a></li>
-                        <li><a href="#nootunez" class="no-underline hover:underline text-zinc-300">Nootunez</a></li>
-                        <li><a href="#books" class="no-underline hover:underline text-zinc-300">Search book</a></li>
-                        <li><a href="#smash-bros" class="no-underline hover:underline text-zinc-300">SURVIO SMASH BROS</a></li>
-                        <li><a href="#spinning-dice" class="no-underline hover:underline text-zinc-300">Spinning dice</a></li>
-                    </ul>
-                </li>
-            </ul>
+            <div id="toc-panel" class="hidden xl:block p-4">
+                <div class="flex justify-between gap-4 items-center mb-4">
+                    <h3 class="text-lg font-semibold text-zinc-100">Table of Contents</h3>
+                    <button id="close-menu" class="xl:hidden text-zinc-400 hover:text-zinc-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                
+                <ul class="list-none pl-2 ml-0 space-y-1">
+                    <li><a href="#media" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Media</a></li>
+                    <li>
+                        <div class="flex items-center gap-2">
+                            <a href="#project-logs" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Project Logs</a>
+                            <button class="text-xs text-zinc-300" id="project-logs-button">show</button>
+                        </div>
+                        <ul class="ml-2 list-none hidden text-sm" id="project-logs-list">
+                            <li><a href="#bonsai" class="no-underline hover:underline text-zinc-300">bonsai</a></li>
+                            <li><a href="#gandalf" class="no-underline hover:underline text-zinc-300">gandalf</a></li>
+                            <li><a href="#cmd+e" class="no-underline hover:underline text-zinc-300">cmd+e</a></li>
+                            <li><a href="#leetle" class="no-underline hover:underline text-zinc-300">leetle</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="flex items-center gap-2">
+                            <a href="#project-soup" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Project Soup</a>
+                            <button class="text-xs text-zinc-300" id="project-soup-button">show</button>
+                        </div>
+                        <ul class="ml-2 list-none hidden text-sm" id="project-soup-list">
+                            <li><a href="#ai-art" class="no-underline hover:underline text-zinc-300">AI Art Tutor</a></li>
+                            <li><a href="#zig-war" class="no-underline hover:underline text-zinc-300">Zig War</a></li>
+                            <li><a href="#ui-lint" class="no-underline hover:underline text-zinc-300">UI Lint</a></li>
+                            <li><a href="#sky-app" class="no-underline hover:underline text-zinc-300">Sky App</a></li>
+                            <li><a href="#sexy-screen" class="no-underline hover:underline text-zinc-300">Sexy Screen</a></li>
+                            <li><a href="#spotify-sample" class="no-underline hover:underline text-zinc-300">Spotify sample</a></li>
+                            <li><a href="#nootunez" class="no-underline hover:underline text-zinc-300">Nootunez</a></li>
+                            <li><a href="#books" class="no-underline hover:underline text-zinc-300">Search book</a></li>
+                            <li><a href="#smash-bros" class="no-underline hover:underline text-zinc-300">SURVIO SMASH BROS</a></li>
+                            <li><a href="#spinning-dice" class="no-underline hover:underline text-zinc-300">Spinning dice</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
-<section id="media" class="flex flex-col gap-8">
-    <h2 class="text-2xl font-bold">Media</h2>
-    <div class="">
-        <div class="flex justify-between items-center mb-4">
-            <h2 class="font-bold">Recently Watched </h2>
-            <a href="https://letterboxd.com/ronthekiehn" target="_blank" class="text-zinc-300 text-xs hover:underline">see all</a>
-        </div>
-        <div id="movies-grid" class="grid grid-rows-2 grid-cols-4 md:grid-rows-1 md:grid-cols-8 justify-between px-2 gap-6">
-            <div class="text-center">Loading movies...</div>
-        </div>
+<section id="media" class="flex flex-col gap-10">
+    <div id="recent">
+        <h2 class="text-2xl font-bold">Media</h2>
+        <p>all the media I've consumed recently, updated automatically</p>
     </div>
+    <div class="flex flex-col gap-4 px-2">
+        <div>
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="font-bold">Movies </h2>
+                <a href="https://letterboxd.com/ronthekiehn" target="_blank" class="text-zinc-300 text-xs hover:underline">see all</a>
+            </div>
+            <div id="movies-grid" class="grid grid-rows-2 grid-cols-4 md:grid-rows-1 md:grid-cols-8 justify-between px-2 gap-6">
+                <div class="text-center">Loading movies...</div>
+            </div>
+        </div>
 
-    <div class="">
-        <div class="flex justify-between items-center mb-4">
-            <h2 class="font-bold">Recently Read</h2>
-            <a href="https://www.goodreads.com/user/show/153869783-ron-kiehn"  target="_blank" class="text-zinc-300 text-xs hover:underline">see all</a>
+        <div>
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="font-bold">Books</h2>
+                <a href="https://www.goodreads.com/user/show/153869783-ron-kiehn"  target="_blank" class="text-zinc-300 text-xs hover:underline">see all</a>
+            </div>
+            <div id="books-grid" class="grid grid-rows-2 grid-cols-4 md:grid-rows-1 md:grid-cols-8 justify-between px-2 gap-6">
+                <div class="text-center">Loading books...</div>
+            </div>
         </div>
-        <div id="books-grid" class="grid grid-rows-2 grid-cols-4 md:grid-rows-1 md:grid-cols-8 justify-between px-2 gap-6">
-            <div class="text-center">Loading books...</div>
+        <div>
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="font-bold">Anime</h2>
+                <a href="https://myanimelist.net/animelist/ronthekiehn" target="_blank" class="text-zinc-300 text-xs hover:underline">see all</a>
+            </div>
+            <div id="anime-grid" class="grid grid-rows-2 grid-cols-4 md:grid-rows-1 md:grid-cols-8 justify-between px-2 gap-6">
+                <div class="text-center">Loading anime...</div>
+            </div>
+        </div>
+        <div>
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="font-bold">Songs</h2>
+            </div>
+            <div id="song-grid" class="grid grid-rows-2 grid-cols-4 md:grid-rows-1 md:grid-cols-8 justify-between px-2 gap-6">
+                <div class="text-center">Loading songs...</div>
+            </div>
         </div>
     </div>
-    <div class="">
-        <div class="flex justify-between items-center mb-4">
-            <h2 class="font-bold">Recent Anime</h2>
-            <a href="https://myanimelist.net/animelist/ronthekiehn" target="_blank" class="text-zinc-300 text-xs hover:underline">see all</a>
-        </div>
-        <div id="anime-grid" class="grid grid-rows-2 grid-cols-4 md:grid-rows-1 md:grid-cols-8 justify-between px-2 gap-6">
-            <div class="text-center">Loading anime...</div>
-        </div>
-    </div>
-    <div class="">
-        <div class="flex justify-between items-center mb-4">
-            <h2 class="font-bold">Recently Listened</h2>
-        </div>
-        <div id="song-grid" class="grid grid-rows-2 grid-cols-4 md:grid-rows-1 md:grid-cols-8 justify-between px-2 gap-6">
-            <div class="text-center">Loading songs...</div>
-        </div>
-    </div>
-    <div class="">
-        <h2 class="font-bold mb-4">Backlog</h2>
+    <div id="backlog">
+        <h2 class="text-2xl font-bold mb-4">Backlog</h2>
         <markdown>
         [Letterboxd watchlist](https://letterboxd.com/ronthekiehn/watchlist/)
         #### Series i'm reading
@@ -477,6 +462,7 @@
 <script>
     import $ from 'jquery';
     import { marked } from 'marked';
+    import { initializeHover } from '../scripts/hover.js';
     marked.setOptions({
         gfm: true,
         breaks: true,
@@ -490,7 +476,10 @@
     };
     marked.setOptions({ renderer });
 
-    $(document).ready(function () {
+    $(() => {
+        // Initialize hover effect for TOC menu
+        initializeHover('.toc-menu');
+
         // Handle show/hide functionality for project logs and project soup
         $('#project-logs-button').on('click', function() {
             const $list = $('#project-logs-list');
@@ -517,18 +506,70 @@
             $('#toc-panel').addClass('hidden');
         });
 
-        // Window scroll handler remains the same
-        $(window).on('load', () => {
-            const $toc = $('#toc-menu');
-            const triggerOffset = $toc.offset().top - 16;
+        const $tocMenu = $('#toc-menu');
+        let scrollHandlerTimeoutId = null;
 
-            $(window).off('scroll.stickyTOC').on('scroll.stickyTOC', () => {
-                if ($(window).scrollTop() > triggerOffset) {
-                    $toc.removeClass('absolute').addClass('fixed');
-                } else {
-                    $toc.removeClass('fixed').addClass('absolute');
+        function setupScrollHandler() {
+            if (scrollHandlerTimeoutId) {
+                clearTimeout(scrollHandlerTimeoutId);
+                scrollHandlerTimeoutId = null;
+            }
+
+            $(window).off('scroll.stickyTOC');
+
+            if (!$tocMenu.length || !$tocMenu.is(':visible')) return;
+            
+            scrollHandlerTimeoutId = setTimeout(() => {
+                if (!$tocMenu.is(':visible')) {
+                    $(window).off('scroll.stickyTOC');
+                    return;
                 }
+
+                const offset = $tocMenu.offset();
+                if (!offset) return;
+                
+                const triggerOffset = offset.top;
+                $(window).on('scroll.stickyTOC', () => {
+                    if ($(window).scrollTop() > triggerOffset - 16) {
+                        $tocMenu.removeClass('absolute').addClass('fixed');
+                    } else {
+                        $tocMenu.removeClass('fixed').addClass('absolute');
+                    }
+                });
+                scrollHandlerTimeoutId = null;
+            }, 100);
+        }
+
+        function clearTocScrollHandler() {
+            if (scrollHandlerTimeoutId) {
+                clearTimeout(scrollHandlerTimeoutId);
+                scrollHandlerTimeoutId = null;
+            }
+            $(window).off('scroll.stickyTOC');
+            $('#menu-toggle').removeClass('hidden');
+            $('#toc-panel').addClass('hidden');
+        }
+
+        if ($tocMenu.length) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setupScrollHandler();
+                    } else {
+                        clearTocScrollHandler();
+                        
+
+                    }
+                });
             });
+
+            observer.observe($tocMenu[0]);
+        }
+
+        $(window).on('load resize', () => {
+            if ($tocMenu.length && $tocMenu.is(':visible')) {
+                setupScrollHandler();
+            }
         });
 
         // Ensure IDs are transferred from <markdown> to the generated <div>
