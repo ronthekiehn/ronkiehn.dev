@@ -121,10 +121,9 @@
             <h2 class="font-bold">Recently Watched </h2>
             <a href="https://letterboxd.com/ronthekiehn" target="_blank" class="text-zinc-300 text-xs hover:underline">see all</a>
         </div>
-        <div id="movies-grid" class="grid grid-rows-2 grid-cols-4 md:flex justify-between px-2 gap-4">
+        <div id="movies-grid" class="grid grid-rows-2 grid-cols-4 md:grid-rows-1 md:grid-cols-8 justify-between px-2 gap-6">
             <div class="text-center">Loading movies...</div>
         </div>
-    
     </div>
 
     <div class="">
@@ -132,27 +131,25 @@
             <h2 class="font-bold">Recently Read</h2>
             <a href="https://www.goodreads.com/user/show/153869783-ron-kiehn"  target="_blank" class="text-zinc-300 text-xs hover:underline">see all</a>
         </div>
-        <div id="books-grid" class="grid grid-rows-2 grid-cols-4 md:flex justify-between px-2 gap-4">
+        <div id="books-grid" class="grid grid-rows-2 grid-cols-4 md:grid-rows-1 md:grid-cols-8 justify-between px-2 gap-6">
             <div class="text-center">Loading books...</div>
         </div>
     </div>
-
     <div class="">
         <div class="flex justify-between items-center mb-4">
-            <h2 class="font-bold">Recently Listened</h2>
-            <a href="https://open.spotify.com/user/31k53kynqzjbvj6rqrfvzthqzqd4" target="_blank" class="text-zinc-300 text-xs hover:underline">see all</a>
+            <h2 class="font-bold">Recent Anime</h2>
+            <a href="https://myanimelist.net/animelist/ronthekiehn" target="_blank" class="text-zinc-300 text-xs hover:underline">see all</a>
         </div>
-        <div id="song-grid" class="grid grid-rows-2 grid-cols-4 md:flex justify-between px-2 gap-4">
-            <div class="text-center">Loading songs...</div>
+        <div id="anime-grid" class="grid grid-rows-2 grid-cols-4 md:grid-rows-1 md:grid-cols-8 justify-between px-2 gap-6">
+            <div class="text-center">Loading anime...</div>
         </div>
     </div>
     <div class="">
         <div class="flex justify-between items-center mb-4">
-            <h2 class="font-bold">Recently Watched Anime</h2>
-            <a href="https://myanimelist.net/profile/ronthekiehn" target="_blank" class="text-zinc-300 text-xs hover:underline">see all</a>
+            <h2 class="font-bold">Recently Listened</h2>
         </div>
-        <div id="anime-grid" class="grid grid-rows-2 grid-cols-4 md:flex justify-between px-2 gap-4">
-            <div class="text-center">Loading anime...</div>
+        <div id="song-grid" class="grid grid-rows-2 grid-cols-4 md:grid-rows-1 md:grid-cols-8 justify-between px-2 gap-6">
+            <div class="text-center">Loading songs...</div>
         </div>
     </div>
     <div class="">
@@ -558,7 +555,7 @@
             
             movies.forEach(movie => {
                 $moviesGrid.append(`
-                    <div class="flex flex-col gap-1 items-center text-center md:w-[12.5%]">
+                    <div class="flex flex-col gap-1 items-center text-center ">
                         <img 
                             src="${movie.posterImage}" 
                             alt="${movie.movieTitle}"
@@ -579,7 +576,7 @@
             
             books.forEach(book => {
                 $booksGrid.append(`
-                    <div class="flex flex-col gap-1 items-center text-center md:w-[12.5%]">
+                    <div class="flex flex-col gap-1 items-center text-center">
                         <img 
                             src="${book.coverImage}" 
                             alt="${book.bookTitle}"
@@ -599,7 +596,7 @@
             $songGrid.empty();
             tracks.forEach(track => {
                 $songGrid.append(`
-                    <div class="flex flex-col gap-1 items-center text-center md:w-[12.5%]">
+                    <div class="flex flex-col gap-1 items-center text-center ">
                         <img 
                             src="${track.albumImageUrl}" 
                             alt="${track.title}"
@@ -619,7 +616,7 @@
             $animeGrid.empty();
             animeList.forEach(anime => {
                 $animeGrid.append(`
-                    <div class="flex flex-col gap-1 items-center text-center md:w-[12.5%]">
+                    <div class="flex flex-col gap-1 items-center text-center ">
                         <img 
                             src="${anime.imageUrl}" 
                             alt="${anime.title}"

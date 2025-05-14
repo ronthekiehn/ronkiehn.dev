@@ -31,11 +31,18 @@ function getHighQualityImageUrl(lowQualityUrl) {
   // https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1737312514l/176444106._SY75_.jpg
   // to:
   // https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1737312514i/176444106.jpg
+
+  // turn this:
+  // https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1488349209l/2845024._SX50_.jpg
+  // into this:
+  https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1488349209i/2845024.jpg
+
   
   return lowQualityUrl
     .replace('i.gr-assets.com', 'images-na.ssl-images-amazon.com') // Change domain
     .replace('/l/', '/i/') // Change image type
-    .replace(/\._SY\d+_/, ''); // Remove size constraint
+    .replace(/\._SY\d+_/, '') // Remove size constraint
+    .replace(/\._SX\d+_/, ''); // Remove size constraint
 }
 
 export default async function handler(req, res) {
