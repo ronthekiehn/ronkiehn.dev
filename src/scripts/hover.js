@@ -1,6 +1,6 @@
 import $ from "jquery";
 export function initializeHover(selector) {
-    $(document).mousemove(function(e) {
+    $(document).on('mousemove click', function(e) {
         $(selector).each(function() {
             const rect = this.getBoundingClientRect(),
                 x = e.clientX - rect.left,

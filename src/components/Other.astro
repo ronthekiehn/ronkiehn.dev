@@ -35,11 +35,21 @@
         transform: translate(-50%, -60%) rotate(45deg); /* Center and rotate */
     }
 
+    .gradient-border-mask {
+        mask: linear-gradient(rgb(255, 255, 255, 0.9) 0 0) content-box, linear-gradient(rgb(255, 255, 255, 1) 0 0);
+        mask-composite: exclude;
+        -webkit-mask: linear-gradient(rgb(255, 255, 255, 0.9) 0 0) content-box, linear-gradient(rgb(255, 255, 255, 1) 0 0);
+        -webkit-mask-composite: xor;
+        padding: 2px;
+    }
+
+    
+
 </style>
 
     <div id="toc-menu" class="absolute z-50 toc-menu backdrop-blur-md bg-gradient-to-br from-white/10 to-white/5 shadow-[0_0_10px_rgba(255,255,255,0.2)_inset]  rounded-2xl top-4 xl:left-8 right-4 w-fit">
         <div class="absolute inset-0 border-2 border-zinc-600 rounded-2xl"></div>
-        <div class="absolute inset-0 bg-gradient-radial rounded-2xl z-0" style="mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; padding: 2px;"></div>
+        <div class="absolute gradient-border-mask inset-0 bg-gradient-radial rounded-2xl z-0 p-[2px]"></div>
         <div class="relative rounded-[calc(1rem-2px)] z-10">
             <button id="menu-toggle" class="p-4 text-zinc-100 hover:text-zinc-300 xl:hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
