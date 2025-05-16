@@ -43,11 +43,9 @@
         padding: 2px;
     }
 
-    
-
 </style>
 
-    <div id="toc-menu" class="absolute z-50 toc-menu backdrop-blur-md bg-gradient-to-br from-white/10 to-white/5 shadow-[0_0_10px_rgba(255,255,255,0.2)_inset]  rounded-2xl top-4 xl:left-8 right-4 w-fit">
+    <div id="toc-menu" class="absolute z-50 toc-menu backdrop-blur-md bg-gradient-to-br from-white/10 to-white/5 shadow-[0_0_10px_rgba(255,255,255,0.2)_inset]  rounded-2xl top-4 xl:left-4 right-4 w-fit">
         <div class="absolute inset-0 border-2 border-zinc-600 rounded-2xl"></div>
         <div class="absolute gradient-border-mask inset-0 bg-gradient-radial rounded-2xl z-0 p-[2px]"></div>
         <div class="relative rounded-[calc(1rem-2px)] z-10">
@@ -68,11 +66,20 @@
                 </div>
                 
                 <ul class="list-none pl-2 ml-0 space-y-1">
-                    <li><a href="#media" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Media</a></li>
+                    <li>
+                        <div class="flex items-center gap-2">
+                            <a href="#media" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Media</a>
+                            <button class="text-xs text-zinc-300" id="media-button">show more</button>
+                        </div>
+                        <ul class="ml-2 list-none hidden text-sm" id="media-list">
+                            <li><a href="#recent" class="no-underline hover:underline text-zinc-300">Recent</a></li>
+                            <li><a href="#backlog" class="no-underline hover:underline text-zinc-300">Backlog</a></li>
+                        </ul>
+                    </li>
                     <li>
                         <div class="flex items-center gap-2">
                             <a href="#project-logs" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Project Logs</a>
-                            <button class="text-xs text-zinc-300" id="project-logs-button">show</button>
+                            <button class="text-xs text-zinc-300" id="project-logs-button">show more</button>
                         </div>
                         <ul class="ml-2 list-none hidden text-sm" id="project-logs-list">
                             <li><a href="#bonsai" class="no-underline hover:underline text-zinc-300">bonsai</a></li>
@@ -84,7 +91,7 @@
                     <li>
                         <div class="flex items-center gap-2">
                             <a href="#project-soup" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Project Soup</a>
-                            <button class="text-xs text-zinc-300" id="project-soup-button">show</button>
+                            <button class="text-xs text-zinc-300" id="project-soup-button">show more</button>
                         </div>
                         <ul class="ml-2 list-none hidden text-sm" id="project-soup-list">
                             <li><a href="#ai-art" class="no-underline hover:underline text-zinc-300">AI Art Tutor</a></li>
@@ -99,7 +106,28 @@
                             <li><a href="#spinning-dice" class="no-underline hover:underline text-zinc-300">Spinning dice</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <div class="flex items-center gap-2">
+                            <a href="#git-commits" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Git Commits</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex items-center gap-2">
+                            <a href="#skills" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Skills</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex items-center gap-2">
+                            <a href="#dev-setup" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Dev Setup</a>
+                        </div>
+                    </li>
                 </ul>
+                <div class="mt-4 mb-3 mx-auto relative divider h-[1px] w-11/12 bg-zinc-600">
+                    <div class="absolute inset-0 bg-gradient-radial z-10"></div>
+                  </div>
+                <button id="return-to-top" class="w-fit p-1 mx-auto flex items-center justify-center text-zinc-300 hover:text-white transition-colors">
+                    Return to top
+                </button>
             </div>
         </div>
     </div>
@@ -469,6 +497,159 @@
     </markdown>
 </section>
 
+<section id="git-commits" class="flex flex-col gap-4">
+    <div>
+        <h2 class="text-2xl font-bold">Git Commits</h2>
+        <p>Recent activity across my repositories.</p>
+    </div>
+    <div id="git-commits-grid" class="px-2">
+        <div class="text-center">Loading commit data...</div>
+        <!-- Commit data will be populated here by JavaScript -->
+    </div>
+</section>
+
+<section id="skills" class="flex flex-col gap-6 py-6">
+    <div>
+        <h2 class="text-2xl font-bold text-zinc-100">Tech Stack</h2>
+        <p >stuff i've been using/learning</p>
+    </div>
+
+    <div class="space-y-5 px-4 md:px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+                { 
+                    name: "Python", 
+                    level: 4,
+                    experience: "4 years",
+                    notable: "DA Wand Blender",
+                },
+                { 
+                    name: "C", 
+                    level: 3,
+                    experience: "3 years",
+                    notable: "cube-web"
+                },
+                { 
+                    name: "JavaScript", 
+                    level: 3,
+                    experience: "1.5 years",
+                    notable: "nootunez"
+                },
+                { 
+                    name: "HTML/CSS", 
+                    level: 4,
+                    experience: "1.5 years",
+                    notable: "gptriver"
+                },
+                { 
+                    name: "Rust", 
+                    level: 2,
+                    experience: "<1 year",
+                    notable: ""
+                },
+                { 
+                    name: "Go", 
+                    level: 2,
+                    experience: "<1 year",
+                    notable: "leetle"
+                },
+                { 
+                    name: "Haskell", 
+                    level: 2,
+                    experience: "<1 year",
+                    notable: "haskell-cube"
+                },
+                { 
+                    name: "Tailwind", 
+                    level: 4,
+                    experience: "1.5 years",
+                    notable: "this website!"
+                },
+                { 
+                    name: "React", 
+                    level: 4,
+                    experience: "1.5 years",
+                    notable: "gandalf"
+                },
+                { 
+                    name: "React Native", 
+                    level: 2,
+                    experience: "<1 year",
+                    notable: "sky app"
+                },
+                { 
+                    name: "Svelte", 
+                    level: 4,
+                    experience: "1.5 years",
+                    notable: "leetle"
+                },
+                { 
+                    name: "Astro", 
+                    level: 3,
+                    experience: "1.5 years",
+                    notable: "this website!"
+                },
+                { 
+                    name: "HTMX", 
+                    level: 1,
+                    experience: "<1 year",
+                    notable: ""
+                },
+                {
+                    name: "Flask",
+                    level: 3,
+                    experience: "<1 year",
+                    notable: "gptriver"
+                },
+                { 
+                    name: "Node/Express", 
+                    level: 3,
+                    experience: "1.5 years",
+                    notable: "gandalf"
+                },
+                { 
+                    name: "Bun/Hono", 
+                    level: 2,
+                    experience: "<1 year",
+                    notable: ""
+                },
+                
+            ].map(skill => (
+                <div class="group flex flex-col gap-1">
+                    <span class="font-medium">{skill.name}</span>
+                    <div class="flex gap-1 items-center py-1">
+                            {Array.from({ length: 5 }, (_, i) => (
+                                <div class={`w-4 h-1.5 rounded-full ${i < skill.level ? 'bg-zinc-200' : 'bg-zinc-700'}`}></div>
+                            ))}
+                        </div>
+                    <span class="text-xs text-zinc-300">experience: {skill.experience}</span>
+                    {skill.notable && (
+                        <div class="text-xs text-zinc-300">notable project: {skill.notable}</div>
+                    )}
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<section id="dev-setup" class="flex flex-col gap-4">
+    <div>
+        <h2 class="text-2xl font-bold">Dev Setup</h2>
+        <p>what more could I need</p>
+    </div>
+    <div class="px-4">
+    <markdown id="dev-setup-markdown">
+        ### Macbook Air M1 (2020)
+        it's a good laptop.
+        ### Cursor
+        solarized light theme
+        ### Arc
+        pls open source it
+
+    </markdown>
+    </div>
+</section>
+
 <script>
     import $ from 'jquery';
     import { marked } from 'marked';
@@ -490,19 +671,49 @@
         // Initialize hover effect for TOC menu
         initializeHover('.toc-menu');
 
+        // Add smooth scrolling to all hash links
+        $('a[href^="#"]').on('click', function(e) {
+            e.preventDefault();
+            const hash = (e.currentTarget as HTMLAnchorElement).hash;
+            const target = $(hash);
+            if (target.length) {
+                $('html, body').animate({
+                    scrollTop: target.offset().top - 20
+                }, 'smooth');
+            }
+        });
+
+        // Handle show/hide functionality for media section
+        $('#media-button').on('click', function() {
+            const $list = $('#media-list');
+            const $button = $(this);
+            $list.toggleClass('hidden');
+            $button.text($list.hasClass('hidden') ? 'show more' : 'hide');
+        });
+
         // Handle show/hide functionality for project logs and project soup
         $('#project-logs-button').on('click', function() {
             const $list = $('#project-logs-list');
             const $button = $(this);
             $list.toggleClass('hidden');
-            $button.text($list.hasClass('hidden') ? 'show' : 'hide');
+            $button.text($list.hasClass('hidden') ? 'show more' : 'hide');
         });
 
         $('#project-soup-button').on('click', function() {
             const $list = $('#project-soup-list');
             const $button = $(this);
             $list.toggleClass('hidden');
-            $button.text($list.hasClass('hidden') ? 'show' : 'hide');
+            $button.text($list.hasClass('hidden') ? 'show more' : 'hide');
+        });
+
+        // Return to top button functionality
+        $('#return-to-top').on('click', () => {
+            const $otherSection = $('#media');  // The first section in Other
+            if ($otherSection.length) {
+                $('html, body').animate({
+                    scrollTop: $otherSection.offset().top - 20
+                }, 'smooth');
+            }
         });
 
         // Simplified menu toggle handlers
@@ -567,8 +778,6 @@
                         setupScrollHandler();
                     } else {
                         clearTocScrollHandler();
-                        
-
                     }
                 });
             });
@@ -585,13 +794,11 @@
         // Ensure IDs are transferred from <markdown> to the generated <div>
         $("markdown").each(function (index, el) {
             const $markdownEl = $(el);
-            const markdownId = $markdownEl.attr('id'); // Get the ID from the original <markdown> tag
+            const markdownId = $markdownEl.attr('id');
             const rawMarkdown = $markdownEl.text().replace(/^ {8}/gm, '');
             
-            // Create the new div that will replace the <markdown> tag
             const $newDiv = $(`<div class="prose prose-zinc prose-invert prose-sm prose-headings:my-0 prose-ul:my-0 prose-li:my-0 prose-p:my-0 prose-text-white max-w-none prose-li:marker:text-zinc-300 px-4">${marked.parse(rawMarkdown)}</div>`);
             
-            // If the original <markdown> tag had an ID, apply it to the new div
             if (markdownId) {
                 $newDiv.attr('id', markdownId);
             }
@@ -599,7 +806,7 @@
             $markdownEl.replaceWith($newDiv);
         });
 
-        // Fetch movies (existing code)
+        // Fetch movies
         $.getJSON('https://ronkiehn-dev.vercel.app/api/letterboxd', function(movies) {
             const $moviesGrid = $('#movies-grid');
             $moviesGrid.empty();
@@ -620,7 +827,7 @@
             $('#movies-grid').html('<div class="text-center text-red-500">Error loading movies</div>');
         });
 
-        // Fetch books (existing code)
+        // Fetch books
         $.getJSON('https://ronkiehn-dev.vercel.app/api/goodreads', function(books) {
             const $booksGrid = $('#books-grid');
             $booksGrid.empty();
@@ -641,7 +848,7 @@
             $('#books-grid').html('<div class="text-center text-red-500">Error loading books</div>');
         });
 
-        // Fetch songs (existing code)
+        // Fetch songs
         $.getJSON('https://ronkiehn-dev.vercel.app/api/spotify-recent', function(tracks) {
             const $songGrid = $('#song-grid');
             $songGrid.empty();
@@ -679,6 +886,37 @@
             });
         }).fail(function() {
             $('#anime-grid').html('<div class="text-center text-red-500">Error loading anime</div>');
+        });
+
+        // Fetch GitHub Contributions
+        $.getJSON('/api/github-contributions', function(contributions) {
+            const $commitsGrid = $('#git-commits-grid');
+            $commitsGrid.empty(); // Clear loading message
+
+            if (contributions && contributions.length > 0) {
+                const $list = $('<ul class="list-none space-y-1"></ul>');
+                contributions.forEach(contrib => {
+                    $list.append(
+                        `<li class="text-sm text-zinc-300"><span class="font-semibold text-zinc-100">${contrib.year}:</span> ${contrib.totalContributions} contributions</li>`
+                    );
+                });
+                $commitsGrid.append($list);
+            } else {
+                $commitsGrid.html('<div class="text-center text-zinc-400">No contribution data found or GITHUB_PAT not configured.</div>');
+            }
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            console.error("Error fetching GitHub contributions:", textStatus, errorThrown, jqXHR.responseJSON);
+            let errorMessage = 'Error loading GitHub contributions.';
+            if (jqXHR.responseJSON && jqXHR.responseJSON.details) {
+                if (jqXHR.responseJSON.details.includes("GITHUB_PAT")) {
+                    errorMessage = 'GitHub PAT not configured or invalid. Please check server logs.';
+                } else {
+                    errorMessage = jqXHR.responseJSON.details;
+                }
+            } else if (jqXHR.responseJSON && jqXHR.responseJSON.error) {
+                errorMessage = jqXHR.responseJSON.error;
+            }
+            $('#git-commits-grid').html(`<div class="text-center text-red-500">${errorMessage}</div>`);
         });
     });
 </script>
