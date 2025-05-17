@@ -889,34 +889,56 @@
         });
 
         // Fetch GitHub Contributions
-        $.getJSON('/api/github-contributions', function(contributions) {
+        $.getJSON('https://ronkiehn-dev.vercel.app/api/github-contributions', function(data) {
             const $commitsGrid = $('#git-commits-grid');
             $commitsGrid.empty(); // Clear loading message
 
-            if (contributions && contributions.length > 0) {
-                const $list = $('<ul class="list-none space-y-1"></ul>');
-                contributions.forEach(contrib => {
-                    $list.append(
-                        `<li class="text-sm text-zinc-300"><span class="font-semibold text-zinc-100">${contrib.year}:</span> ${contrib.totalContributions} contributions</li>`
-                    );
-                });
-                $commitsGrid.append($list);
-            } else {
-                $commitsGrid.html('<div class="text-center text-zinc-400">No contribution data found or GITHUB_PAT not configured.</div>');
-            }
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-            console.error("Error fetching GitHub contributions:", textStatus, errorThrown, jqXHR.responseJSON);
-            let errorMessage = 'Error loading GitHub contributions.';
-            if (jqXHR.responseJSON && jqXHR.responseJSON.details) {
-                if (jqXHR.responseJSON.details.includes("GITHUB_PAT")) {
-                    errorMessage = 'GitHub PAT not configured or invalid. Please check server logs.';
-                } else {
-                    errorMessage = jqXHR.responseJSON.details;
+            if (data && data.totalCommits > 0) {
+                // Add total commits summary
+                $commitsGrid.append(
+                    `<div class="mb-6 space-y-2">
+                        <p class="text-lg text-zinc-100">
+                            <span class="font-semibold">Total commits in ${data.year}:</span> 
+                            ${data.totalCommits}
+                        </p>
+                    </div>`
+                );
+
+                // Add repository details
+                if (data.repositories && data.repositories.length > 0) {
+                    const $repoList = $('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>');
+                    
+                    data.repositories.forEach(repo => {
+                        const $repoCard = $(`
+                            <div class="bg-zinc-800/50 rounded-lg p-4 flex flex-col gap-2">
+                                <div class="flex items-center justify-between">
+                                    <a href="${repo.url}" target="_blank" class="text-zinc-100 font-medium hover:underline">${repo.name}</a>
+                                    <span class="text-sm text-zinc-300">${repo.commits} commits</span>
+                                </div>
+                                ${repo.description ? `<p class="text-sm text-zinc-400">${repo.description}</p>` : ''}
+                                <div class="flex items-center gap-4 mt-auto">
+                                    ${repo.language ? `<span class="text-xs text-zinc-300">${repo.language}</span>` : ''}
+                                    ${repo.stars > 0 ? `
+                                        <span class="text-xs text-zinc-300 flex items-center gap-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                                                <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+                                            </svg>
+                                            ${repo.stars}
+                                        </span>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        `);
+                        $repoList.append($repoCard);
+                    });
+                    
+                    $commitsGrid.append($repoList);
                 }
-            } else if (jqXHR.responseJSON && jqXHR.responseJSON.error) {
-                errorMessage = jqXHR.responseJSON.error;
+            } else {
+                $commitsGrid.html('<div class="text-center text-zinc-400">No contribution data found.</div>');
             }
-            $('#git-commits-grid').html(`<div class="text-center text-red-500">${errorMessage}</div>`);
+        }).fail(function() {
+            $('#git-commits-grid').html('<div class="text-center text-red-500">Error loading git commits</div>');
         });
     });
 </script>

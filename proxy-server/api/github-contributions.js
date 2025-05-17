@@ -9,7 +9,7 @@ const getGithubContributions = async () => {
     }
 
     // Get all repos for the user
-    const reposResponse = await fetch(`${GITHUB_REST_ENDPOINT}/users/${GITHUB_USERNAME}/repos`, {
+    const reposResponse = await fetch(`${GITHUB_REST_ENDPOINT}/user/repos?affiliation=owner`, {
         headers: {
             'Authorization': `token ${GITHUB_PAT}`,
             'Accept': 'application/vnd.github.v3+json'
@@ -21,43 +21,56 @@ const getGithubContributions = async () => {
     }
 
     const repos = await reposResponse.json();
+    const currentYear = new Date().getFullYear();
+    let totalCommits = 0;
+    const repoStats = [];
 
-    // Get commits for each repo grouped by year
-    const commitsByYear = {};
-
+    // Get statistics for each non-fork repository
     for (const repo of repos) {
-        // Skip forks
         if (repo.fork) continue;
 
-        const commitsResponse = await fetch(`${GITHUB_REST_ENDPOINT}/repos/${GITHUB_USERNAME}/${repo.name}/commits?author=${GITHUB_USERNAME}&per_page=100`, {
+        // Get commit statistics
+        const statsResponse = await fetch(`${GITHUB_REST_ENDPOINT}/repos/${GITHUB_USERNAME}/${repo.name}/stats/participation`, {
             headers: {
                 'Authorization': `token ${GITHUB_PAT}`,
                 'Accept': 'application/vnd.github.v3+json'
             }
         });
 
-        if (!commitsResponse.ok) {
-            console.warn(`Failed to fetch commits for repo ${repo.name}: ${commitsResponse.statusText}`);
+        if (!statsResponse.ok) {
+            console.warn(`Failed to fetch stats for repo ${repo.name}: ${statsResponse.statusText}`);
             continue;
         }
 
-        const commits = await commitsResponse.json();
-
-        // Group commits by year
-        for (const commit of commits) {
-            const year = new Date(commit.commit.author.date).getFullYear();
-            commitsByYear[year] = (commitsByYear[year] || 0) + 1;
+        const stats = await statsResponse.json();
+        // Calculate weeks since Jan 1st of current year
+        const now = new Date();
+        const startOfYear = new Date(currentYear, 0, 1); // Jan 1st of current year
+        const weeksSinceStart = Math.floor((now - startOfYear) / (7 * 24 * 60 * 60 * 1000));
+        const yearlyCommits = stats.owner.slice(-weeksSinceStart).reduce((sum, week) => sum + week, 0);
+        
+        if (yearlyCommits > 0) {
+            repoStats.push({
+                name: repo.name,
+                commits: yearlyCommits,
+                url: repo.html_url,
+                description: repo.description,
+                language: repo.language,
+                stars: repo.stargazers_count
+            });
+            
+            totalCommits += yearlyCommits;
         }
     }
 
-    // Convert to array format
-    const contributionsByYear = Object.entries(commitsByYear).map(([year, totalContributions]) => ({
-        year: parseInt(year),
-        totalContributions
-    }));
+    // Sort repositories by commit count (descending)
+    repoStats.sort((a, b) => b.commits - a.commits);
 
-    // Sort by year descending
-    return contributionsByYear.sort((a, b) => b.year - a.year);
+    return {
+        year: currentYear,
+        totalCommits,
+        repositories: repoStats
+    };
 };
 
 export default async function handler(req, res) {
