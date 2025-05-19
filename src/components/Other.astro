@@ -45,20 +45,20 @@
 
 </style>
 
-    <div id="toc-menu" class="absolute z-50 toc-menu backdrop-blur-md bg-gradient-to-br from-white/10 to-white/5 shadow-[0_0_10px_rgba(255,255,255,0.2)_inset]  rounded-2xl top-4 xl:left-4 right-4 w-fit">
+    <div id="toc-menu" class="absolute z-50 toc-menu backdrop-blur-md bg-gradient-to-br from-white/10 to-white/5 shadow-[0_0_10px_rgba(255,255,255,0.2)_inset]  rounded-2xl top-4 2xl:left-4 right-4 w-fit">
         <div class="absolute inset-0 border-2 border-zinc-600 rounded-2xl"></div>
         <div class="absolute gradient-border-mask inset-0 bg-gradient-radial rounded-2xl z-0 p-[2px]"></div>
         <div class="relative rounded-[calc(1rem-2px)] z-10">
-            <button id="menu-toggle" class="p-4 text-zinc-100 hover:text-zinc-300 xl:hidden">
+            <button id="menu-toggle" class="p-4 text-zinc-100 hover:text-zinc-300 2xl:hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
             </button>
             
-            <div id="toc-panel" class="hidden xl:block p-4">
+            <div id="toc-panel" class="hidden 2xl:block p-4">
                 <div class="flex justify-between gap-4 items-center mb-4">
                     <h3 class="text-lg font-semibold text-zinc-100">Table of Contents</h3>
-                    <button id="close-menu" class="xl:hidden text-zinc-400 hover:text-zinc-200">
+                    <button id="close-menu" class="2xl:hidden text-zinc-400 hover:text-zinc-200">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
@@ -66,6 +66,22 @@
                 </div>
                 
                 <ul class="list-none pl-2 ml-0 space-y-1">
+                    <li>
+                        <div class="flex items-center gap-2">
+                            <a href="#git-commits" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Git Commits</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex items-center gap-2">
+                            <a href="#skills" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Skills</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex items-center gap-2">
+                            <a href="#dev-setup" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Dev Setup</a>
+                        </div>
+                    </li>
+
                     <li>
                         <div class="flex items-center gap-2">
                             <a href="#media" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Media</a>
@@ -106,21 +122,6 @@
                             <li><a href="#spinning-dice" class="no-underline hover:underline text-zinc-300">Spinning dice</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <div class="flex items-center gap-2">
-                            <a href="#git-commits" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Git Commits</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="flex items-center gap-2">
-                            <a href="#skills" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Skills</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="flex items-center gap-2">
-                            <a href="#dev-setup" class="text-lg no-underline hover:underline font-semibold text-zinc-100">Dev Setup</a>
-                        </div>
-                    </li>
                 </ul>
                 <div class="mt-4 mb-3 mx-auto relative divider h-[1px] w-11/12 bg-zinc-600">
                     <div class="absolute inset-0 bg-gradient-radial z-10"></div>
@@ -132,12 +133,164 @@
         </div>
     </div>
 
+
+<section id="git-commits" class="flex flex-col gap-4">
+    <div>
+        <h2 class="text-2xl font-bold">Git Commits</h2>
+        <p>what i've been up to</p>
+    </div>
+    <div id="git-commits-grid" class="px-2 md:px-4 2xl:px-6">
+        <div class="text-center">Loading commit data...</div>
+        <!-- Commit data will be populated here by JavaScript -->
+    </div>
+</section>
+
+<section id="skills" class="flex flex-col gap-6 py-6">
+    <div>
+        <h2 class="text-2xl font-bold text-zinc-100">Tech Stack</h2>
+        <p >stuff i've been using/learning</p>
+    </div>
+
+    <div class="space-y-5 px-2 md:px-4 2xl:px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+                { 
+                    name: "Python", 
+                    level: 4,
+                    experience: "4 years",
+                    notable: "DA Wand Blender",
+                },
+                { 
+                    name: "C", 
+                    level: 3,
+                    experience: "3 years",
+                    notable: "cube-web"
+                },
+                { 
+                    name: "JavaScript", 
+                    level: 3,
+                    experience: "1.5 years",
+                    notable: "nootunez"
+                },
+                { 
+                    name: "HTML/CSS", 
+                    level: 4,
+                    experience: "1.5 years",
+                    notable: "gptriver"
+                },
+                { 
+                    name: "Rust", 
+                    level: 2,
+                    experience: "<1 year",
+                    notable: ""
+                },
+                { 
+                    name: "Go", 
+                    level: 2,
+                    experience: "<1 year",
+                    notable: "leetle"
+                },
+                { 
+                    name: "Haskell", 
+                    level: 2,
+                    experience: "<1 year",
+                    notable: "haskell-cube"
+                },
+                { 
+                    name: "Tailwind", 
+                    level: 4,
+                    experience: "1.5 years",
+                    notable: "this website!"
+                },
+                { 
+                    name: "React", 
+                    level: 4,
+                    experience: "1.5 years",
+                    notable: "gandalf"
+                },
+                { 
+                    name: "React Native", 
+                    level: 2,
+                    experience: "<1 year",
+                    notable: "sky app"
+                },
+                { 
+                    name: "Svelte", 
+                    level: 4,
+                    experience: "1.5 years",
+                    notable: "leetle"
+                },
+                { 
+                    name: "Astro", 
+                    level: 3,
+                    experience: "1.5 years",
+                    notable: "this website!"
+                },
+                { 
+                    name: "HTMX", 
+                    level: 1,
+                    experience: "<1 year",
+                    notable: ""
+                },
+                {
+                    name: "Flask",
+                    level: 3,
+                    experience: "<1 year",
+                    notable: "gptriver"
+                },
+                { 
+                    name: "Node/Express", 
+                    level: 3,
+                    experience: "1.5 years",
+                    notable: "gandalf"
+                },
+                { 
+                    name: "Bun/Hono", 
+                    level: 2,
+                    experience: "<1 year",
+                    notable: ""
+                },
+                
+            ].map(skill => (
+                <div class="group flex flex-col gap-1">
+                    <span class="font-medium">{skill.name}</span>
+                    <div class="flex gap-1 items-center py-1">
+                            {Array.from({ length: 5 }, (_, i) => (
+                                <div class={`w-4 h-1.5 rounded-full ${i < skill.level ? 'bg-zinc-200' : 'bg-zinc-700'}`}></div>
+                            ))}
+                        </div>
+                    <span class="text-xs text-zinc-300">experience: {skill.experience}</span>
+                    {skill.notable && (
+                        <div class="text-xs text-zinc-300">notable project: {skill.notable}</div>
+                    )}
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<section id="dev-setup" class="flex flex-col gap-4">
+    <div>
+        <h2 class="text-2xl font-bold">Dev Setup</h2>
+        <p>what more could I need</p>
+    </div>
+    <markdown id="dev-setup-markdown">
+        ### Macbook Air M1 (2020)
+        it's a good laptop.
+        ### Cursor
+        solarized light theme
+        ### Arc
+        pls open source it
+
+    </markdown>
+</section>
+
 <section id="media" class="flex flex-col gap-10">
     <div id="recent">
         <h2 class="text-2xl font-bold">Media</h2>
         <p>all the media I've consumed recently, updated automatically</p>
     </div>
-    <div class="flex flex-col gap-4 px-2">
+    <div class="flex flex-col gap-4 px-2 md:px-4 2xl:px-6">
         <div>
             <div class="flex justify-between items-center mb-4">
                 <h2 class="font-bold">Movies </h2>
@@ -497,159 +650,6 @@
     </markdown>
 </section>
 
-<section id="git-commits" class="flex flex-col gap-4">
-    <div>
-        <h2 class="text-2xl font-bold">Git Commits</h2>
-        <p>Recent activity across my repositories.</p>
-    </div>
-    <div id="git-commits-grid" class="px-2">
-        <div class="text-center">Loading commit data...</div>
-        <!-- Commit data will be populated here by JavaScript -->
-    </div>
-</section>
-
-<section id="skills" class="flex flex-col gap-6 py-6">
-    <div>
-        <h2 class="text-2xl font-bold text-zinc-100">Tech Stack</h2>
-        <p >stuff i've been using/learning</p>
-    </div>
-
-    <div class="space-y-5 px-4 md:px-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-                { 
-                    name: "Python", 
-                    level: 4,
-                    experience: "4 years",
-                    notable: "DA Wand Blender",
-                },
-                { 
-                    name: "C", 
-                    level: 3,
-                    experience: "3 years",
-                    notable: "cube-web"
-                },
-                { 
-                    name: "JavaScript", 
-                    level: 3,
-                    experience: "1.5 years",
-                    notable: "nootunez"
-                },
-                { 
-                    name: "HTML/CSS", 
-                    level: 4,
-                    experience: "1.5 years",
-                    notable: "gptriver"
-                },
-                { 
-                    name: "Rust", 
-                    level: 2,
-                    experience: "<1 year",
-                    notable: ""
-                },
-                { 
-                    name: "Go", 
-                    level: 2,
-                    experience: "<1 year",
-                    notable: "leetle"
-                },
-                { 
-                    name: "Haskell", 
-                    level: 2,
-                    experience: "<1 year",
-                    notable: "haskell-cube"
-                },
-                { 
-                    name: "Tailwind", 
-                    level: 4,
-                    experience: "1.5 years",
-                    notable: "this website!"
-                },
-                { 
-                    name: "React", 
-                    level: 4,
-                    experience: "1.5 years",
-                    notable: "gandalf"
-                },
-                { 
-                    name: "React Native", 
-                    level: 2,
-                    experience: "<1 year",
-                    notable: "sky app"
-                },
-                { 
-                    name: "Svelte", 
-                    level: 4,
-                    experience: "1.5 years",
-                    notable: "leetle"
-                },
-                { 
-                    name: "Astro", 
-                    level: 3,
-                    experience: "1.5 years",
-                    notable: "this website!"
-                },
-                { 
-                    name: "HTMX", 
-                    level: 1,
-                    experience: "<1 year",
-                    notable: ""
-                },
-                {
-                    name: "Flask",
-                    level: 3,
-                    experience: "<1 year",
-                    notable: "gptriver"
-                },
-                { 
-                    name: "Node/Express", 
-                    level: 3,
-                    experience: "1.5 years",
-                    notable: "gandalf"
-                },
-                { 
-                    name: "Bun/Hono", 
-                    level: 2,
-                    experience: "<1 year",
-                    notable: ""
-                },
-                
-            ].map(skill => (
-                <div class="group flex flex-col gap-1">
-                    <span class="font-medium">{skill.name}</span>
-                    <div class="flex gap-1 items-center py-1">
-                            {Array.from({ length: 5 }, (_, i) => (
-                                <div class={`w-4 h-1.5 rounded-full ${i < skill.level ? 'bg-zinc-200' : 'bg-zinc-700'}`}></div>
-                            ))}
-                        </div>
-                    <span class="text-xs text-zinc-300">experience: {skill.experience}</span>
-                    {skill.notable && (
-                        <div class="text-xs text-zinc-300">notable project: {skill.notable}</div>
-                    )}
-                </div>
-            ))}
-        </div>
-    </div>
-</section>
-
-<section id="dev-setup" class="flex flex-col gap-4">
-    <div>
-        <h2 class="text-2xl font-bold">Dev Setup</h2>
-        <p>what more could I need</p>
-    </div>
-    <div class="px-4">
-    <markdown id="dev-setup-markdown">
-        ### Macbook Air M1 (2020)
-        it's a good laptop.
-        ### Cursor
-        solarized light theme
-        ### Arc
-        pls open source it
-
-    </markdown>
-    </div>
-</section>
-
 <script>
     import $ from 'jquery';
     import { marked } from 'marked';
@@ -708,7 +708,7 @@
 
         // Return to top button functionality
         $('#return-to-top').on('click', () => {
-            const $otherSection = $('#media');  // The first section in Other
+            const $otherSection = $('#git-commits'); 
             if ($otherSection.length) {
                 $('html, body').animate({
                     scrollTop: $otherSection.offset().top - 20
@@ -797,7 +797,7 @@
             const markdownId = $markdownEl.attr('id');
             const rawMarkdown = $markdownEl.text().replace(/^ {8}/gm, '');
             
-            const $newDiv = $(`<div class="prose prose-zinc prose-invert prose-sm prose-headings:my-0 prose-ul:my-0 prose-li:my-0 prose-p:my-0 prose-text-white max-w-none prose-li:marker:text-zinc-300 px-4">${marked.parse(rawMarkdown)}</div>`);
+            const $newDiv = $(`<div class="prose prose-zinc prose-invert prose-sm prose-headings:my-0 prose-ul:my-0 prose-li:my-0 prose-p:my-0 prose-text-white max-w-none prose-li:marker:text-zinc-300 px-2 md:px-4 2xl:px-6">${marked.parse(rawMarkdown)}</div>`);
             
             if (markdownId) {
                 $newDiv.attr('id', markdownId);
@@ -891,42 +891,34 @@
         // Fetch GitHub Contributions
         $.getJSON('https://ronkiehn-dev.vercel.app/api/github-contributions', function(data) {
             const $commitsGrid = $('#git-commits-grid');
-            $commitsGrid.empty(); // Clear loading message
+            $commitsGrid.empty();
 
             if (data && data.totalCommits > 0) {
                 // Add total commits summary
                 $commitsGrid.append(
-                    `<div class="mb-6 space-y-2">
-                        <p class="text-lg text-zinc-100">
-                            <span class="font-semibold">Total commits in ${data.year}:</span> 
-                            ${data.totalCommits}
-                        </p>
+                    `<div class="mb-6">
+                        <span class="text-white font-medium text-lg">${data.totalCommits} commits in ${data.year}:</span> 
+                            
                     </div>`
                 );
 
                 // Add repository details
                 if (data.repositories && data.repositories.length > 0) {
-                    const $repoList = $('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>');
+                    const $repoList = $('<div class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>');
                     
-                    data.repositories.forEach(repo => {
+                    data.repositories.forEach((repo, index) => {
+                        const rankColors = ['text-amber-400', 'text-zinc-200', 'text-amber-600'];
+                        const rank = index < 3 ? `<span class="${rankColors[index]} text-lg font-bold mr-2">#${index + 1}</span>` : '';
                         const $repoCard = $(`
-                            <div class="bg-zinc-800/50 rounded-lg p-4 flex flex-col gap-2">
-                                <div class="flex items-center justify-between">
-                                    <a href="${repo.url}" target="_blank" class="text-zinc-100 font-medium hover:underline">${repo.name}</a>
+                            <div class="flex flex-col gap-1">
+                                <div class="flex items-center gap-1">
+                                    ${rank}
+                                    <span class="font-medium">${repo.name}</span>
+                                    
+                                </div>
+                                <span class="text-sm text-zinc-300">${repo.language}</span>
+
                                     <span class="text-sm text-zinc-300">${repo.commits} commits</span>
-                                </div>
-                                ${repo.description ? `<p class="text-sm text-zinc-400">${repo.description}</p>` : ''}
-                                <div class="flex items-center gap-4 mt-auto">
-                                    ${repo.language ? `<span class="text-xs text-zinc-300">${repo.language}</span>` : ''}
-                                    ${repo.stars > 0 ? `
-                                        <span class="text-xs text-zinc-300 flex items-center gap-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
-                                                <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
-                                            </svg>
-                                            ${repo.stars}
-                                        </span>
-                                    ` : ''}
-                                </div>
                             </div>
                         `);
                         $repoList.append($repoCard);
