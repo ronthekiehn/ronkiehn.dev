@@ -148,9 +148,9 @@ const otherProjects = [
         <div class="col-span-5 sm:col-span-3 space-y-2 md:space-y-4 ">
           <div class="motion-preset-slide-right-sm flex flex-col">
             <span class="font-bold">about me</span>
-            <span>special projects at <span class="text-purple-400">lambda λ</span>.</span>
+            <span>swe @ <span class="text-purple-400">lambda λ</span>.</span>
             <span>bs in cs & ba in philosophy from <span class="text-red-400">uchicago</span>.</span>
-            <span>a "product engineer"</span>
+            <span class="rainbow-letters">vibe coding final boss</span>
             <!-- <a href="buymeacoffee.com/ronthekiehn" target="_blank" rel="noreferrer" class="hover:underline  text-yellow-200">buy me a coffee</a> -->
           </div>
           <div class="motion-preset-slide-right-sm my-2 relative divider h-[2px] w-full bg-zinc-600">
@@ -175,7 +175,7 @@ const otherProjects = [
           <div class="flex flex-col motion-preset-slide-right-sm motion-delay-150">
             <span class="font-bold">tech stack</span>
             <span>i'm best at <span class="text-blue-400">c</span>, <span class="text-orange-300">python</span>, and <span class="text-yellow-300">javascript</span>/<span class="text-blue-300">typescript</span></span>
-            <span>but i'm learning <span class="text-blue-300">go</span>, <span class="text-red-500">rust</span>, and <span class="text-purple-400">haskell</span>.</span>
+            <span>my dev setup is a <span class="text-blue-300">macbook air m1</span> and <span class="text-gray-300">cursor</span></span>
           </div>
           
         </div>
@@ -211,15 +211,15 @@ const otherProjects = [
     		
 
 		</div>
-    <div id="switcher" class="relative rounded-full h-[40px] max-w-xs mx-auto bg-zinc-600 flex justify-center items-center mt-8 mb-4 motion-preset-fade-lg motion-delay-[350ms]">
+    <div id="switcher" class="relative rounded-full h-[46px] max-w-[22rem] mx-auto bg-zinc-600 flex justify-center items-center mt-8 mb-4 motion-preset-fade-lg motion-delay-[350ms]">
       <div class="absolute inset-0 bg-gradient-radial z-0 rounded-full"></div>
-      <div class="relative m-[2px] bg-black w-full h-[36px] rounded-full z-10 flex justify-between items-center">
-        <div id="slider" class="absolute bg-zinc-600 h-[36px] w-1/3 rounded-full transition-all duration-200 ease-in-out">
+      <div class="relative m-[2px] bg-black w-full h-[42px] rounded-full z-10 flex justify-between items-center">
+        <div id="slider" class="absolute bg-zinc-600 h-[42px] w-1/3 rounded-full transition-all duration-200 ease-in-out">
           <div class="absolute inset-0 bg-gradient-radial opacity-20 z-10 rounded-full"></div>
         </div>
-        <button id="projects-btn" class="hover:underline relative h-full w-full px-3 text-white rounded-full transition-colors z-20">Projects</button>
-        <button id="chatbot-btn" class="hover:underline relative h-full w-full px-2 text-white rounded-full transition-colors z-20">Chatbot</button>
-        <button id="other-btn" class="hover:underline relative h-full w-full px-3 text-white rounded-full transition-colors z-20">Other</button>
+        <button id="projects-btn" class="hover:underline relative h-full w-full px-2 text-white rounded-full transition-colors z-20 ">Projects</button>
+        <button id="chatbot-btn" class="hover:underline relative h-full w-full px-2 text-white rounded-full transition-colors z-20 ">Chatbot</button>
+        <button id="media-btn" class="hover:underline relative h-full w-full px-2 text-white rounded-full transition-colors z-20">Bookshelf</button>
       </div>
     </div>
 
@@ -244,20 +244,22 @@ const otherProjects = [
           </div>
           ))}
         </div>
+        <div id="git-commits-grid" class="mt-2 px-8 flex flex-col gap-4">
+          <div class="font-bold text-zinc-300 text-sm mt-2 mx-auto">Loading commit data...</div>
+        </div>
       </div>
-      <div id="chatbot" class="relative mx-auto inset-0 bg-zinc-600 rounded-[12px] max-w-4xl h-[75vh] hidden">
+      <div id="chatbot" class="hidden relative mx-auto inset-0 bg-zinc-600 rounded-[12px] max-w-4xl h-[75vh]">
         <div class="absolute inset-0 bg-gradient-radial rounded-[12px] z-0"></div>
         <div class="relative m-[2px] top-[2px] bg-black rounded-[10.5px] z-10 h-[calc(75vh-4px)]">
           <ChatBot client:load />
         </div>
       </div>
-      <div id="other" class="relative p-4 2xl:p-8 w-screen ml-[-50vw] left-[50%] flex justify-center">
+      <div id="media" class="hidden relative p-4 2xl:p-8 w-screen ml-[-50vw] left-[50%] justify-center">
         <div class="max-w-4xl mx-auto pb-4 flex-col flex gap-10 ">
          <Other />
         </div>
       </div>
     </div>
-
 </Layout>
 
 
@@ -283,19 +285,29 @@ const otherProjects = [
 
     function switchTab(position: string, tabId: string) {
         $('#slider').css('left', position);
-        $('#projects, #chatbot, #other').addClass('hidden');
+        $('#projects, #chatbot, #media').addClass('hidden');
         $(tabId).removeClass('hidden');
+        
+        // Update button colors
+        $('#projects-btn, #chatbot-btn, #media-btn').removeClass('text-white').addClass('text-zinc-300');
+        if (tabId === '#projects') {
+          $('#projects-btn').removeClass('text-zinc-300').addClass('text-white');
+        } else if (tabId === '#chatbot') {
+          $('#chatbot-btn').removeClass('text-zinc-300').addClass('text-white');
+        } else if (tabId === '#media') {
+          $('#media-btn').removeClass('text-zinc-300').addClass('text-white');
+        }
       }
 
     function handleHash() {
         const hash = window.location.hash;
 
-        if (hash === '#other') {
-            switchTab('66.66%', '#other');
+        if (hash === '#media' || hash === '#other') {
+            switchTab('66.66%', '#media');
         } else if (hash === '#chatbot') {
             switchTab('33.33%', '#chatbot');
-        } else if (hash && hash.length > 1 && $(hash).length > 0 && $(hash).closest('#other').length > 0) {
-            switchTab('66.66%', '#other');
+        } else if (hash && hash.length > 1 && $(hash).length > 0 && $(hash).closest('#media').length > 0) {
+            switchTab('66.66%', '#media');
             setTimeout(() => {
                 const element = document.getElementById(hash.substring(1));
                 if (element) {
@@ -317,12 +329,55 @@ const otherProjects = [
         switchTab('33.33%', '#chatbot');
       });
 
-      $('#other-btn').on('click', function() {
-        switchTab('66.66%', '#other');
+      $('#media-btn').on('click', function() {
+        switchTab('66.66%', '#media');
       });
 
       handleHash();
       $(window).on('hashchange', handleHash);
+      
+      // Set initial button colors
+      $('#chatbot-btn, #media-btn').removeClass('text-white').addClass('text-zinc-300');
+
+
+      // Fetch GitHub Contributions
+      $.getJSON('https://ronkiehn-dev.vercel.app/api/github-contributions', function(data) {
+        const $commitsGrid = $('#git-commits-grid');
+        $commitsGrid.empty();
+
+        if (data && data.totalCommits > 0) {
+          $commitsGrid.append(
+            `<span class="font-bold text-zinc-300 text-sm mt-2 mx-auto">${data.totalCommits} commits in ${data.year}</span>`
+          );
+
+          // Add repository details
+          if (data.repositories && data.repositories.length > 0) {
+            const $repoList = $('<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>');
+            
+            data.repositories.forEach((repo, index) => {
+              const rankColors = ['text-amber-400', 'text-zinc-200', 'text-amber-600'];
+              const bgColors = ['bg-amber-400/5', 'bg-zinc-200/5', 'bg-amber-600/5'];
+              const bgClass = index < 3 ? `${bgColors[index]} p-2` : '';
+              const rank = index < 3 ? `<span class="${rankColors[index]}">#${index + 1}</span> ` : '';
+              const $repoCard = $(`
+                <div class="flex flex-col items-center text-center ${bgClass}">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="font-bold">${rank}${repo.name}</span>
+                  </div>
+                  <span class="inline-block text-xs text-zinc-300">${repo.language} • ${repo.commits} commits</span>
+                </div>
+              `);
+              $repoList.append($repoCard);
+            });
+            
+            $commitsGrid.append($repoList);
+          }
+        } else {
+          $commitsGrid.html('<div class="text-center text-zinc-400">No contribution data found.</div>');
+        }
+      }).fail(function() {
+        $('#git-commits-grid').html('<div class="text-center text-red-500">Error loading git commits</div>');
+      });
     });
     
 
@@ -462,3 +517,31 @@ const otherProjects = [
   animation-iteration-count: 1, 5;  /* Type once, blink 5 times */
 }
   </style>
+
+<style is:global>
+.rainbow-letters {
+  background: linear-gradient(
+    90deg,
+    #fbbf24,
+    #ec4899,
+    #8b5cf6,
+    #06b6d4,
+    #10b981,
+    #fbbf24
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-flow 2s linear infinite;
+}
+
+@keyframes gradient-flow {
+  0%, 100% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+}
+</style>

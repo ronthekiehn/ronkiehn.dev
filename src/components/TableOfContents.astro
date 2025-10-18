@@ -1,0 +1,141 @@
+<!-- Saved for later use - floating table of contents with gradient border -->
+<style is:global>
+    .gradient-border-mask {
+        mask: linear-gradient(rgb(255, 255, 255, 0.9) 0 0) content-box, linear-gradient(rgb(255, 255, 255, 1) 0 0);
+        mask-composite: exclude;
+        -webkit-mask: linear-gradient(rgb(255, 255, 255, 0.9) 0 0) content-box, linear-gradient(rgb(255, 255, 255, 1) 0 0);
+        -webkit-mask-composite: xor;
+        padding: 2px;
+    }
+</style>
+
+<div id="toc-menu" class="absolute z-50 toc-menu backdrop-blur-md bg-gradient-to-br from-white/10 to-white/5 shadow-[0_0_10px_rgba(255,255,255,0.2)_inset] rounded-2xl top-4 2xl:left-4 right-4 w-fit">
+    <div class="absolute inset-0 border-2 border-zinc-600 rounded-2xl"></div>
+    <div class="absolute gradient-border-mask inset-0 bg-gradient-radial rounded-2xl z-0 p-[2px]"></div>
+    <div class="relative rounded-[calc(1rem-2px)] z-10">
+        <button id="menu-toggle" class="p-4 text-zinc-100 hover:text-zinc-300 2xl:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+        </button>
+        
+        <div id="toc-panel" class="hidden 2xl:block p-4">
+            <div class="flex justify-between gap-4 items-center mb-4">
+                <h3 class="text-lg font-semibold text-zinc-100">Table of Contents</h3>
+                <button id="close-menu" class="2xl:hidden text-zinc-400 hover:text-zinc-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            
+            <ul class="list-none pl-2 ml-0 space-y-1">
+                <!-- Add your navigation items here -->
+            </ul>
+            <div class="mt-4 mb-3 mx-auto relative divider h-[1px] w-11/12 bg-zinc-600">
+                <div class="absolute inset-0 bg-gradient-radial z-10"></div>
+            </div>
+            <button id="return-to-top" class="w-fit p-1 mx-auto flex items-center justify-center text-zinc-300 hover:text-white transition-colors">
+                Return to top
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    import $ from 'jquery';
+    import { initializeHover } from '../scripts/hover.js';
+
+    $(() => {
+        // Initialize hover effect for TOC menu
+        initializeHover('.toc-menu');
+
+        // Add smooth scrolling to all hash links
+        $('a[href^="#"]').on('click', function(e) {
+            e.preventDefault();
+            const hash = (e.currentTarget as HTMLAnchorElement).hash;
+            const target = $(hash);
+            if (target.length) {
+                $('html, body').animate({
+                    scrollTop: target.offset().top - 20
+                }, 'smooth');
+            }
+        });
+
+        // Simplified menu toggle handlers
+        $('#menu-toggle').on('click', function() {
+            $(this).addClass('hidden');
+            $('#toc-panel').removeClass('hidden');
+        });
+
+        $('#close-menu').on('click', function() {
+            $('#menu-toggle').removeClass('hidden');
+            $('#toc-panel').addClass('hidden');
+        });
+
+        const $tocMenu = $('#toc-menu');
+        let scrollHandlerTimeoutId = null;
+
+        function setupScrollHandler() {
+            if (scrollHandlerTimeoutId) {
+                clearTimeout(scrollHandlerTimeoutId);
+                scrollHandlerTimeoutId = null;
+            }
+
+            $(window).off('scroll.stickyTOC');
+
+            if (!$tocMenu.length || !$tocMenu.is(':visible')) return;
+            
+            scrollHandlerTimeoutId = setTimeout(() => {
+                if (!$tocMenu.is(':visible')) {
+                    $(window).off('scroll.stickyTOC');
+                    return;
+                }
+
+                const offset = $tocMenu.offset();
+                if (!offset) return;
+                
+                const triggerOffset = offset.top;
+                $(window).on('scroll.stickyTOC', () => {
+                    if ($(window).scrollTop() > triggerOffset - 16) {
+                        $tocMenu.removeClass('absolute').addClass('fixed');
+                    } else {
+                        $tocMenu.removeClass('fixed').addClass('absolute');
+                    }
+                });
+                scrollHandlerTimeoutId = null;
+            }, 100);
+        }
+
+        function clearTocScrollHandler() {
+            if (scrollHandlerTimeoutId) {
+                clearTimeout(scrollHandlerTimeoutId);
+                scrollHandlerTimeoutId = null;
+            }
+            $(window).off('scroll.stickyTOC');
+            $('#menu-toggle').removeClass('hidden');
+            $('#toc-panel').addClass('hidden');
+        }
+
+        if ($tocMenu.length) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setupScrollHandler();
+                    } else {
+                        clearTocScrollHandler();
+                    }
+                });
+            });
+
+            observer.observe($tocMenu[0]);
+        }
+
+        $(window).on('load resize', () => {
+            if ($tocMenu.length && $tocMenu.is(':visible')) {
+                setupScrollHandler();
+            }
+        });
+    });
+</script>
+
