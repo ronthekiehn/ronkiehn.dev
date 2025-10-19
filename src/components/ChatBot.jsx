@@ -95,23 +95,23 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="flex h-full flex-col items-center ">
-      <span className="text-zinc-200 text-xl font-bold py-4">RawnBot 1.2</span>
+    <div className="flex h-full flex-col items-center text-sm">
+      <span className="text-zinc-200 font-bold py-4">RawnBot 1.2</span>
       <div 
         className="bg-black max-w-3xl w-full h-full overflow-y-auto no-scrollbar p-4"
         ref={chatContainerRef}
       >
         {writeHistory.map((msg, index) => (
           <div key={index} className="mb-4">
-            <div className="flex items-start space-x-4">
-              <div className={`w-10 h-10 mt-2 rounded-full flex-shrink-0 ${
+            <div className="flex items-start space-x-3">
+              <div className={`w-8 h-8 mt-1 rounded-full flex-shrink-0 text-xs ${
                 msg.role === 'user' ? 'bg-blue-500' : 'bg-red-500'
               } flex items-center justify-center text-white`}>
                 {msg.role === 'user' ? 'y' : 'r'}
               </div>
               <div className="flex-1">
                 <div className="flex items-center space-x-2">
-                  <span className={`font-medium ${
+                  <span className={`font-bold ${
                     msg.role === 'user' ? 'text-blue-400' : 'text-red-400'
                   }`}>
                     {msg.role === 'user' ? 'you' : 'rawnbot'}

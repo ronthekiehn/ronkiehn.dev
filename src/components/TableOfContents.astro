@@ -1,5 +1,59 @@
-<!-- Saved for later use - floating table of contents with gradient border -->
 <style is:global>
+    .glass-toc {
+        /* Premium glass effect - balanced transparency */
+        backdrop-filter: blur(4px) saturate(200%);
+        
+        user-select: none;
+        cursor: grab;
+        will-change: transform;
+        transform: translateZ(0);
+    }
+    
+    /* Inner glass border - on a pseudo-element inset from edges */
+    .glass-toc::before {
+        content: '';
+        position: absolute;
+        inset: 2px;
+        border-radius: 14px;
+        box-shadow: 
+            inset 2px 2px 10px rgba(255, 255, 255, 0.1),
+            inset -2px -2px 10px rgba(255, 255, 255, 0.1);
+        pointer-events: none;
+        z-index: 1;
+    }
+    
+    .glass-toc.dragging {
+        cursor: grabbing;
+        z-index: 1000;
+    }
+    
+    .glass-toc.snapping {
+        transition: left 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                    top 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    /* Collapse animation controlled by JS */
+    .toc-inner {
+        overflow: hidden;
+    }
+    
+    #toc-panel {
+        opacity: 1;
+        width: 280px; /* Fixed width for consistent expansion */
+    }
+    
+    #menu-toggle {
+        display: block;
+    }
+    
+    #menu-toggle.hidden {
+        display: none;
+    }
+    
+    #toc-panel.hidden {
+        display: none;
+    }
+    
     .gradient-border-mask {
         mask: linear-gradient(rgb(255, 255, 255, 0.9) 0 0) content-box, linear-gradient(rgb(255, 255, 255, 1) 0 0);
         mask-composite: exclude;
@@ -9,28 +63,43 @@
     }
 </style>
 
-<div id="toc-menu" class="absolute z-50 toc-menu backdrop-blur-md bg-gradient-to-br from-white/10 to-white/5 shadow-[0_0_10px_rgba(255,255,255,0.2)_inset] rounded-2xl top-4 2xl:left-4 right-4 w-fit">
+<div id="toc-menu" class="glass-toc toc-menu fixed z-50 rounded-2xl w-fit" style="top: 1rem; right: 1rem;">
     <div class="absolute inset-0 border-2 border-zinc-600 rounded-2xl"></div>
-    <div class="absolute gradient-border-mask inset-0 bg-gradient-radial rounded-2xl z-0 p-[2px]"></div>
-    <div class="relative rounded-[calc(1rem-2px)] z-10">
-        <button id="menu-toggle" class="p-4 text-zinc-100 hover:text-zinc-300 2xl:hidden">
+    <div class="absolute gradient-border-mask inset-0 bg-gradient-radial rounded-2xl z-0 pointer-events-none"></div>
+    <div class="toc-inner relative rounded-2xl z-10">
+        <button id="menu-toggle" class="p-4 text-zinc-100 hover:text-zinc-300">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
         </button>
         
-        <div id="toc-panel" class="hidden 2xl:block p-4">
-            <div class="flex justify-between gap-4 items-center mb-4">
+        <div id="toc-panel" class="p-4">
+            <div id="toc-header" class="flex justify-between gap-4 items-center mb-4 cursor-pointer">
                 <h3 class="text-lg font-semibold text-zinc-100">Table of Contents</h3>
-                <button id="close-menu" class="2xl:hidden text-zinc-400 hover:text-zinc-200">
+                <button id="close-menu" class="text-zinc-400 hover:text-zinc-200">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
             
-            <ul class="list-none pl-2 ml-0 space-y-1">
-                <!-- Add your navigation items here -->
+            <ul class="list-none pl-2 ml-0 space-y-2 text-sm">
+                <li><a href="#about" class="text-white hover:underline transition-all font-bold">about me</a></li>
+                <li class="pt-2 mt-2">
+                    <a href="#projects" class="text-white hover:underline transition-all font-bold">projects</a>
+                </li>
+                <li><a href="#other-projects" class="text-white hover:underline transition-all pl-3">other projects</a></li>
+                <li><a href="#git-commits" class="text-white hover:underline transition-all pl-3">git commits</a></li>
+                <li class="pt-2 mt-2">
+                    <a href="#chatbot" class="text-white hover:underline transition-all font-bold">chatbot</a>
+                </li>
+                <li class="pt-2 mt-2">
+                    <a href="#bookshelf" class="text-white hover:underline transition-all font-bold">bookshelf</a>
+                </li>
+                <li><a href="#songs" class="text-white hover:underline transition-all pl-3">songs</a></li>
+                <li><a href="#anime" class="text-white hover:underline transition-all pl-3">anime</a></li>
+                <li><a href="#books" class="text-white hover:underline transition-all pl-3">books</a></li>
+                <li><a href="#movies" class="text-white hover:underline transition-all pl-3">movies</a></li>
             </ul>
             <div class="mt-4 mb-3 mx-auto relative divider h-[1px] w-11/12 bg-zinc-600">
                 <div class="absolute inset-0 bg-gradient-radial z-10"></div>
@@ -45,95 +114,508 @@
 <script>
     import $ from 'jquery';
     import { initializeHover } from '../scripts/hover.js';
+    
+    // Add easeOutBack easing with custom overshoot values
+    // @ts-expect-error - jQuery easing function signature
+    $.easing.easeOutBackOpen = function (x: number, t: number, b: number, c: number, d: number, s?: number) {
+        if (s == undefined) s = 1.5; // More overshoot for open
+        return c*((t=t/d-1)*t*((s+1)*t + s) + 1) + b;
+    };
+    
+    // @ts-expect-error - jQuery easing function signature
+    $.easing.easeOutBackClose = function (x: number, t: number, b: number, c: number, d: number, s?: number) {
+        if (s == undefined) s = 1.05; // Subtle overshoot for close
+        return c*((t=t/d-1)*t*((s+1)*t + s) + 1) + b;
+    };
 
     $(() => {
         // Initialize hover effect for TOC menu
         initializeHover('.toc-menu');
 
-        // Add smooth scrolling to all hash links
-        $('a[href^="#"]').on('click', function(e) {
-            e.preventDefault();
-            const hash = (e.currentTarget as HTMLAnchorElement).hash;
-            const target = $(hash);
-            if (target.length) {
-                $('html, body').animate({
-                    scrollTop: target.offset().top - 20
-                }, 'smooth');
-            }
-        });
-
-        // Simplified menu toggle handlers
-        $('#menu-toggle').on('click', function() {
-            $(this).addClass('hidden');
-            $('#toc-panel').removeClass('hidden');
-        });
-
-        $('#close-menu').on('click', function() {
-            $('#menu-toggle').removeClass('hidden');
-            $('#toc-panel').addClass('hidden');
-        });
-
         const $tocMenu = $('#toc-menu');
-        let scrollHandlerTimeoutId = null;
+        const $tocInner = $('.toc-inner');
+        const $menuToggle = $('#menu-toggle');
+        const $tocPanel = $('#toc-panel');
+        const $tocHeader = $('#toc-header');
+        const $closeMenu = $('#close-menu');
+        
+        let mouseDownStarted = false;
+        let startX = 0;
+        let startY = 0;
+        let startLeft = 0;
+        let startTop = 0;
+        let hasMoved = false;
+        let touchStartTime = 0;
+        let isExpanded = false;
+        const CORNER_SNAP_DISTANCE = 50; // Snap if within 50px of corner
 
-        function setupScrollHandler() {
-            if (scrollHandlerTimeoutId) {
-                clearTimeout(scrollHandlerTimeoutId);
-                scrollHandlerTimeoutId = null;
-            }
+        // Start collapsed
+        $tocPanel.addClass('hidden');
+        
+        // Restore position from localStorage
+        const savedPosition = localStorage.getItem('toc-position');
+        if (savedPosition) {
+            const { left, top } = JSON.parse(savedPosition);
+            $tocMenu.css({ left: `${left}px`, top: `${top}px`, right: 'auto' });
+        }
 
-            $(window).off('scroll.stickyTOC');
-
-            if (!$tocMenu.length || !$tocMenu.is(':visible')) return;
+        // Determine which side to expand based on position
+        function getExpandDirection() {
+            const windowWidth = $(window).width();
+            const menuLeft = $tocMenu.position().left;
+            const menuWidth = $tocMenu.outerWidth();
             
-            scrollHandlerTimeoutId = setTimeout(() => {
-                if (!$tocMenu.is(':visible')) {
-                    $(window).off('scroll.stickyTOC');
-                    return;
-                }
+            // If closer to right edge, expand left
+            return (menuLeft + menuWidth > windowWidth / 2) ? 'left' : 'right';
+        }
 
-                const offset = $tocMenu.offset();
-                if (!offset) return;
+        // Toggle menu with JS-controlled animation
+        function toggleMenu(forceClose = false, clickX = null, clickY = null) {
+            if (forceClose || isExpanded) {
+                // Close: collapse towards the click point
+                isExpanded = false;
                 
-                const triggerOffset = offset.top;
-                $(window).on('scroll.stickyTOC', () => {
-                    if ($(window).scrollTop() > triggerOffset - 16) {
-                        $tocMenu.removeClass('absolute').addClass('fixed');
-                    } else {
-                        $tocMenu.removeClass('fixed').addClass('absolute');
+                const currentHeight = $tocInner.height();
+                const currentWidth = $tocInner.width();
+                const buttonHeight = $menuToggle.outerHeight();
+                const buttonWidth = $menuToggle.outerWidth();
+                
+                const currentPos = $tocMenu.position();
+                let targetLeft = currentPos.left;
+                let targetTop = currentPos.top;
+                
+                // If we have click coordinates, center the button on the click point
+                if (clickX !== null && clickY !== null) {
+                    // Center the button on the click position
+                    targetLeft = clickX - buttonWidth / 2;
+                    targetTop = clickY - buttonHeight / 2;
+                    
+                    // Constrain to window bounds
+                    const windowWidth = $(window).width();
+                    const windowHeight = $(window).height();
+                    targetLeft = Math.max(16, Math.min(targetLeft, windowWidth - buttonWidth - 16));
+                    targetTop = Math.max(16, Math.min(targetTop, windowHeight - buttonHeight - 16));
+                }
+                
+                // Set starting dimensions
+                $tocInner.css({ height: currentHeight, width: currentWidth });
+                
+                // Animate both position and dimensions simultaneously
+                $tocMenu.animate({ left: targetLeft, top: targetTop }, {
+                    duration: 400,
+                    easing: 'easeOutBackClose'
+                });
+                
+                // Start with button visible but transparent for fade in
+                $menuToggle.removeClass('hidden').css('opacity', 0);
+                
+                $tocInner.animate({ height: buttonHeight, width: buttonWidth }, {
+                    duration: 400,
+                    easing: 'easeOutBackClose',
+                    progress: function(animation, progress) {
+                        // Fade out panel faster (squared for faster fade)
+                        $tocPanel.css('opacity', 1 - (progress * progress * 1.5));
+                        // Fade in hamburger button
+                        $menuToggle.css('opacity', progress);
+                    },
+                    complete: function() {
+                        // Clean up after animation
+                        $tocPanel.addClass('hidden');
+                        $menuToggle.css('opacity', 1);
+                        $tocInner.css({ height: 'auto', width: 'auto' });
+                        $tocMenu.css('right', 'auto');
+                        
+                        // Save final position
+                        localStorage.setItem('toc-position', JSON.stringify({
+                            left: targetLeft,
+                            top: targetTop
+                        }));
                     }
                 });
-                scrollHandlerTimeoutId = null;
-            }, 100);
-        }
-
-        function clearTocScrollHandler() {
-            if (scrollHandlerTimeoutId) {
-                clearTimeout(scrollHandlerTimeoutId);
-                scrollHandlerTimeoutId = null;
+                
+            } else {
+                // Open: expand from middle of button, adjusting for edges
+                isExpanded = true;
+                
+                // Get the button-only dimensions
+                const buttonHeight = $menuToggle.outerHeight();
+                const buttonWidth = $menuToggle.outerWidth();
+                
+                // Show panel but hidden for measurement
+                $menuToggle.addClass('hidden');
+                $tocPanel.removeClass('hidden').css('opacity', 0);
+                
+                // Measure full dimensions
+                const fullHeight = $tocInner.height();
+                const fullWidth = $tocInner.width();
+                
+                // Get current button position
+                const menuPos = $tocMenu.position();
+                const windowWidth = $(window).width();
+                const windowHeight = $(window).height();
+                
+                // Calculate button edges
+                const buttonCenterX = menuPos.left + buttonWidth / 2;
+                const buttonRightEdge = menuPos.left + buttonWidth;
+                
+                let newTop = menuPos.top; // Keep same top position
+                let newLeft;
+                
+                // Calculate distance from edges
+                const distanceFromLeft = menuPos.left - 16;
+                const distanceFromRight = (windowWidth - 16) - buttonRightEdge;
+                
+                // Calculate how much space we'd need for centered expansion
+                const spaceNeededLeft = fullWidth / 2 - buttonWidth / 2;
+                const spaceNeededRight = fullWidth / 2 - buttonWidth / 2;
+                
+                // Determine expansion ratio based on available space
+                if (distanceFromLeft < spaceNeededLeft) {
+                    // Near left edge - proportional right-open
+                    // Ratio: 0 = fully at edge (open full right), 1 = enough space (open centered)
+                    const ratio = Math.max(0, Math.min(1, distanceFromLeft / spaceNeededLeft));
+                    // Interpolate between left-aligned (button left edge) and centered
+                    const leftAligned = menuPos.left;
+                    const centered = buttonCenterX - fullWidth / 2;
+                    newLeft = leftAligned + (centered - leftAligned) * ratio;
+                } else if (distanceFromRight < spaceNeededRight) {
+                    // Near right edge - proportional left-open
+                    // Ratio: 0 = fully at edge (open full left), 1 = enough space (open centered)
+                    const ratio = Math.max(0, Math.min(1, distanceFromRight / spaceNeededRight));
+                    // Interpolate between right-aligned (button right edge) and centered
+                    const rightAligned = buttonRightEdge - fullWidth;
+                    const centered = buttonCenterX - fullWidth / 2;
+                    newLeft = rightAligned + (centered - rightAligned) * ratio;
+                } else {
+                    // Enough space on both sides - expand centered
+                    newLeft = buttonCenterX - fullWidth / 2;
+                }
+                
+                // Only adjust vertical if we'd overflow bottom
+                if (newTop + fullHeight > windowHeight - 16) {
+                    newTop = windowHeight - fullHeight - 16;
+                }
+                
+                // Animate position if it changed
+                if (newLeft !== menuPos.left || newTop !== menuPos.top) {
+                    $tocMenu.animate({ left: newLeft, top: newTop }, {
+                        duration: 400,
+                        easing: 'easeOutBackOpen'
+                    });
+                    
+                    // Save new position
+                    localStorage.setItem('toc-position', JSON.stringify({
+                        left: newLeft,
+                        top: newTop
+                    }));
+                }
+                
+                // Set to button dimensions and animate to full
+                $tocInner.css({ height: buttonHeight, width: buttonWidth });
+                
+                $tocInner.animate({ height: fullHeight, width: fullWidth }, {
+                    duration: 400,
+                    easing: 'easeOutBackOpen',
+                    progress: function(animation, progress) {
+                        // Fade in panel as we expand
+                        $tocPanel.css('opacity', progress);
+                    },
+                    complete: function() {
+                        $tocInner.css({ height: 'auto', width: 'auto' });
+                    }
+                });
             }
-            $(window).off('scroll.stickyTOC');
-            $('#menu-toggle').removeClass('hidden');
-            $('#toc-panel').addClass('hidden');
         }
 
-        if ($tocMenu.length) {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        setupScrollHandler();
-                    } else {
-                        clearTocScrollHandler();
+        // Header click closes menu
+        $tocHeader.on('click', function(e) {
+            if (hasMoved) return;
+            e.stopPropagation();
+            toggleMenu(true, e.clientX, e.clientY);
+        });
+
+        // Close button
+        $closeMenu.on('click', function(e) {
+            if (hasMoved) return;
+            e.stopPropagation();
+            toggleMenu(true, e.clientX, e.clientY);
+        });
+
+        // Smooth scrolling for TOC links - don't close after clicking
+        $('#toc-menu a[href^="#"]').on('click', function(e) {
+            if (hasMoved) return; // Don't navigate if we just dragged
+            
+            e.preventDefault();
+            e.stopPropagation();
+            const hash = $(this).attr('href');
+            
+            if (hash === '#projects' || hash === '#chatbot' || hash === '#bookshelf') {
+                // Switch to the correct tab and scroll to switcher
+                window.location.hash = hash;
+                setTimeout(() => {
+                    const switcher = $('#switcher');
+                    if (switcher.length) {
+                        $('html, body').animate({
+                            scrollTop: switcher.offset().top
+                        }, 500);
+                    }
+                }, 100);
+            } else if (hash === '#other-projects' || hash === '#git-commits') {
+                // Switch to projects tab and scroll to section
+                window.location.hash = '#projects';
+                setTimeout(() => {
+                    const target = $(hash);
+                    if (target.length) {
+                        $('html, body').animate({
+                            scrollTop: target.offset().top - 80
+                        }, 500);
+                    }
+                }, 100);
+            } else if (hash === '#songs' || hash === '#anime' || hash === '#books' || hash === '#movies') {
+                // Switch to bookshelf tab and scroll to section
+                window.location.hash = '#bookshelf';
+                setTimeout(() => {
+                    const target = $(hash);
+                    if (target.length) {
+                        $('html, body').animate({
+                            scrollTop: target.offset().top - 80
+                        }, 500);
+                    }
+                }, 100);
+            } else {
+                // Smooth scroll to section
+                const target = $(hash);
+                if (target.length) {
+                    $('html, body').animate({
+                        scrollTop: target.offset().top - 80
+                    }, 500);
+                }
+            }
+            // Don't close menu after clicking link
+        });
+
+        $('#return-to-top').on('click', function(e) {
+            if (hasMoved) return;
+            e.stopPropagation();
+            $('html, body').animate({ scrollTop: 0 }, 'smooth');
+        });
+
+        // Snap to corner if dragged off screen OR very close to corner
+        function snapIfOffScreenOrNearCorner() {
+            const windowWidth = $(window).width();
+            const windowHeight = $(window).height();
+            const menuWidth = $tocMenu.outerWidth();
+            const menuHeight = $tocMenu.outerHeight();
+            const margin = 16;
+            
+            let currentLeft = $tocMenu.position().left;
+            let currentTop = $tocMenu.position().top;
+            let needsSnap = false;
+
+            // Check if off screen
+            const isOffScreen = currentLeft < 0 || currentLeft + menuWidth > windowWidth ||
+                               currentTop < 0 || currentTop + menuHeight > windowHeight;
+
+            if (isOffScreen) {
+                // If off screen, snap to nearest corner
+                const corners = [
+                    { left: margin, top: margin },
+                    { left: windowWidth - menuWidth - margin, top: margin },
+                    { left: margin, top: windowHeight - menuHeight - margin },
+                    { left: windowWidth - menuWidth - margin, top: windowHeight - menuHeight - margin }
+                ];
+
+                // Find nearest corner
+                let nearest = corners[0];
+                let minDistance = Infinity;
+
+                corners.forEach(corner => {
+                    const distance = Math.sqrt(
+                        Math.pow(currentLeft - corner.left, 2) + Math.pow(currentTop - corner.top, 2)
+                    );
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        nearest = corner;
                     }
                 });
-            });
 
-            observer.observe($tocMenu[0]);
+                needsSnap = true;
+                currentLeft = nearest.left;
+                currentTop = nearest.top;
+            } else {
+                // Only check for corner snap if we're actually near a corner (not just an edge)
+                const edgeMargin = 100; // Distance from edge where we consider it "near the edge"
+                const isNearLeftEdge = currentLeft < edgeMargin;
+                const isNearRightEdge = currentLeft + menuWidth > windowWidth - edgeMargin;
+                const isNearTopEdge = currentTop < edgeMargin;
+                const isNearBottomEdge = currentTop + menuHeight > windowHeight - edgeMargin;
+
+                // Only snap to corner if near TWO edges (i.e., in a corner region)
+                const isNearCorner = (isNearLeftEdge || isNearRightEdge) && (isNearTopEdge || isNearBottomEdge);
+
+                if (isNearCorner) {
+                    // Determine which corner we're near
+                    let targetLeft = isNearLeftEdge ? margin : windowWidth - menuWidth - margin;
+                    let targetTop = isNearTopEdge ? margin : windowHeight - menuHeight - margin;
+
+                    // Calculate distance to this corner
+                    const cornerDistance = Math.sqrt(
+                        Math.pow(currentLeft - targetLeft, 2) + Math.pow(currentTop - targetTop, 2)
+                    );
+
+                    // Only snap if within CORNER_SNAP_DISTANCE
+                    if (cornerDistance < CORNER_SNAP_DISTANCE) {
+                        needsSnap = true;
+                        currentLeft = targetLeft;
+                        currentTop = targetTop;
+                    }
+                }
+            }
+
+            if (needsSnap) {
+                $tocMenu.addClass('snapping');
+                $tocMenu.css({
+                    left: `${currentLeft}px`,
+                    top: `${currentTop}px`
+                });
+                setTimeout(() => $tocMenu.removeClass('snapping'), 300);
+            }
+
+            $tocMenu.removeClass('dragging');
+            
+            // Save position
+            localStorage.setItem('toc-position', JSON.stringify({
+                left: currentLeft,
+                top: currentTop
+            }));
         }
 
-        $(window).on('load resize', () => {
-            if ($tocMenu.length && $tocMenu.is(':visible')) {
-                setupScrollHandler();
+        // Mouse events - whole thing is draggable
+        $tocMenu.on('mousedown', function(e) {
+            mouseDownStarted = true;
+            hasMoved = false;
+            
+            startX = e.clientX;
+            startY = e.clientY;
+            const position = $tocMenu.position();
+            startLeft = position.left;
+            startTop = position.top;
+
+            e.preventDefault();
+        });
+
+        $(document).on('mousemove', function(e) {
+            if (!mouseDownStarted) return;
+
+            const deltaX = e.clientX - startX;
+            const deltaY = e.clientY - startY;
+
+            // Start dragging on any movement
+            if (Math.abs(deltaX) > 1 || Math.abs(deltaY) > 1) {
+                hasMoved = true;
+                $tocMenu.addClass('dragging');
+
+                $tocMenu.css({
+                    left: `${startLeft + deltaX}px`,
+                    top: `${startTop + deltaY}px`,
+                    right: 'auto'
+                });
+            }
+        });
+
+        $(document).on('mouseup', function(e) {
+            if (!mouseDownStarted) return;
+            
+            mouseDownStarted = false;
+
+            if (hasMoved) {
+                // Dragged - snap if off screen or near corner
+                snapIfOffScreenOrNearCorner();
+            } else {
+                // Clicked without drag - toggle menu
+                const $target = $(e.target);
+                if ($target.closest('#menu-toggle').length) {
+                    toggleMenu();
+                }
+                // Header/close handled by their own click events
+            }
+
+            // Reset hasMoved after a short delay
+            setTimeout(() => {
+                hasMoved = false;
+            }, 50);
+        });
+
+        // Touch events
+        $tocMenu.on('touchstart', function(e) {
+            touchStartTime = Date.now();
+            mouseDownStarted = true;
+            hasMoved = false;
+            
+            const touch = e.touches[0];
+            startX = touch.clientX;
+            startY = touch.clientY;
+            const position = $tocMenu.position();
+            startLeft = position.left;
+            startTop = position.top;
+            
+            // Prevent mouse events from firing after touch
+            e.preventDefault();
+        });
+
+        $tocMenu.on('touchmove', function(e) {
+            if (!mouseDownStarted) return;
+
+            const touch = e.touches[0];
+            const deltaX = touch.clientX - startX;
+            const deltaY = touch.clientY - startY;
+
+            // Start dragging if moved and held for 150ms
+            if ((Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) && Date.now() - touchStartTime >= 150) {
+                hasMoved = true;
+                $tocMenu.addClass('dragging');
+                
+                e.preventDefault();
+                $tocMenu.css({
+                    left: `${startLeft + deltaX}px`,
+                    top: `${startTop + deltaY}px`,
+                    right: 'auto'
+                });
+            }
+        });
+
+        $tocMenu.on('touchend', function(e) {
+            if (!mouseDownStarted) return;
+
+            mouseDownStarted = false;
+
+            if (hasMoved) {
+                // Dragged - snap if off screen or near corner
+                snapIfOffScreenOrNearCorner();
+            } else {
+                // Tapped - toggle menu
+                const $target = $(e.target);
+                const touch = e.changedTouches[0];
+                
+                if ($target.closest('#menu-toggle').length) {
+                    e.preventDefault();
+                    toggleMenu();
+                } else if ($target.closest('#toc-header').length || $target.closest('#close-menu').length) {
+                    e.preventDefault();
+                    toggleMenu(true, touch.clientX, touch.clientY);
+                }
+            }
+
+            // Reset hasMoved after a short delay
+            setTimeout(() => {
+                hasMoved = false;
+            }, 50);
+        });
+
+        // Handle window resize
+        $(window).on('resize', () => {
+            if ($tocMenu.length) {
+                snapIfOffScreenOrNearCorner();
             }
         });
     });

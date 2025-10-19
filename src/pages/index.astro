@@ -5,6 +5,7 @@ import Project from '../components/Project.astro';
 import SecondaryProject from '../components/SecondaryProject.astro';
 import ChatBot from '../components/ChatBot.jsx';
 import Other from '../components/Other.astro';
+import TableOfContents from '../components/TableOfContents.astro';
 import '../styles/hover.css';
 
 const mainProjects = [
@@ -138,6 +139,7 @@ const otherProjects = [
 ---
 
 <Layout title="ron kiehn dot dev">
+	<TableOfContents />
 	<div class="max-w-5xl w-full p-3 sm:p-8">
 		<div class="flex flex-col justify-center">
 			<div class="flex justify-between mb-4">
@@ -146,7 +148,7 @@ const otherProjects = [
 			</div>
       <div class="grid grid-cols-5 text-base sm:text-lg lg:px-2">
         <div class="col-span-5 sm:col-span-3 space-y-2 md:space-y-4 ">
-          <div class="motion-preset-slide-right-sm flex flex-col">
+          <div id="about" class="motion-preset-slide-right-sm flex flex-col">
             <span class="font-bold">about me</span>
             <span>swe @ <span class="text-purple-400">lambda λ</span>.</span>
             <span>bs in cs & ba in philosophy from <span class="text-red-400">uchicago</span>.</span>
@@ -157,7 +159,7 @@ const otherProjects = [
             <div class="absolute inset-0 bg-gradient-radial z-10"></div>
           </div>
 
-          <div class="flex flex-col motion-preset-slide-right-sm motion-delay-75">
+          <div id="contact" class="flex flex-col motion-preset-slide-right-sm motion-delay-75">
             <span class="font-bold">contact me</span>
             <span class="pointer-events-none"><span class="pointer-events-auto select-text">ronki@uchicago.edu</span></span>
             <span>or find me on 
@@ -172,7 +174,7 @@ const otherProjects = [
             <div class="absolute inset-0 bg-gradient-radial z-10"></div>
           </div>
 
-          <div class="flex flex-col motion-preset-slide-right-sm motion-delay-150">
+          <div id="tech-stack" class="flex flex-col motion-preset-slide-right-sm motion-delay-150">
             <span class="font-bold">tech stack</span>
             <span>i'm best at <span class="text-blue-400">c</span>, <span class="text-orange-300">python</span>, and <span class="text-yellow-300">javascript</span>/<span class="text-blue-300">typescript</span></span>
             <span>my dev setup is a <span class="text-blue-300">macbook air m1</span> and <span class="text-gray-300">cursor</span></span>
@@ -195,7 +197,7 @@ const otherProjects = [
         <div class="relative divider h-[2px] w-full bg-zinc-600 motion-preset-slide-right-sm motion-delay-100">
           <div class="absolute inset-0 bg-gradient-radial z-10"></div>
         </div>
-        <div class="flex flex-col motion-preset-slide-right-sm motion-delay-150">
+        <div id="about-site" class="flex flex-col motion-preset-slide-right-sm motion-delay-150">
           <span class="font-bold">about this site</span>
           <span>this site is built with 
             <span class="text-red-400">astro</span>,
@@ -219,7 +221,7 @@ const otherProjects = [
         </div>
         <button id="projects-btn" class="hover:underline relative h-full w-full px-2 text-white rounded-full transition-colors z-20 ">Projects</button>
         <button id="chatbot-btn" class="hover:underline relative h-full w-full px-2 text-white rounded-full transition-colors z-20 ">Chatbot</button>
-        <button id="media-btn" class="hover:underline relative h-full w-full px-2 text-white rounded-full transition-colors z-20">Bookshelf</button>
+        <button id="bookshelf-btn" class="hover:underline relative h-full w-full px-2 text-white rounded-full transition-colors z-20">Bookshelf</button>
       </div>
     </div>
 
@@ -231,7 +233,7 @@ const otherProjects = [
             <Project {...project} />
           ))}
         </div>
-        <span class="font-bold text-zinc-300 text-sm mt-2 mx-auto">other projects</span>
+        <span id="other-projects" class="font-bold text-zinc-300 text-sm mt-2 mx-auto">other projects</span>
         <div class="px-8 grid grid-cols-1 md:grid-cols-2 gap-4">
           {otherProjects.map(project => (
             <div class="flex flex-col justify-between">
@@ -244,7 +246,7 @@ const otherProjects = [
           </div>
           ))}
         </div>
-        <div id="git-commits-grid" class="mt-2 px-8 flex flex-col gap-4">
+        <div id="git-commits" class="mt-2 px-8 flex flex-col gap-4">
           <div class="font-bold text-zinc-300 text-sm mt-2 mx-auto">Loading commit data...</div>
         </div>
       </div>
@@ -254,7 +256,7 @@ const otherProjects = [
           <ChatBot client:load />
         </div>
       </div>
-      <div id="media" class="hidden relative p-4 2xl:p-8 w-screen ml-[-50vw] left-[50%] justify-center">
+      <div id="bookshelf" class="hidden relative p-4 2xl:p-8 w-screen ml-[-50vw] left-[50%] justify-center">
         <div class="max-w-4xl mx-auto pb-4 flex-col flex gap-10 ">
          <Other />
         </div>
@@ -285,29 +287,29 @@ const otherProjects = [
 
     function switchTab(position: string, tabId: string) {
         $('#slider').css('left', position);
-        $('#projects, #chatbot, #media').addClass('hidden');
+        $('#projects, #chatbot, #bookshelf').addClass('hidden');
         $(tabId).removeClass('hidden');
         
         // Update button colors
-        $('#projects-btn, #chatbot-btn, #media-btn').removeClass('text-white').addClass('text-zinc-300');
+        $('#projects-btn, #chatbot-btn, #bookshelf-btn').removeClass('text-white').addClass('text-zinc-300');
         if (tabId === '#projects') {
           $('#projects-btn').removeClass('text-zinc-300').addClass('text-white');
         } else if (tabId === '#chatbot') {
           $('#chatbot-btn').removeClass('text-zinc-300').addClass('text-white');
-        } else if (tabId === '#media') {
-          $('#media-btn').removeClass('text-zinc-300').addClass('text-white');
+        } else if (tabId === '#bookshelf') {
+          $('#bookshelf-btn').removeClass('text-zinc-300').addClass('text-white');
         }
       }
 
     function handleHash() {
         const hash = window.location.hash;
 
-        if (hash === '#media' || hash === '#other') {
-            switchTab('66.66%', '#media');
+        if (hash === '#bookshelf' || hash === '#other') {
+            switchTab('66.66%', '#bookshelf');
         } else if (hash === '#chatbot') {
             switchTab('33.33%', '#chatbot');
-        } else if (hash && hash.length > 1 && $(hash).length > 0 && $(hash).closest('#media').length > 0) {
-            switchTab('66.66%', '#media');
+        } else if (hash && hash.length > 1 && $(hash).length > 0 && $(hash).closest('#bookshelf').length > 0) {
+            switchTab('66.66%', '#bookshelf');
             setTimeout(() => {
                 const element = document.getElementById(hash.substring(1));
                 if (element) {
@@ -329,20 +331,20 @@ const otherProjects = [
         switchTab('33.33%', '#chatbot');
       });
 
-      $('#media-btn').on('click', function() {
-        switchTab('66.66%', '#media');
+      $('#bookshelf-btn').on('click', function() {
+        switchTab('66.66%', '#bookshelf');
       });
 
       handleHash();
       $(window).on('hashchange', handleHash);
       
       // Set initial button colors
-      $('#chatbot-btn, #media-btn').removeClass('text-white').addClass('text-zinc-300');
+      $('#chatbot-btn, #bookshelf-btn').removeClass('text-white').addClass('text-zinc-300');
 
 
       // Fetch GitHub Contributions
       $.getJSON('https://ronkiehn-dev.vercel.app/api/github-contributions', function(data) {
-        const $commitsGrid = $('#git-commits-grid');
+        const $commitsGrid = $('#git-commits');
         $commitsGrid.empty();
 
         if (data && data.totalCommits > 0) {
@@ -376,7 +378,7 @@ const otherProjects = [
           $commitsGrid.html('<div class="text-center text-zinc-400">No contribution data found.</div>');
         }
       }).fail(function() {
-        $('#git-commits-grid').html('<div class="text-center text-red-500">Error loading git commits</div>');
+        $('#git-commits').html('<div class="text-center text-red-500">Error loading git commits</div>');
       });
     });
     
