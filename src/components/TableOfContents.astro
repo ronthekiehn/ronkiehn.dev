@@ -583,8 +583,7 @@
             startLeft = position.left;
             startTop = position.top;
             
-            // Prevent mouse events from firing after touch
-            e.preventDefault();
+            // Don't prevent default here - only prevent when actually dragging
         });
 
         $tocMenu.on('touchmove', function(e) {
@@ -599,6 +598,7 @@
                 hasMoved = true;
                 $tocMenu.addClass('dragging');
                 
+                // Only prevent default when actually dragging
                 e.preventDefault();
                 $tocMenu.css({
                     left: `${startLeft + deltaX}px`,
@@ -617,7 +617,7 @@
                 // Dragged - snap if off screen or near corner
                 snapIfOffScreenOrNearCorner();
             } else {
-                // Tapped - toggle menu
+                // Tapped - only prevent default for buttons, not links
                 const $target = $(e.target);
                 const touch = e.changedTouches[0];
                 
@@ -628,6 +628,7 @@
                     e.preventDefault();
                     toggleMenu(true, touch.clientX, touch.clientY);
                 }
+                // Links inside TOC will work normally - no preventDefault needed
             }
 
             // Reset hasMoved after a short delay
