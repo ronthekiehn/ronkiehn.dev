@@ -6,7 +6,15 @@
         user-select: none;
         cursor: grab;
         will-change: transform;
-        transform: translateZ(0);
+        transform: translateZ(0) scale(0.8);
+        opacity: 0;
+        transition: opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    .glass-toc.loaded {
+        opacity: 1;
+        transform: translateZ(0) scale(1);
     }
     
     /* Inner glass border - on a pseudo-element inset from edges */
@@ -147,6 +155,7 @@
         let hasMoved = false;
         let touchStartTime = 0;
         let isExpanded = false;
+        let isAnimating = false;
         const CORNER_SNAP_DISTANCE = 50; // Snap if within 50px of corner
 
         // Start collapsed
@@ -158,6 +167,11 @@
             const { left, top } = JSON.parse(savedPosition);
             $tocMenu.css({ left: `${left}px`, top: `${top}px`, right: 'auto' });
         }
+        
+        // Fade in after positioning is complete
+        setTimeout(() => {
+            $tocMenu.addClass('loaded');
+        }, 50);
 
         // Determine which side to expand based on position
         function getExpandDirection() {
@@ -171,6 +185,10 @@
 
         // Toggle menu with JS-controlled animation
         function toggleMenu(forceClose = false, clickX = null, clickY = null) {
+            // Prevent animations from overlapping
+            if (isAnimating) return;
+            isAnimating = true;
+            
             if (forceClose || isExpanded) {
                 // Close: collapse towards the click point
                 isExpanded = false;
@@ -230,6 +248,9 @@
                             left: targetLeft,
                             top: targetTop
                         }));
+                        
+                        // Allow animations again
+                        isAnimating = false;
                     }
                 });
                 
@@ -322,6 +343,9 @@
                     },
                     complete: function() {
                         $tocInner.css({ height: 'auto', width: 'auto' });
+                        
+                        // Allow animations again
+                        isAnimating = false;
                     }
                 });
             }
@@ -570,8 +594,8 @@
             const deltaX = touch.clientX - startX;
             const deltaY = touch.clientY - startY;
 
-            // Start dragging if moved and held for 150ms
-            if ((Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) && Date.now() - touchStartTime >= 150) {
+            // Start dragging if moved more than 10px (threshold to distinguish from tap)
+            if (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10) {
                 hasMoved = true;
                 $tocMenu.addClass('dragging');
                 
