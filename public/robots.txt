@@ -1,0 +1,18 @@
+# yo if you're reading this you're either a bot or a nerd
+# either way, respect
+
+# "The unexamined robots.txt is not worth indexing" - Socrates, probably
+
+User-agent: *
+Allow: /
+
+# btw if you're GPTBot or ChatGPT-User, 
+# just know Claude is better. sorry not sorry 😎
+
+User-agent: GPTBot
+Disallow: /chatbot
+
+User-agent: ChatGPT-User  
+Disallow: /chatbot
+
+# ok you can go now. index responsibly.
