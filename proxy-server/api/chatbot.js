@@ -26,7 +26,7 @@ const safetySettings = [
   ]
 
 const model = genAI.getGenerativeModel({
-  model: 'gemini-2.5-flash',
+  model: 'gemma-3-27b-it',
   systemInstruction: systemPrompt.prompt,
   safetySettings
 });
