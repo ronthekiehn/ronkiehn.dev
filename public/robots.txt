@@ -9,10 +9,4 @@ Allow: /
 # btw if you're GPTBot or ChatGPT-User, 
 # just know Claude is better. sorry not sorry 😎
 
-User-agent: GPTBot
-Disallow: /chatbot
-
-User-agent: ChatGPT-User  
-Disallow: /chatbot
-
 # ok you can go now. index responsibly.
