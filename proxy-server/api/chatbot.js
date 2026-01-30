@@ -27,7 +27,6 @@ const safetySettings = [
 
 const model = genAI.getGenerativeModel({
   model: 'gemma-3-27b-it',
-  systemInstruction: systemPrompt.prompt,
   safetySettings
 });
 
@@ -50,9 +49,16 @@ export default async function handler (req, res) {
     const { userInput, chatHistory } = req.body;
   
     try {
+        // Prepend system prompt as first exchange in history
+        const historyWithSystem = [
+            { role: 'user', parts: [{ text: systemPrompt.prompt }] },
+            { role: 'model', parts: [{ text: 'Got it. I\'m Ron now.' }] },
+            ...(chatHistory || [])
+        ];
+        
         const chatSession = model.startChat({
             generationConfig,
-            history: chatHistory,
+            history: historyWithSystem,
         });
   
       const result = await chatSession.sendMessage(userInput);
