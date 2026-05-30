@@ -5,6 +5,7 @@ const systemPrompt = require("../prompt/systemPrompt.json");
 
 const apiKey = process.env.GOOGLE_KEY;
 const genAI = new GoogleGenerativeAI(apiKey);
+const modelName = process.env.GOOGLE_MODEL || 'gemma-4-26b-a4b-it';
 
 const safetySettings = [
     {
@@ -26,7 +27,7 @@ const safetySettings = [
   ]
 
 const model = genAI.getGenerativeModel({
-  model: 'gemma-3-27b-it',
+  model: modelName,
   safetySettings
 });
 
@@ -46,7 +47,25 @@ export default async function handler (req, res) {
       res.end();
       return;
   }
+
+    if (req.method !== 'POST') {
+      res.setHeader('Allow', 'POST, OPTIONS');
+      res.status(405).json({ error: 'Method not allowed' });
+      return;
+    }
+
+    if (!apiKey) {
+      console.error('Missing GOOGLE_KEY for chatbot API');
+      res.status(500).json({ error: 'Chatbot is not configured' });
+      return;
+    }
+
     const { userInput, chatHistory } = req.body;
+
+    if (!userInput || typeof userInput !== 'string') {
+      res.status(400).json({ error: 'Missing user input' });
+      return;
+    }
   
     try {
         // Prepend system prompt as first exchange in history
@@ -66,7 +85,7 @@ export default async function handler (req, res) {
 
       res.json({ botOutput: botOutput });
     } catch (error) {
-      console.error('Error fetching chat response:', error);
-      res.status(500).json({ error: 'Failed to fetch chat response' });
+      console.error(`Error fetching chat response with ${modelName}:`, error);
+      res.status(502).json({ error: 'Failed to fetch chat response' });
     }
   };

@@ -120,6 +120,10 @@
     display: inline-block;
     max-width: 75%;
   }
+
+  .message.model .message-content.error-message {
+    color: #dc2626;
+  }
   
   .message.model .message-content::before {
     content: '';
@@ -275,5 +279,3 @@ input[type="text"] {
     flex-direction: column;
     align-items: center;
   }
-
-  

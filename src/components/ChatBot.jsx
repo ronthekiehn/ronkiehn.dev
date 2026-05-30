@@ -10,8 +10,6 @@ const Chatbot = () => {
   const [chatHistory, setChatHistory] = useState([]); 
   const [writeHistory, setWriteHistory] = useState([]); 
   const [isLoading, setIsLoading] = useState(false); 
-  const [retryCount, setRetryCount] = useState(0); // State to track retry count
-  let errorInput = '';
   const chatContainerRef = useRef(null);
   
   useEffect(() => {
@@ -26,31 +24,18 @@ const Chatbot = () => {
     }
   }, [writeHistory]);
 
-  useEffect(() => {
-    if (retryCount > 0 && retryCount <= 3) {
-      handleSubmit(undefined, retryCount);
-    }
-  }, [retryCount]);
+  const sendMessage = async (input, addUserMessage = true) => {
+    if (!input || isLoading) return;
 
-  const handleSubmit = async (event, retryCount = 0) => {
-    if (event) {
-      event.preventDefault();
-    } else {
-      errorInput = writeHistory[writeHistory.length - 1]?.text || '';
-      setWriteHistory((prev) => [
-        ...prev.slice(0, -1),
-      ]);
-    }
-
-    let input = errorInput || userInput;
     let time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    setWriteHistory((prev) => [
-      ...prev,
-      { role: 'user', text: input, time: time },
-    ]);
 
+    setWriteHistory((prev) => {
+      const withoutErrorForInput = prev.filter((msg) => !(msg.isError && msg.retryInput === input));
+      return addUserMessage
+        ? [...withoutErrorForInput, { role: 'user', text: input, time }]
+        : withoutErrorForInput;
+    });
     setUserInput('');
-
     setIsLoading(true);
 
     try {
@@ -64,9 +49,15 @@ const Chatbot = () => {
           chatHistory: chatHistory,
         }),
       });
-      //throw new Error("Intentional error");
 
       const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data?.error || `Request failed with ${response.status}`);
+      }
+      if (!data?.botOutput) {
+        throw new Error('Chatbot returned an empty response');
+      }
+
       time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
       setChatHistory((prev) => [
@@ -81,17 +72,25 @@ const Chatbot = () => {
       ]);
     } catch (error) {
       console.error('Error:', error);
-      if (retryCount < 3) {
-        setRetryCount(retryCount + 1);
-      } else {
-        setWriteHistory((prev) => [
-          ...prev,
-          { role: 'model', text: 'sorry, i encountered an error. please try again.', time: time }
-        ]);
-      }
+      time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      setWriteHistory((prev) => [
+        ...prev,
+        {
+          role: 'model',
+          text: 'an error occurred',
+          time,
+          isError: true,
+          retryInput: input,
+        }
+      ]);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    sendMessage(userInput.trim());
   };
 
   return (
@@ -119,9 +118,19 @@ const Chatbot = () => {
                   <span className="text-xs text-zinc-400">{msg.time}</span>
                 </div>
                 <div 
-                  className="text-zinc-100 mt-1"
-                  dangerouslySetInnerHTML={{ __html: marked(msg.text) }}
+                  className={`mt-1 ${msg.isError ? 'text-red-400' : 'text-zinc-100'}`}
+                  dangerouslySetInnerHTML={{ __html: marked(msg.text || '') }}
                 />
+                {msg.isError && (
+                  <button
+                    type="button"
+                    className="mt-2 rounded border border-zinc-600 px-3 py-1 text-xs text-zinc-200 hover:bg-zinc-800 disabled:opacity-50"
+                    onClick={() => sendMessage(msg.retryInput, false)}
+                    disabled={isLoading}
+                  >
+                    retry
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -150,7 +159,7 @@ const Chatbot = () => {
           <button 
             className="w-8 h-8 mr-1 disabled:opacity-50"
             type="submit"
-            disabled={isLoading}
+            disabled={isLoading || !userInput.trim()}
           >
            <ArrowIcon />
           </button>

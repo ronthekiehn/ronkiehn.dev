@@ -9,8 +9,6 @@ const Chatbot = () => {
   const [chatHistory, setChatHistory] = useState([]); 
   const [writeHistory, setWriteHistory] = useState([]); 
   const [isLoading, setIsLoading] = useState(false); 
-  const [retryCount, setRetryCount] = useState(0); // State to track retry count
-  let errorInput = '';
   const chatContainerRef = useRef(null);
   
   useEffect(() => {
@@ -27,31 +25,18 @@ const Chatbot = () => {
     }
   }, [writeHistory]);
 
-  useEffect(() => {
-    if (retryCount > 0 && retryCount <= 3) {
-      handleSubmit(undefined, retryCount);
-    }
-  }, [retryCount]);
+  const sendMessage = async (input, addUserMessage = true) => {
+    if (!input || isLoading) return;
 
-  const handleSubmit = async (event, retryCount = 0) => {
-    if (event) {
-      event.preventDefault();
-    } else {
-      errorInput = writeHistory[writeHistory.length - 1]?.text || '';
-      setWriteHistory((prev) => [
-        ...prev.slice(0, -1),
-      ]);
-    }
-
-    let input = errorInput || userInput;
     let time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    setWriteHistory((prev) => [
-      ...prev,
-      { role: 'user', text: input, time: time },
-    ]);
 
+    setWriteHistory((prev) => {
+      const withoutErrorForInput = prev.filter((msg) => !(msg.isError && msg.retryInput === input));
+      return addUserMessage
+        ? [...withoutErrorForInput, { role: 'user', text: input, time }]
+        : withoutErrorForInput;
+    });
     setUserInput('');
-
     setIsLoading(true);
 
     try {
@@ -65,9 +50,15 @@ const Chatbot = () => {
           chatHistory: chatHistory,
         }),
       });
-      //throw new Error("Intentional error");
 
       const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data?.error || `Request failed with ${response.status}`);
+      }
+      if (!data?.botOutput) {
+        throw new Error('Chatbot returned an empty response');
+      }
+
       time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
       setChatHistory((prev) => [
@@ -82,17 +73,25 @@ const Chatbot = () => {
       ]);
     } catch (error) {
       console.error('Error:', error);
-      if (retryCount < 3) {
-        setRetryCount(retryCount + 1);
-      } else {
-        setWriteHistory((prev) => [
-          ...prev,
-          { role: 'model', text: 'Sorry, I encountered an error. Please try again.', time: time }
-        ]);
-      }
+      time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      setWriteHistory((prev) => [
+        ...prev,
+        {
+          role: 'model',
+          text: 'an error occurred',
+          time,
+          isError: true,
+          retryInput: input,
+        }
+      ]);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    sendMessage(userInput.trim());
   };
 
   return (
@@ -103,7 +102,17 @@ const Chatbot = () => {
           {writeHistory.map((msg, index) => (
             <div key={index}>
               <div className={`message ${msg.role}`}>
-                <p className="message-content" dangerouslySetInnerHTML={{ __html: marked(msg.text) }} />
+                <p className={`message-content ${msg.isError ? 'error-message' : ''}`} dangerouslySetInnerHTML={{ __html: marked(msg.text || '') }} />
+                {msg.isError && (
+                  <button
+                    type="button"
+                    className="retry-button"
+                    onClick={() => sendMessage(msg.retryInput, false)}
+                    disabled={isLoading}
+                  >
+                    retry
+                  </button>
+                )}
               </div>
               <div className={`message ${msg.role}`}>
                 <p className="timestamp">{msg.time}</p>
@@ -126,7 +135,7 @@ const Chatbot = () => {
             placeholder="Type your message..."
             disabled={isLoading} 
           />
-          <button type="submit" disabled={isLoading}>
+          <button type="submit" disabled={isLoading || !userInput.trim()}>
             <ArrowIcon />
           </button>
         </form>

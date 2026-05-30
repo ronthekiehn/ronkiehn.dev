@@ -113,6 +113,11 @@
 
         // Fetch anime
         $.getJSON('https://ronkiehn-dev.vercel.app/api/anime', function(animeList) {
+            if (!Array.isArray(animeList) || animeList.length === 0) {
+                $('#anime').hide();
+                return;
+            }
+
             const $animeGrid = $('#anime-grid');
             $animeGrid.empty();
             animeList.forEach(anime => {
@@ -128,8 +133,7 @@
                 `);
             });
         }).fail(function() {
-            $('#anime-grid').html('<div class="text-center text-red-500">Error loading anime</div>');
+            $('#anime').hide();
         });
     });
 </script>
-
