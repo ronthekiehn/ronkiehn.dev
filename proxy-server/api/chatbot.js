@@ -5,7 +5,7 @@ const systemPrompt = require("../prompt/systemPrompt.json");
 
 const apiKey = process.env.GOOGLE_KEY;
 const genAI = new GoogleGenerativeAI(apiKey);
-const modelName = process.env.GOOGLE_MODEL || 'gemma-4-26b-a4b-it';
+const modelName = process.env.GOOGLE_MODEL || 'gemini-3.1-flash-lite';
 
 const safetySettings = [
     {
@@ -37,7 +37,7 @@ const generationConfig = {
   temperature: 1,
   topP: 0.95,
   topK: 64,
-  maxOutputTokens: 8192,
+  maxOutputTokens: 1024,
   responseMimeType: 'text/plain',
 };
 
