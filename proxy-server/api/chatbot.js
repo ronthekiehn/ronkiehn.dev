@@ -34,9 +34,6 @@ const model = genAI.getGenerativeModel({
 
 
 const generationConfig = {
-  temperature: 1,
-  topP: 0.95,
-  topK: 64,
   maxOutputTokens: 1024,
   responseMimeType: 'text/plain',
 };
@@ -89,3 +86,4 @@ export default async function handler (req, res) {
       res.status(502).json({ error: 'Failed to fetch chat response' });
     }
   };
+
